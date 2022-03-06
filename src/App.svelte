@@ -1,4 +1,6 @@
 <script>
+    import ColorPicker from "./ColorPicker.svelte";
+
     const DIRECTIONS = {
         UP : {x: 0, y: -1},
         DOWN : {x: 0, y: 1},
@@ -13,9 +15,10 @@
     }
     const DEFAULTS = {
         colors: {
-            first: "#9cffc7",
-            second: "#fff89c",
-            third: "#ffffff",
+            initial: "#9cffc7",
+            path: "#fff89c",
+            finished: "#ffffff",
+            current: "#000000",
             border: "#000000",
         },
         speed: 150,
@@ -30,6 +33,7 @@
     }
     let size = DEFAULTS.size;
     $: grid = createGrid(size);
+    let currentCell;
 
     function createGrid(size){
         const grid = []
@@ -39,7 +43,7 @@
                 row[i] = {
                     visited: false,
                     finished: false,
-                    color: colors.first,
+                    color: colors.initial,
                     walls: {
                         up: true,
                         down: true,
@@ -55,10 +59,12 @@
 
     async function move(currentX, currentY, activeGrid){
         // Avbryter om grid ändras, t.ex. byter storlek
+        // Kolla innan celler ändras
         if(activeGrid !== grid)
             return;
-
+        currentCell = grid[currentX][currentY];
         grid[currentX][currentY].visited = true;
+
         const randomizedDirections = shuffleArray(Object.keys(DIRECTIONS));
         for(const newDirection of randomizedDirections){
             const newX = currentX + DIRECTIONS[newDirection].x;
@@ -71,11 +77,16 @@
                 activeGrid[currentX][currentY].walls[newDirection.toLowerCase()] = false;                
                 activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
                 await move(newX, newY, activeGrid);
-            }            
-        }
-        if(activeGrid !== grid)
-            return;
+            }
+            if(activeGrid !== grid)
+                return;
+            // Vandra bakåt
+            currentCell = grid[currentX][currentY];             
+        }    
+        // Alla directions klara betyder att cellen inte kan besökas igen      
         await new Promise(resolve => setTimeout(resolve, speed.current));
+        if(activeGrid !== grid)
+                return;
         grid[currentX][currentY].finished = true ;
     }
 
@@ -101,7 +112,31 @@
 
 </script>
 
-<main>
+<main>    
+    <div class="table-container">
+        <h1>Tryck på en ruta för att starta</h1>
+        <table>
+            {#each grid as row, y}
+                <tr>
+                    {#each row as cell , x (x+","+y)}
+                        <td 
+                            on:click={() => move(x, y, grid)}
+                            style:background-color = { 
+                                grid[x][y].finished ? colors.finished :
+                                grid[x][y] === currentCell ? colors.current :
+                                grid[x][y].visited ? colors.path : colors.initial
+                            }
+                            style:border-color = {colors.border}
+                            style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
+                            style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
+                            style:border-left-width = {grid[x][y].walls.left ? "2px" : 0}
+                            style:border-right-width = {grid[x][y].walls.right ? "2px" : 0}
+                        />
+                    {/each}
+                </tr>
+            {/each}
+        </table>
+    </div>
     <div class="controls">
         <button on:click={() => grid = createGrid(size)}>New</button>
         <div>
@@ -117,57 +152,28 @@
                 <input class="slider" id="speed" type="range" bind:value={speed.current} min={speed.min} max={speed.max} />
                 <span>{speed.max}</span>
             </div>
-        </div>
-        <div class="color-settings">
-            <label >
-                Color 1
-                <input  type="color" bind:value={colors.first} />
-                <button on:click={() => colors.first = DEFAULTS.colors.first}>R</button>
-            </label>
-            <label >
-                Color 2
-                <input  type="color" bind:value={colors.second} />
-                <button on:click={() => colors.second = DEFAULTS.colors.second}>R</button>
-            </label>
-            <label >
-                Color 3
-                <input  type="color" bind:value={colors.third} />
-                <button on:click={() => colors.third = DEFAULTS.colors.third}>R</button>
-            </label>
-            <label >
-                Border
-                <input  type="color" bind:value={colors.border} />
-                <button on:click={() => colors.border = DEFAULTS.colors.border}>R</button>
-            </label>
+        </div>        
+        
+        <div class="color-settings-container" >
+            <h3 style="align-self: center; margin:0">Colors</h3>
+            <!-- Kan inte binda color till objektet från Object.entries -->
+            <!-- Måste binda till colors objektet -->
+            {#each Object.entries(colors) as [name] }
+                <ColorPicker 
+                    id={`color-${name}`} 
+                    text={name}
+                    bind:color={colors[name]}
+                />
+            {/each}
         </div>
 
-    </div>
-    <div class="table-container">
-        <h1>Tryck på en ruta för att starta</h1>
-        <table>
-            {#each grid as row, y}
-                <tr>
-                    {#each row as cell , x (x+","+y)}
-                        <td 
-                            on:click={() => move(x, y, grid)}
-                            style:background-color = { grid[x][y].finished ? colors.third : grid[x][y].visited ? colors.second : colors.first }
-                            style:border-color = {colors.border}
-                            style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
-                            style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
-                            style:border-left-width = {grid[x][y].walls.left ? "2px" : 0}
-                            style:border-right-width = {grid[x][y].walls.right ? "2px" : 0}
-                        />
-                    {/each}
-                </tr>
-            {/each}
-        </table>
     </div>
 </main>
 
 <style>
     main{
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         align-items: center;
         min-height: 100%;
         min-width: 100%;
@@ -188,17 +194,20 @@
     td{
         width: 30px;
         height: 30px;
+        /* Table har ingen border-style som default */
+        /* Andra border settings sätts inline */
         border-style: solid;
         box-sizing: border-box;
     }
     .controls{
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
         .controls > div{
             padding: 10px;
             margin: 10px;
-            border: 1px solid black;
+            /* border: 1px solid black; */
             border-radius: 3px;
         }
     .speed-slider{        
@@ -210,8 +219,8 @@
         .speed-slider input{
             margin: 15px;
         }
-    .color-settings input{
-        height: 40px;
-        width: 40px;
+    .color-settings-container{
+        display: flex;
+        flex-direction: column;
     }
 </style>
