@@ -13,8 +13,9 @@
     }
     const DEFAULTS = {
         colors: {
-            first: "#e6ffff",
-            second: "#ffffff",
+            first: "#9cffc7",
+            second: "#fff89c",
+            third: "#ffffff",
             border: "#000000",
         },
         speed: 150,
@@ -37,6 +38,8 @@
             for(let i = 0; i < size; i++){
                 row[i] = {
                     visited: false,
+                    finished: false,
+                    color: colors.first,
                     walls: {
                         up: true,
                         down: true,
@@ -69,7 +72,11 @@
                 activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
                 await move(newX, newY, activeGrid);
             }            
-        }        
+        }
+        if(activeGrid !== grid)
+            return;
+        await new Promise(resolve => setTimeout(resolve, speed.current));
+        grid[currentX][currentY].finished = true ;
     }
 
     function isCellValid(x, y, grid){
@@ -113,14 +120,19 @@
         </div>
         <div class="color-settings">
             <label >
-                Color1
+                Color 1
                 <input  type="color" bind:value={colors.first} />
                 <button on:click={() => colors.first = DEFAULTS.colors.first}>R</button>
             </label>
             <label >
-                Color2
+                Color 2
                 <input  type="color" bind:value={colors.second} />
                 <button on:click={() => colors.second = DEFAULTS.colors.second}>R</button>
+            </label>
+            <label >
+                Color 3
+                <input  type="color" bind:value={colors.third} />
+                <button on:click={() => colors.third = DEFAULTS.colors.third}>R</button>
             </label>
             <label >
                 Border
@@ -138,7 +150,7 @@
                     {#each row as cell , x (x+","+y)}
                         <td 
                             on:click={() => move(x, y, grid)}
-                            style:background-color = {grid[x][y].visited ? colors.second : colors.first}
+                            style:background-color = { grid[x][y].finished ? colors.third : grid[x][y].visited ? colors.second : colors.first }
                             style:border-color = {colors.border}
                             style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
                             style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
@@ -178,8 +190,6 @@
         height: 30px;
         border-style: solid;
         box-sizing: border-box;
-        /* Ingen transition på border */
-        /* transition: background-color 0.1s; */
     }
     .controls{
         display: flex;
