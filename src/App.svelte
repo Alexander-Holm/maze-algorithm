@@ -1,5 +1,6 @@
 <script>
     import ColorPicker from "./ColorPicker.svelte";
+    import WikipediaDetails from "./WikipediaDetails.svelte";
 
     const DIRECTIONS = {
         UP : {x: 0, y: -1},
@@ -113,29 +114,37 @@
 </script>
 
 <main>    
-    <div class="table-container">
-        <h1>Tryck på en ruta för att starta</h1>
-        <table>
-            {#each grid as row, y}
-                <tr>
-                    {#each row as cell , x (x+","+y)}
-                        <td 
-                            on:click={() => move(x, y, grid)}
-                            style:background-color = { 
-                                grid[x][y].finished ? colors.finished :
-                                grid[x][y] === currentCell ? colors.current :
-                                grid[x][y].visited ? colors.path : colors.initial
-                            }
-                            style:border-color = {colors.border}
-                            style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
-                            style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
-                            style:border-left-width = {grid[x][y].walls.left ? "2px" : 0}
-                            style:border-right-width = {grid[x][y].walls.right ? "2px" : 0}
-                        />
-                    {/each}
-                </tr>
-            {/each}
-        </table>
+    <div class="content-container">
+        <div>
+            <h1> Randomized depth-first search / recursive backtracker</h1>
+            <WikipediaDetails />
+        </div>
+
+        <div class="table-container">
+            <h2>Tryck på en ruta för att starta</h2>
+            <table>
+                {#each grid as row, y}
+                    <tr>
+                        {#each row as cell , x (x+","+y)}
+                            <td 
+                                on:click={() => move(x, y, grid)}
+                                style:background-color = { 
+                                    grid[x][y].finished ? colors.finished :
+                                    grid[x][y] === currentCell ? colors.current :
+                                    grid[x][y].visited ? colors.path : colors.initial
+                                }
+                                style:border-color = {colors.border}
+                                style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
+                                style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
+                                style:border-left-width = {grid[x][y].walls.left ? "2px" : 0}
+                                style:border-right-width = {grid[x][y].walls.right ? "2px" : 0}
+                            />
+                        {/each}
+                    </tr>
+                {/each}
+            </table>
+        </div>
+
     </div>
     <div class="controls">
         <button on:click={() => grid = createGrid(size)}>New</button>
@@ -174,18 +183,17 @@
     main{
         display: flex;
         flex-direction: row;
-        align-items: center;
         min-height: 100%;
         min-width: 100%;
-        padding: 50px;
+        padding: 20px 50px;
         box-sizing: border-box;
     }
-    .table-container{        
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    h1{
+        margin: 0;
+        font-size: 1.3rem;
+    }
+    h2{
+        font-size: 1.3rem;
     }
     table{
         border-collapse: collapse;
@@ -199,6 +207,20 @@
         border-style: solid;
         box-sizing: border-box;
     }
+    .content-container{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .table-container{        
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
     .controls{
         display: flex;
         flex-direction: column;
