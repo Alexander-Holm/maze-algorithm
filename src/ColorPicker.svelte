@@ -1,4 +1,6 @@
 <script>
+    import ResetButton from "./ResetButton.svelte";
+
     export let color;
     const originalColor = color;
     export let id;
@@ -6,12 +8,14 @@
 </script>
 
 <div class="color-settings">
+    <ResetButton style="margin-right: 10px" on:click={() => color = originalColor} />
     <input id={id} type="color" class="color-picker" bind:value={color} />
     <label for={id} >{text}</label>
-    <button class="reset" on:click={() => color = originalColor} >↺</button>
 </div>
 
 <style>
+    /* Ingen margin mellan <input> och <label> för att de delar mousehover, */
+    /* blir ett konstigt glapp när man drar musen mellan dom */
     .color-settings{
         display: flex;
         flex-direction: row;
@@ -25,23 +29,7 @@
     }
     label{
         text-transform: capitalize;
-        padding: 10px;
+        padding-left: 10px;
     }
-    .reset{
-        height: 25px;
-        width: 25px;
-        padding: 0;
-        margin: 0;
-        font-size: 1.2rem;
-        /* flex för att få texten/ikonen i mitten av knappen*/
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        border: none; 
-        border-radius: 5px;
-    }
-    .reset:hover{
-        background-color: lightgray;
-    }
+    
 </style>

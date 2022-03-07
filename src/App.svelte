@@ -1,6 +1,7 @@
 <script>
     import ColorPicker from "./ColorPicker.svelte";
     import WikipediaDetails from "./WikipediaDetails.svelte";
+    import ResetButton from "./ResetButton.svelte"
 
     const DIRECTIONS = {
         UP : {x: 0, y: -1},
@@ -134,10 +135,10 @@
                                     grid[x][y].visited ? colors.path : colors.initial
                                 }
                                 style:border-color = {colors.border}
-                                style:border-top-width = {grid[x][y].walls.up ? "2px" : 0 }
-                                style:border-bottom-width = {grid[x][y].walls.down ? "2px" : 0}
-                                style:border-left-width = {grid[x][y].walls.left ? "2px" : 0}
-                                style:border-right-width = {grid[x][y].walls.right ? "2px" : 0}
+                                style:border-top-width = {grid[x][y].walls.up ? "3px" : 0 }
+                                style:border-bottom-width = {grid[x][y].walls.down ? "3px" : 0}
+                                style:border-left-width = {grid[x][y].walls.left ? "3px" : 0}
+                                style:border-right-width = {grid[x][y].walls.right ? "3px" : 0}
                             />
                         {/each}
                     </tr>
@@ -147,24 +148,33 @@
 
     </div>
     <div class="controls">
-        <button on:click={() => grid = createGrid(size)}>New</button>
+        <button class="new-button" on:click={() => grid = createGrid(size)}>New</button>
+        <!-- Size -->
         <div>
-            <label for="size" >Size: {size}</label>
-            <input id="size" type="range" bind:value={size} min="5" max="20" />
+            <div class="slider-label-container">
+                <label for="size" ><h3>Size: {size}</h3></label>
+                <ResetButton class="reset" on:click={() => size = DEFAULTS.size} />
+            </div>
+            <input id="size" type="range" bind:value={size} min="5" max="20" />            
         </div>
-        <div>
-            <label for="speed" >
-                Speed(ms): <input type="number" bind:value={speed.current} min={speed.min} max={speed.max}/>
-            </label>
+        <!-- Speed -->
+        <div class="speed-container">
+            <div class="slider-label-container">
+                <label class="slider-label-container">
+                    <h3>Speed(ms): </h3>
+                    <input type="number" bind:value={speed.current} min={speed.min} max={speed.max} style="width: 100px; margin-left:10px"/>
+                </label>
+                <ResetButton class="reset" on:click={() => speed.current = DEFAULTS.speed} />
+            </div>
             <div class="speed-slider">
                 <span>{speed.min}</span>
-                <input class="slider" id="speed" type="range" bind:value={speed.current} min={speed.min} max={speed.max} />
+                <input class="slider" type="range" bind:value={speed.current} min={speed.min} max={speed.max} />
                 <span>{speed.max}</span>
             </div>
         </div>        
-        
-        <div class="color-settings-container" >
-            <h3 style="align-self: center; margin:0">Colors</h3>
+        <!-- Color -->
+        <div class="color-container" >
+            <h3 class="color-title">Colors</h3>
             <!-- Kan inte binda color till objektet från Object.entries -->
             <!-- Måste binda till colors objektet -->
             {#each Object.entries(colors) as [name] }
@@ -194,7 +204,19 @@
     }
     h2{
         font-size: 1.3rem;
+    }    
+    h3{
+        font-size: 1rem;
     }
+    input{
+        margin: 0;
+    }
+        input[type=range]{
+            cursor: grab;
+        }
+            input[type=range]:active{
+                cursor:grabbing;
+            }
     table{
         border-collapse: collapse;
         border: 5px solid black;
@@ -209,6 +231,7 @@
     }
     .content-container{
         flex-grow: 1;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -219,9 +242,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-    
+    }    
     .controls{
+        align-self: center;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -229,8 +252,26 @@
         .controls > div{
             padding: 10px;
             margin: 10px;
-            /* border: 1px solid black; */
-            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+        } 
+        .controls .new-button{
+            margin: 0;
+            padding: 5px 15px;
+            background-color: rgb(233, 233, 233);
+            border: 2px solid gray;
+        }   
+        .controls .new-button:hover{
+            filter:contrast(1.1)
+        }   
+    .slider-label-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+        /* :global för att komma åt i andra Components  */
+        .slider-label-container :global(.reset){
+            margin-left: 10px;
         }
     .speed-slider{        
         display: flex;
@@ -239,10 +280,16 @@
         width: 100%;
     }
         .speed-slider input{
-            margin: 15px;
+            /* horizontal */
+            margin: 0 15px;
         }
-    .color-settings-container{
+    .color-container{
         display: flex;
         flex-direction: column;
     }
+        .color-title{
+            margin: 15px;
+            margin-top: 0;
+            margin-left: 30px;            
+        }
 </style>
