@@ -16,12 +16,13 @@
         RIGHT: "LEFT",
     }
     const DEFAULTS = {
+        // colors property-namn används för labels till <ColorPicker>
         colors: {
-            initial: "#9cffc7",
-            path: "#fff89c",
-            finished: "#ffffff",
-            current: "#000000",
-            border: "#000000",
+            start: "#ded7ff",
+            väg: "#ffffff",
+            färdig: "#afff9b",
+            aktiv: "#dd0069",
+            väggar: "#000000",
         },
         speed: 150,
         size: 10,
@@ -35,7 +36,6 @@
     }
     let size = DEFAULTS.size;
     $: grid = createGrid(size);
-    let currentCell;
 
     function createGrid(size){
         const grid = []
@@ -43,9 +43,9 @@
             const row = new Array(size);
             for(let i = 0; i < size; i++){
                 row[i] = {
+                    active: false,
                     visited: false,
                     finished: false,
-                    color: colors.initial,
                     walls: {
                         up: true,
                         down: true,
@@ -64,7 +64,7 @@
         // Kolla innan celler ändras
         if(activeGrid !== grid)
             return;
-        currentCell = grid[currentX][currentY];
+        grid[currentX][currentY].active = true;
         grid[currentX][currentY].visited = true;
 
         const randomizedDirections = shuffleArray(Object.keys(DIRECTIONS));
@@ -78,12 +78,13 @@
                 // för att inte behöva hålla koll på vilken den förra rutan var 
                 activeGrid[currentX][currentY].walls[newDirection.toLowerCase()] = false;                
                 activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
+                grid[currentX][currentY].active = false;
                 await move(newX, newY, activeGrid);
             }
             if(activeGrid !== grid)
                 return;
             // Vandra bakåt
-            currentCell = grid[currentX][currentY];             
+            grid[currentX][currentY].active = true;             
         }    
         // Alla directions klara betyder att cellen inte kan besökas igen      
         await new Promise(resolve => setTimeout(resolve, speed.current));
@@ -105,13 +106,12 @@
     // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     // answered Sep 28, 2012 at 20:20 Laurens Holst
     function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
-    return array;
-}
-
 </script>
 
 <main>    
@@ -130,11 +130,11 @@
                             <td 
                                 on:click={() => move(x, y, grid)}
                                 style:background-color = { 
-                                    grid[x][y].finished ? colors.finished :
-                                    grid[x][y] === currentCell ? colors.current :
-                                    grid[x][y].visited ? colors.path : colors.initial
+                                    grid[x][y].finished ? colors.färdig :
+                                    grid[x][y].active ? colors.aktiv :
+                                    grid[x][y].visited ? colors.väg : colors.start
                                 }
-                                style:border-color = {colors.border}
+                                style:border-color = {colors.väggar}
                                 style:border-top-width = {grid[x][y].walls.up ? "3px" : 0 }
                                 style:border-bottom-width = {grid[x][y].walls.down ? "3px" : 0}
                                 style:border-left-width = {grid[x][y].walls.left ? "3px" : 0}
@@ -147,12 +147,16 @@
         </div>
 
     </div>
+
     <div class="controls">
-        <button class="new-button" on:click={() => grid = createGrid(size)}>New</button>
+        <button class="new-button" on:click={() => grid = createGrid(size)}>Ny</button>
         <!-- Size -->
         <div>
             <div class="slider-label-container">
-                <label for="size" ><h3>Size: {size}</h3></label>
+                <label for="size" class="slider-label-container">
+                    <h3 style="margin-right: 5px;">Storlek:</h3>
+                    {size} x {size}
+                </label>
                 <ResetButton class="reset" on:click={() => size = DEFAULTS.size} />
             </div>
             <input id="size" type="range" bind:value={size} min="5" max="20" />            
@@ -161,8 +165,8 @@
         <div class="speed-container">
             <div class="slider-label-container">
                 <label class="slider-label-container">
-                    <h3>Speed(ms): </h3>
-                    <input type="number" bind:value={speed.current} min={speed.min} max={speed.max} style="width: 100px; margin-left:10px"/>
+                    <h3>Hastighet(ms): </h3>
+                    <input type="number" bind:value={speed.current} min={speed.min} max={speed.max} style="width: 100px; margin-left:10px"  />
                 </label>
                 <ResetButton class="reset" on:click={() => speed.current = DEFAULTS.speed} />
             </div>
@@ -174,7 +178,7 @@
         </div>        
         <!-- Color -->
         <div class="color-container" >
-            <h3 class="color-title">Colors</h3>
+            <h3 class="color-title">Färger</h3>
             <!-- Kan inte binda color till objektet från Object.entries -->
             <!-- Måste binda till colors objektet -->
             {#each Object.entries(colors) as [name] }
@@ -258,6 +262,7 @@
         .controls .new-button{
             margin: 0;
             padding: 5px 15px;
+            min-width: 100px;
             background-color: rgb(233, 233, 233);
             border: 2px solid gray;
         }   
