@@ -1022,7 +1022,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (129:24) {#each row as cell , x (x+","+y)}
+    // (130:24) {#each row as cell , x (x+","+y)}
     function create_each_block_2(key_1, ctx) {
     	let td;
     	let mounted;
@@ -1178,14 +1178,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(129:24) {#each row as cell , x (x+\\\",\\\"+y)}",
+    		source: "(130:24) {#each row as cell , x (x+\\\",\\\"+y)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:16) {#each grid as row, y}
+    // (128:16) {#each grid as row, y}
     function create_each_block_1(ctx) {
     	let tr;
     	let each_blocks = [];
@@ -1243,7 +1243,7 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(127:16) {#each grid as row, y}",
+    		source: "(128:16) {#each grid as row, y}",
     		ctx
     	});
 
