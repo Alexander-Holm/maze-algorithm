@@ -4,16 +4,16 @@
     import ResetButton from "./ResetButton.svelte"
 
     const DIRECTIONS = {
-        UP : {x: 0, y: -1},
-        DOWN : {x: 0, y: 1},
-        LEFT : {x: -1, y: 0},
-        RIGHT : {x: 1, y: 0},
+        up : {x: 0, y: -1},
+        down : {x: 0, y: 1},
+        left : {x: -1, y: 0},
+        right : {x: 1, y: 0},
     }
     const OPPOSITE = {
-        UP: "DOWN",
-        DOWN: "UP",
-        LEFT: "RIGHT",
-        RIGHT: "LEFT",
+        up: "down",
+        down: "up",
+        left: "right",
+        right: "left",
     }
     const DEFAULTS = {
         // colors property-namn används för labels till <ColorPicker>
@@ -38,11 +38,16 @@
     $: grid = createGrid(size);
 
     function createGrid(size){
+        iterator = null;
         const grid = []
-        for(let column = 0; column < size; column++){
+        for(let columnIndex = 0; columnIndex < size; columnIndex++){
             const row = new Array(size);
-            for(let i = 0; i < size; i++){
-                row[i] = {
+            for(let rowIndex = 0; rowIndex < size; rowIndex++){
+                row[rowIndex] = {
+                    coordinates:{
+                        x: columnIndex,
+                        y: rowIndex,
+                    },
                     active: false,
                     visited: false,
                     finished: false,
@@ -59,7 +64,44 @@
         return grid;
     }    
 
-    async function move(currentX, currentY, activeGrid){
+    let isPaused = false;
+    let iterator;
+    function clickCell(cellX, cellY, activeGrid){
+        // Ska inte gå att starta från flera celler.
+        if(iterator != null)
+            return;
+
+        iterator = move(cellX, cellY, activeGrid);
+        if(isPaused === false)
+            start();
+        else next(); // Kör första step för att sätta cellen som aktiv utan delay
+    }
+    function start(){
+        isPaused = false;
+        function loopingTimer(){
+            if(isPaused === false && iterator != null){
+                setTimeout(loopingTimer, speed.current);
+                next();
+            }
+        }
+        loopingTimer();
+    }
+    function stop(){
+        isPaused = true;
+    }
+    function step(){
+        isPaused = true;
+        next();
+    }
+    function next(){
+        const iteration = iterator?.next();
+        if(iteration?.done){
+            iterator = null;
+        }
+    }
+    
+
+    function* move(currentX, currentY, activeGrid){
         // Avbryter om grid ändras, t.ex. byter storlek
         // Kolla innan celler ändras
         if(activeGrid !== grid)
@@ -72,22 +114,21 @@
             const newX = currentX + DIRECTIONS[newDirection].x;
             const newY = currentY + DIRECTIONS[newDirection].y;
             if(isCellValid(newX, newY, activeGrid)){
-                // Delay till nästa move
-                await new Promise(resolve => setTimeout(resolve, speed.current));
+                yield;
                 // Ta bort BÅDA väggarna innan nästa move,
                 // för att inte behöva hålla koll på vilken den förra rutan var 
                 activeGrid[currentX][currentY].walls[newDirection.toLowerCase()] = false;                
                 activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
                 grid[currentX][currentY].active = false;
-                await move(newX, newY, activeGrid);
+                yield* move(newX, newY, activeGrid);
             }
             if(activeGrid !== grid)
                 return;
             // Vandra bakåt
             grid[currentX][currentY].active = true;             
         }    
-        // Alla directions klara betyder att cellen inte kan besökas igen      
-        await new Promise(resolve => setTimeout(resolve, speed.current));
+        // Alla directions klara betyder att cellen inte kan besökas igen
+        yield;
         if(activeGrid !== grid)
                 return;
         grid[currentX][currentY].finished = true ;
@@ -128,7 +169,7 @@
                     <tr>
                         {#each row as cell , x (x+","+y)}
                             <td 
-                                on:click={() => move(x, y, grid)}
+                                on:click={() => clickCell(x, y, grid)}
                                 style:background-color = { 
                                     grid[x][y].finished ? colors.färdig :
                                     grid[x][y].active ? colors.aktiv :
@@ -149,6 +190,12 @@
     </div>
 
     <div class="controls">
+
+        <button class="new-button" on:click={() => step()}>Step</button>
+        <button class="new-button" on:click={() => start()}>Start</button>
+        <button class="new-button" on:click={() => stop()}>Stop</button>
+
+
         <button class="new-button" on:click={() => grid = createGrid(size)}>Ny</button>
         <!-- Size -->
         <div>

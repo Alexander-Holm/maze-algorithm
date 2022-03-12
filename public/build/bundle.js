@@ -1002,34 +1002,34 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i][0];
-    	child_ctx[19] = list;
-    	child_ctx[20] = i;
+    	child_ctx[28] = list[i][0];
+    	child_ctx[29] = list;
+    	child_ctx[30] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[21] = list[i];
-    	child_ctx[23] = i;
+    	child_ctx[31] = list[i];
+    	child_ctx[33] = i;
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[24] = list[i];
-    	child_ctx[26] = i;
+    	child_ctx[34] = list[i];
+    	child_ctx[36] = i;
     	return child_ctx;
     }
 
-    // (129:24) {#each row as cell , x (x+","+y)}
+    // (170:24) {#each row as cell , x (x+","+y)}
     function create_each_block_2(key_1, ctx) {
     	let td;
     	let mounted;
     	let dispose;
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[7](/*x*/ ctx[26], /*y*/ ctx[23]);
+    		return /*click_handler*/ ctx[10](/*x*/ ctx[36], /*y*/ ctx[33]);
     	}
 
     	const block = {
@@ -1042,11 +1042,11 @@ var app = (function () {
     			set_style(
     				td,
     				"background-color",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].finished
+    				/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].finished
     				? /*colors*/ ctx[1].färdig
-    				: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].active
+    				: /*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].active
     					? /*colors*/ ctx[1].aktiv
-    					: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].visited
+    					: /*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].visited
     						? /*colors*/ ctx[1].väg
     						: /*colors*/ ctx[1].start,
     				false
@@ -1057,7 +1057,7 @@ var app = (function () {
     			set_style(
     				td,
     				"border-top-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.up
+    				/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.up
     				? "3px"
     				: 0,
     				false
@@ -1066,7 +1066,7 @@ var app = (function () {
     			set_style(
     				td,
     				"border-bottom-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.down
+    				/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.down
     				? "3px"
     				: 0,
     				false
@@ -1075,7 +1075,7 @@ var app = (function () {
     			set_style(
     				td,
     				"border-left-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.left
+    				/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.left
     				? "3px"
     				: 0,
     				false
@@ -1084,13 +1084,13 @@ var app = (function () {
     			set_style(
     				td,
     				"border-right-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.right
+    				/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.right
     				? "3px"
     				: 0,
     				false
     			);
 
-    			add_location(td, file, 129, 28, 4451);
+    			add_location(td, file, 170, 28, 5450);
     			this.first = td;
     		},
     		m: function mount(target, anchor) {
@@ -1104,63 +1104,63 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*grid, colors*/ 10) {
+    			if (dirty[0] & /*grid, colors*/ 10) {
     				set_style(
     					td,
     					"background-color",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].finished
+    					/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].finished
     					? /*colors*/ ctx[1].färdig
-    					: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].active
+    					: /*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].active
     						? /*colors*/ ctx[1].aktiv
-    						: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].visited
+    						: /*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].visited
     							? /*colors*/ ctx[1].väg
     							: /*colors*/ ctx[1].start,
     					false
     				);
     			}
 
-    			if (dirty & /*colors*/ 2) {
+    			if (dirty[0] & /*colors*/ 2) {
     				set_style(td, "border-color", /*colors*/ ctx[1].väggar, false);
     			}
 
-    			if (dirty & /*grid*/ 8) {
+    			if (dirty[0] & /*grid*/ 8) {
     				set_style(
     					td,
     					"border-top-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.up
+    					/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.up
     					? "3px"
     					: 0,
     					false
     				);
     			}
 
-    			if (dirty & /*grid*/ 8) {
+    			if (dirty[0] & /*grid*/ 8) {
     				set_style(
     					td,
     					"border-bottom-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.down
+    					/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.down
     					? "3px"
     					: 0,
     					false
     				);
     			}
 
-    			if (dirty & /*grid*/ 8) {
+    			if (dirty[0] & /*grid*/ 8) {
     				set_style(
     					td,
     					"border-left-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.left
+    					/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.left
     					? "3px"
     					: 0,
     					false
     				);
     			}
 
-    			if (dirty & /*grid*/ 8) {
+    			if (dirty[0] & /*grid*/ 8) {
     				set_style(
     					td,
     					"border-right-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.right
+    					/*grid*/ ctx[3][/*x*/ ctx[36]][/*y*/ ctx[33]].walls.right
     					? "3px"
     					: 0,
     					false
@@ -1178,22 +1178,22 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(129:24) {#each row as cell , x (x+\\\",\\\"+y)}",
+    		source: "(170:24) {#each row as cell , x (x+\\\",\\\"+y)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:16) {#each grid as row, y}
+    // (168:16) {#each grid as row, y}
     function create_each_block_1(ctx) {
     	let tr;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let t;
-    	let each_value_2 = /*row*/ ctx[21];
+    	let each_value_2 = /*row*/ ctx[31];
     	validate_each_argument(each_value_2);
-    	const get_key = ctx => /*x*/ ctx[26] + "," + /*y*/ ctx[23];
+    	const get_key = ctx => /*x*/ ctx[36] + "," + /*y*/ ctx[33];
     	validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
@@ -1211,7 +1211,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(tr, file, 127, 20, 4358);
+    			add_location(tr, file, 168, 20, 5357);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -1223,8 +1223,8 @@ var app = (function () {
     			append_dev(tr, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*grid, colors, move*/ 74) {
-    				each_value_2 = /*row*/ ctx[21];
+    			if (dirty[0] & /*grid, colors, clickCell*/ 74) {
+    				each_value_2 = /*row*/ ctx[31];
     				validate_each_argument(each_value_2);
     				validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
     				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_2, each_1_lookup, tr, destroy_block, create_each_block_2, t, get_each_context_2);
@@ -1243,30 +1243,30 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(127:16) {#each grid as row, y}",
+    		source: "(168:16) {#each grid as row, y}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (184:12) {#each Object.entries(colors) as [name] }
+    // (231:12) {#each Object.entries(colors) as [name] }
     function create_each_block(ctx) {
     	let colorpicker;
     	let updating_color;
     	let current;
 
     	function colorpicker_color_binding(value) {
-    		/*colorpicker_color_binding*/ ctx[14](value, /*name*/ ctx[18]);
+    		/*colorpicker_color_binding*/ ctx[20](value, /*name*/ ctx[28]);
     	}
 
     	let colorpicker_props = {
-    		id: `color-${/*name*/ ctx[18]}`,
-    		text: /*name*/ ctx[18]
+    		id: `color-${/*name*/ ctx[28]}`,
+    		text: /*name*/ ctx[28]
     	};
 
-    	if (/*colors*/ ctx[1][/*name*/ ctx[18]] !== void 0) {
-    		colorpicker_props.color = /*colors*/ ctx[1][/*name*/ ctx[18]];
+    	if (/*colors*/ ctx[1][/*name*/ ctx[28]] !== void 0) {
+    		colorpicker_props.color = /*colors*/ ctx[1][/*name*/ ctx[28]];
     	}
 
     	colorpicker = new ColorPicker({ props: colorpicker_props, $$inline: true });
@@ -1283,12 +1283,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const colorpicker_changes = {};
-    			if (dirty & /*colors*/ 2) colorpicker_changes.id = `color-${/*name*/ ctx[18]}`;
-    			if (dirty & /*colors*/ 2) colorpicker_changes.text = /*name*/ ctx[18];
+    			if (dirty[0] & /*colors*/ 2) colorpicker_changes.id = `color-${/*name*/ ctx[28]}`;
+    			if (dirty[0] & /*colors*/ 2) colorpicker_changes.text = /*name*/ ctx[28];
 
-    			if (!updating_color && dirty & /*colors, Object*/ 2) {
+    			if (!updating_color && dirty[0] & /*colors*/ 2) {
     				updating_color = true;
-    				colorpicker_changes.color = /*colors*/ ctx[1][/*name*/ ctx[18]];
+    				colorpicker_changes.color = /*colors*/ ctx[1][/*name*/ ctx[28]];
     				add_flush_callback(() => updating_color = false);
     			}
 
@@ -1312,7 +1312,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(184:12) {#each Object.entries(colors) as [name] }",
+    		source: "(231:12) {#each Object.entries(colors) as [name] }",
     		ctx
     	});
 
@@ -1333,48 +1333,54 @@ var app = (function () {
     	let table;
     	let t5;
     	let div9;
-    	let button;
+    	let button0;
     	let t7;
+    	let button1;
+    	let t9;
+    	let button2;
+    	let t11;
+    	let button3;
+    	let t13;
     	let div4;
     	let div3;
     	let label0;
     	let h30;
-    	let t9;
-    	let t10;
-    	let t11;
-    	let t12;
-    	let t13;
-    	let resetbutton0;
-    	let t14;
-    	let input0;
     	let t15;
+    	let t16;
+    	let t17;
+    	let t18;
+    	let t19;
+    	let resetbutton0;
+    	let t20;
+    	let input0;
+    	let t21;
     	let div7;
     	let div5;
     	let label1;
     	let h31;
-    	let t17;
+    	let t23;
     	let input1;
     	let input1_min_value;
     	let input1_max_value;
-    	let t18;
+    	let t24;
     	let resetbutton1;
-    	let t19;
+    	let t25;
     	let div6;
     	let span0;
-    	let t20_value = /*speed*/ ctx[2].min + "";
-    	let t20;
-    	let t21;
+    	let t26_value = /*speed*/ ctx[2].min + "";
+    	let t26;
+    	let t27;
     	let input2;
     	let input2_min_value;
     	let input2_max_value;
-    	let t22;
+    	let t28;
     	let span1;
-    	let t23_value = /*speed*/ ctx[2].max + "";
-    	let t23;
-    	let t24;
+    	let t29_value = /*speed*/ ctx[2].max + "";
+    	let t29;
+    	let t30;
     	let div8;
     	let h32;
-    	let t26;
+    	let t32;
     	let current;
     	let mounted;
     	let dispose;
@@ -1392,14 +1398,14 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	resetbutton0.$on("click", /*click_handler_2*/ ctx[9]);
+    	resetbutton0.$on("click", /*click_handler_5*/ ctx[15]);
 
     	resetbutton1 = new ResetButton({
     			props: { class: "reset" },
     			$$inline: true
     		});
 
-    	resetbutton1.$on("click", /*click_handler_3*/ ctx[12]);
+    	resetbutton1.$on("click", /*click_handler_6*/ ctx[18]);
     	let each_value = Object.entries(/*colors*/ ctx[1]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
@@ -1434,112 +1440,127 @@ var app = (function () {
 
     			t5 = space();
     			div9 = element("div");
-    			button = element("button");
-    			button.textContent = "Ny";
+    			button0 = element("button");
+    			button0.textContent = "Step";
     			t7 = space();
+    			button1 = element("button");
+    			button1.textContent = "Start";
+    			t9 = space();
+    			button2 = element("button");
+    			button2.textContent = "Stop";
+    			t11 = space();
+    			button3 = element("button");
+    			button3.textContent = "Ny";
+    			t13 = space();
     			div4 = element("div");
     			div3 = element("div");
     			label0 = element("label");
     			h30 = element("h3");
     			h30.textContent = "Storlek:";
-    			t9 = space();
-    			t10 = text(/*size*/ ctx[0]);
-    			t11 = text(" x ");
-    			t12 = text(/*size*/ ctx[0]);
-    			t13 = space();
-    			create_component(resetbutton0.$$.fragment);
-    			t14 = space();
-    			input0 = element("input");
     			t15 = space();
+    			t16 = text(/*size*/ ctx[0]);
+    			t17 = text(" x ");
+    			t18 = text(/*size*/ ctx[0]);
+    			t19 = space();
+    			create_component(resetbutton0.$$.fragment);
+    			t20 = space();
+    			input0 = element("input");
+    			t21 = space();
     			div7 = element("div");
     			div5 = element("div");
     			label1 = element("label");
     			h31 = element("h3");
     			h31.textContent = "Hastighet(ms):";
-    			t17 = space();
+    			t23 = space();
     			input1 = element("input");
-    			t18 = space();
+    			t24 = space();
     			create_component(resetbutton1.$$.fragment);
-    			t19 = space();
+    			t25 = space();
     			div6 = element("div");
     			span0 = element("span");
-    			t20 = text(t20_value);
-    			t21 = space();
+    			t26 = text(t26_value);
+    			t27 = space();
     			input2 = element("input");
-    			t22 = space();
+    			t28 = space();
     			span1 = element("span");
-    			t23 = text(t23_value);
-    			t24 = space();
+    			t29 = text(t29_value);
+    			t30 = space();
     			div8 = element("div");
     			h32 = element("h3");
     			h32.textContent = "Färger";
-    			t26 = space();
+    			t32 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
     			attr_dev(h1, "class", "svelte-1ow3g0a");
-    			add_location(h1, file, 119, 12, 4067);
-    			add_location(div0, file, 118, 8, 4048);
+    			add_location(h1, file, 160, 12, 5066);
+    			add_location(div0, file, 159, 8, 5047);
     			attr_dev(h2, "class", "svelte-1ow3g0a");
-    			add_location(h2, file, 124, 12, 4235);
+    			add_location(h2, file, 165, 12, 5234);
     			attr_dev(table, "class", "svelte-1ow3g0a");
-    			add_location(table, file, 125, 12, 4289);
+    			add_location(table, file, 166, 12, 5288);
     			attr_dev(div1, "class", "table-container svelte-1ow3g0a");
-    			add_location(div1, file, 123, 8, 4192);
+    			add_location(div1, file, 164, 8, 5191);
     			attr_dev(div2, "class", "content-container svelte-1ow3g0a");
-    			add_location(div2, file, 117, 4, 4007);
-    			attr_dev(button, "class", "new-button svelte-1ow3g0a");
-    			add_location(button, file, 151, 8, 5510);
+    			add_location(div2, file, 158, 4, 5006);
+    			attr_dev(button0, "class", "new-button svelte-1ow3g0a");
+    			add_location(button0, file, 193, 8, 6516);
+    			attr_dev(button1, "class", "new-button svelte-1ow3g0a");
+    			add_location(button1, file, 194, 8, 6590);
+    			attr_dev(button2, "class", "new-button svelte-1ow3g0a");
+    			add_location(button2, file, 195, 8, 6666);
+    			attr_dev(button3, "class", "new-button svelte-1ow3g0a");
+    			add_location(button3, file, 198, 8, 6744);
     			set_style(h30, "margin-right", "5px");
     			attr_dev(h30, "class", "svelte-1ow3g0a");
-    			add_location(h30, file, 156, 20, 5766);
+    			add_location(h30, file, 203, 20, 7000);
     			attr_dev(label0, "for", "size");
     			attr_dev(label0, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(label0, file, 155, 16, 5695);
+    			add_location(label0, file, 202, 16, 6929);
     			attr_dev(div3, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(div3, file, 154, 12, 5641);
+    			add_location(div3, file, 201, 12, 6875);
     			attr_dev(input0, "id", "size");
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "5");
     			attr_dev(input0, "max", "20");
     			attr_dev(input0, "class", "svelte-1ow3g0a");
-    			add_location(input0, file, 161, 12, 5992);
+    			add_location(input0, file, 208, 12, 7226);
     			attr_dev(div4, "class", "svelte-1ow3g0a");
-    			add_location(div4, file, 153, 8, 5622);
+    			add_location(div4, file, 200, 8, 6856);
     			attr_dev(h31, "class", "svelte-1ow3g0a");
-    			add_location(h31, file, 167, 20, 6278);
+    			add_location(h31, file, 214, 20, 7512);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", input1_min_value = /*speed*/ ctx[2].min);
     			attr_dev(input1, "max", input1_max_value = /*speed*/ ctx[2].max);
     			set_style(input1, "width", "100px");
     			set_style(input1, "margin-left", "10px");
     			attr_dev(input1, "class", "svelte-1ow3g0a");
-    			add_location(input1, file, 168, 20, 6324);
+    			add_location(input1, file, 215, 20, 7558);
     			attr_dev(label1, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(label1, file, 166, 16, 6218);
+    			add_location(label1, file, 213, 16, 7452);
     			attr_dev(div5, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(div5, file, 165, 12, 6164);
-    			add_location(span0, file, 173, 16, 6645);
+    			add_location(div5, file, 212, 12, 7398);
+    			add_location(span0, file, 220, 16, 7879);
     			attr_dev(input2, "class", "slider svelte-1ow3g0a");
     			attr_dev(input2, "type", "range");
     			attr_dev(input2, "min", input2_min_value = /*speed*/ ctx[2].min);
     			attr_dev(input2, "max", input2_max_value = /*speed*/ ctx[2].max);
-    			add_location(input2, file, 174, 16, 6687);
-    			add_location(span1, file, 175, 16, 6801);
+    			add_location(input2, file, 221, 16, 7921);
+    			add_location(span1, file, 222, 16, 8035);
     			attr_dev(div6, "class", "speed-slider svelte-1ow3g0a");
-    			add_location(div6, file, 172, 12, 6601);
+    			add_location(div6, file, 219, 12, 7835);
     			attr_dev(div7, "class", "speed-container svelte-1ow3g0a");
-    			add_location(div7, file, 164, 8, 6121);
+    			add_location(div7, file, 211, 8, 7355);
     			attr_dev(h32, "class", "color-title svelte-1ow3g0a");
-    			add_location(h32, file, 180, 12, 6947);
+    			add_location(h32, file, 227, 12, 8181);
     			attr_dev(div8, "class", "color-container svelte-1ow3g0a");
-    			add_location(div8, file, 179, 8, 6903);
+    			add_location(div8, file, 226, 8, 8137);
     			attr_dev(div9, "class", "controls svelte-1ow3g0a");
-    			add_location(div9, file, 150, 4, 5478);
+    			add_location(div9, file, 191, 4, 6482);
     			attr_dev(main, "class", "svelte-1ow3g0a");
-    			add_location(main, file, 116, 0, 3991);
+    			add_location(main, file, 157, 0, 4990);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1563,45 +1584,51 @@ var app = (function () {
 
     			append_dev(main, t5);
     			append_dev(main, div9);
-    			append_dev(div9, button);
+    			append_dev(div9, button0);
     			append_dev(div9, t7);
+    			append_dev(div9, button1);
+    			append_dev(div9, t9);
+    			append_dev(div9, button2);
+    			append_dev(div9, t11);
+    			append_dev(div9, button3);
+    			append_dev(div9, t13);
     			append_dev(div9, div4);
     			append_dev(div4, div3);
     			append_dev(div3, label0);
     			append_dev(label0, h30);
-    			append_dev(label0, t9);
-    			append_dev(label0, t10);
-    			append_dev(label0, t11);
-    			append_dev(label0, t12);
-    			append_dev(div3, t13);
+    			append_dev(label0, t15);
+    			append_dev(label0, t16);
+    			append_dev(label0, t17);
+    			append_dev(label0, t18);
+    			append_dev(div3, t19);
     			mount_component(resetbutton0, div3, null);
-    			append_dev(div4, t14);
+    			append_dev(div4, t20);
     			append_dev(div4, input0);
     			set_input_value(input0, /*size*/ ctx[0]);
-    			append_dev(div9, t15);
+    			append_dev(div9, t21);
     			append_dev(div9, div7);
     			append_dev(div7, div5);
     			append_dev(div5, label1);
     			append_dev(label1, h31);
-    			append_dev(label1, t17);
+    			append_dev(label1, t23);
     			append_dev(label1, input1);
     			set_input_value(input1, /*speed*/ ctx[2].current);
-    			append_dev(div5, t18);
+    			append_dev(div5, t24);
     			mount_component(resetbutton1, div5, null);
-    			append_dev(div7, t19);
+    			append_dev(div7, t25);
     			append_dev(div7, div6);
     			append_dev(div6, span0);
-    			append_dev(span0, t20);
-    			append_dev(div6, t21);
+    			append_dev(span0, t26);
+    			append_dev(div6, t27);
     			append_dev(div6, input2);
     			set_input_value(input2, /*speed*/ ctx[2].current);
-    			append_dev(div6, t22);
+    			append_dev(div6, t28);
     			append_dev(div6, span1);
-    			append_dev(span1, t23);
-    			append_dev(div9, t24);
+    			append_dev(span1, t29);
+    			append_dev(div9, t30);
     			append_dev(div9, div8);
     			append_dev(div8, h32);
-    			append_dev(div8, t26);
+    			append_dev(div8, t32);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div8, null);
@@ -1611,19 +1638,22 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button, "click", /*click_handler_1*/ ctx[8], false, false, false),
-    					listen_dev(input0, "change", /*input0_change_input_handler*/ ctx[10]),
-    					listen_dev(input0, "input", /*input0_change_input_handler*/ ctx[10]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[11]),
-    					listen_dev(input2, "change", /*input2_change_input_handler*/ ctx[13]),
-    					listen_dev(input2, "input", /*input2_change_input_handler*/ ctx[13])
+    					listen_dev(button0, "click", /*click_handler_1*/ ctx[11], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[12], false, false, false),
+    					listen_dev(button2, "click", /*click_handler_3*/ ctx[13], false, false, false),
+    					listen_dev(button3, "click", /*click_handler_4*/ ctx[14], false, false, false),
+    					listen_dev(input0, "change", /*input0_change_input_handler*/ ctx[16]),
+    					listen_dev(input0, "input", /*input0_change_input_handler*/ ctx[16]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[17]),
+    					listen_dev(input2, "change", /*input2_change_input_handler*/ ctx[19]),
+    					listen_dev(input2, "input", /*input2_change_input_handler*/ ctx[19])
     				];
 
     				mounted = true;
     			}
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*grid, colors, move*/ 74) {
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*grid, colors, clickCell*/ 74) {
     				each_value_1 = /*grid*/ ctx[3];
     				validate_each_argument(each_value_1);
     				let i;
@@ -1647,42 +1677,42 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (!current || dirty & /*size*/ 1) set_data_dev(t10, /*size*/ ctx[0]);
-    			if (!current || dirty & /*size*/ 1) set_data_dev(t12, /*size*/ ctx[0]);
+    			if (!current || dirty[0] & /*size*/ 1) set_data_dev(t16, /*size*/ ctx[0]);
+    			if (!current || dirty[0] & /*size*/ 1) set_data_dev(t18, /*size*/ ctx[0]);
 
-    			if (dirty & /*size*/ 1) {
+    			if (dirty[0] & /*size*/ 1) {
     				set_input_value(input0, /*size*/ ctx[0]);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input1_min_value !== (input1_min_value = /*speed*/ ctx[2].min)) {
+    			if (!current || dirty[0] & /*speed*/ 4 && input1_min_value !== (input1_min_value = /*speed*/ ctx[2].min)) {
     				attr_dev(input1, "min", input1_min_value);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input1_max_value !== (input1_max_value = /*speed*/ ctx[2].max)) {
+    			if (!current || dirty[0] & /*speed*/ 4 && input1_max_value !== (input1_max_value = /*speed*/ ctx[2].max)) {
     				attr_dev(input1, "max", input1_max_value);
     			}
 
-    			if (dirty & /*speed*/ 4 && to_number(input1.value) !== /*speed*/ ctx[2].current) {
+    			if (dirty[0] & /*speed*/ 4 && to_number(input1.value) !== /*speed*/ ctx[2].current) {
     				set_input_value(input1, /*speed*/ ctx[2].current);
     			}
 
-    			if ((!current || dirty & /*speed*/ 4) && t20_value !== (t20_value = /*speed*/ ctx[2].min + "")) set_data_dev(t20, t20_value);
+    			if ((!current || dirty[0] & /*speed*/ 4) && t26_value !== (t26_value = /*speed*/ ctx[2].min + "")) set_data_dev(t26, t26_value);
 
-    			if (!current || dirty & /*speed*/ 4 && input2_min_value !== (input2_min_value = /*speed*/ ctx[2].min)) {
+    			if (!current || dirty[0] & /*speed*/ 4 && input2_min_value !== (input2_min_value = /*speed*/ ctx[2].min)) {
     				attr_dev(input2, "min", input2_min_value);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input2_max_value !== (input2_max_value = /*speed*/ ctx[2].max)) {
+    			if (!current || dirty[0] & /*speed*/ 4 && input2_max_value !== (input2_max_value = /*speed*/ ctx[2].max)) {
     				attr_dev(input2, "max", input2_max_value);
     			}
 
-    			if (dirty & /*speed*/ 4) {
+    			if (dirty[0] & /*speed*/ 4) {
     				set_input_value(input2, /*speed*/ ctx[2].current);
     			}
 
-    			if ((!current || dirty & /*speed*/ 4) && t23_value !== (t23_value = /*speed*/ ctx[2].max + "")) set_data_dev(t23, t23_value);
+    			if ((!current || dirty[0] & /*speed*/ 4) && t29_value !== (t29_value = /*speed*/ ctx[2].max + "")) set_data_dev(t29, t29_value);
 
-    			if (dirty & /*Object, colors*/ 2) {
+    			if (dirty[0] & /*colors*/ 2) {
     				each_value = Object.entries(/*colors*/ ctx[1]);
     				validate_each_argument(each_value);
     				let i;
@@ -1772,17 +1802,17 @@ var app = (function () {
     	validate_slots('App', slots, []);
 
     	const DIRECTIONS = {
-    		UP: { x: 0, y: -1 },
-    		DOWN: { x: 0, y: 1 },
-    		LEFT: { x: -1, y: 0 },
-    		RIGHT: { x: 1, y: 0 }
+    		up: { x: 0, y: -1 },
+    		down: { x: 0, y: 1 },
+    		left: { x: -1, y: 0 },
+    		right: { x: 1, y: 0 }
     	};
 
     	const OPPOSITE = {
-    		UP: "DOWN",
-    		DOWN: "UP",
-    		LEFT: "RIGHT",
-    		RIGHT: "LEFT"
+    		up: "down",
+    		down: "up",
+    		left: "right",
+    		right: "left"
     	};
 
     	const DEFAULTS = {
@@ -1809,13 +1839,15 @@ var app = (function () {
     	let size = DEFAULTS.size;
 
     	function createGrid(size) {
+    		iterator = null;
     		const grid = [];
 
-    		for (let column = 0; column < size; column++) {
+    		for (let columnIndex = 0; columnIndex < size; columnIndex++) {
     			const row = new Array(size);
 
-    			for (let i = 0; i < size; i++) {
-    				row[i] = {
+    			for (let rowIndex = 0; rowIndex < size; rowIndex++) {
+    				row[rowIndex] = {
+    					coordinates: { x: columnIndex, y: rowIndex },
     					active: false,
     					visited: false,
     					finished: false,
@@ -1834,7 +1866,48 @@ var app = (function () {
     		return grid;
     	}
 
-    	async function move(currentX, currentY, activeGrid) {
+    	let isPaused = false;
+    	let iterator;
+
+    	function clickCell(cellX, cellY, activeGrid) {
+    		// Ska inte gå att starta från flera celler.
+    		if (iterator != null) return;
+
+    		iterator = move(cellX, cellY, activeGrid);
+    		if (isPaused === false) start(); else next(); // Kör första step för att sätta cellen som aktiv utan delay
+    	}
+
+    	function start() {
+    		isPaused = false;
+
+    		function loopingTimer() {
+    			if (isPaused === false && iterator != null) {
+    				setTimeout(loopingTimer, speed.current);
+    				next();
+    			}
+    		}
+
+    		loopingTimer();
+    	}
+
+    	function stop() {
+    		isPaused = true;
+    	}
+
+    	function step() {
+    		isPaused = true;
+    		next();
+    	}
+
+    	function next() {
+    		const iteration = iterator?.next();
+
+    		if (iteration?.done) {
+    			iterator = null;
+    		}
+    	}
+
+    	function* move(currentX, currentY, activeGrid) {
     		// Avbryter om grid ändras, t.ex. byter storlek
     		// Kolla innan celler ändras
     		if (activeGrid !== grid) return;
@@ -1848,8 +1921,7 @@ var app = (function () {
     			const newY = currentY + DIRECTIONS[newDirection].y;
 
     			if (isCellValid(newX, newY, activeGrid)) {
-    				// Delay till nästa move
-    				await new Promise(resolve => setTimeout(resolve, speed.current));
+    				yield;
 
     				// Ta bort BÅDA väggarna innan nästa move,
     				// för att inte behöva hålla koll på vilken den förra rutan var 
@@ -1857,7 +1929,7 @@ var app = (function () {
 
     				activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
     				$$invalidate(3, grid[currentX][currentY].active = false, grid);
-    				await move(newX, newY, activeGrid);
+    				yield* move(newX, newY, activeGrid);
     			}
 
     			if (activeGrid !== grid) return;
@@ -1866,8 +1938,8 @@ var app = (function () {
     			$$invalidate(3, grid[currentX][currentY].active = true, grid);
     		}
 
-    		// Alla directions klara betyder att cellen inte kan besökas igen      
-    		await new Promise(resolve => setTimeout(resolve, speed.current));
+    		// Alla directions klara betyder att cellen inte kan besökas igen
+    		yield;
 
     		if (activeGrid !== grid) return;
     		$$invalidate(3, grid[currentX][currentY].finished = true, grid);
@@ -1886,9 +1958,12 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = (x, y) => move(x, y, grid);
-    	const click_handler_1 = () => $$invalidate(3, grid = createGrid(size));
-    	const click_handler_2 = () => $$invalidate(0, size = DEFAULTS.size);
+    	const click_handler = (x, y) => clickCell(x, y, grid);
+    	const click_handler_1 = () => step();
+    	const click_handler_2 = () => start();
+    	const click_handler_3 = () => stop();
+    	const click_handler_4 = () => $$invalidate(3, grid = createGrid(size));
+    	const click_handler_5 = () => $$invalidate(0, size = DEFAULTS.size);
 
     	function input0_change_input_handler() {
     		size = to_number(this.value);
@@ -1900,7 +1975,7 @@ var app = (function () {
     		$$invalidate(2, speed);
     	}
 
-    	const click_handler_3 = () => $$invalidate(2, speed.current = DEFAULTS.speed, speed);
+    	const click_handler_6 = () => $$invalidate(2, speed.current = DEFAULTS.speed, speed);
 
     	function input2_change_input_handler() {
     		speed.current = to_number(this.value);
@@ -1925,6 +2000,13 @@ var app = (function () {
     		speed,
     		size,
     		createGrid,
+    		isPaused,
+    		iterator,
+    		clickCell,
+    		start,
+    		stop,
+    		step,
+    		next,
     		move,
     		isCellValid,
     		shuffleArray,
@@ -1935,6 +2017,8 @@ var app = (function () {
     		if ('colors' in $$props) $$invalidate(1, colors = $$props.colors);
     		if ('speed' in $$props) $$invalidate(2, speed = $$props.speed);
     		if ('size' in $$props) $$invalidate(0, size = $$props.size);
+    		if ('isPaused' in $$props) isPaused = $$props.isPaused;
+    		if ('iterator' in $$props) iterator = $$props.iterator;
     		if ('grid' in $$props) $$invalidate(3, grid = $$props.grid);
     	};
 
@@ -1943,7 +2027,7 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*size*/ 1) {
+    		if ($$self.$$.dirty[0] & /*size*/ 1) {
     			$$invalidate(3, grid = createGrid(size));
     		}
     	};
@@ -1955,13 +2039,19 @@ var app = (function () {
     		grid,
     		DEFAULTS,
     		createGrid,
-    		move,
+    		clickCell,
+    		start,
+    		stop,
+    		step,
     		click_handler,
     		click_handler_1,
     		click_handler_2,
+    		click_handler_3,
+    		click_handler_4,
+    		click_handler_5,
     		input0_change_input_handler,
     		input1_input_handler,
-    		click_handler_3,
+    		click_handler_6,
     		input2_change_input_handler,
     		colorpicker_color_binding
     	];
@@ -1970,7 +2060,7 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, {});
+    		init(this, options, instance, create_fragment, safe_not_equal, {}, null, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
