@@ -2,31 +2,10 @@
     import ColorPicker from "./ColorPicker.svelte";
     import WikipediaDetails from "./WikipediaDetails.svelte";
     import ResetButton from "./ResetButton.svelte"
-
-    const DIRECTIONS = {
-        up : {x: 0, y: -1},
-        down : {x: 0, y: 1},
-        left : {x: -1, y: 0},
-        right : {x: 1, y: 0},
-    }
-    const OPPOSITE = {
-        up: "down",
-        down: "up",
-        left: "right",
-        right: "left",
-    }
-    const DEFAULTS = {
-        // colors property-namn används för labels till <ColorPicker>
-        colors: {
-            start: "#ded7ff",
-            väg: "#ffffff",
-            färdig: "#afff9b",
-            aktiv: "#dd0069",
-            väggar: "#000000",
-        },
-        speed: 150,
-        size: 10,
-    }
+    import Iterator from "./javascript/Iterator"
+    import Grid from "./javascript/Grid"
+    import { DEFAULTS } from "./Defaults"
+    import { DIRECTIONS } from "./Directions"
 
     let colors = {...DEFAULTS.colors};
     let speed = {
@@ -34,125 +13,56 @@
         max: 500,
         current: DEFAULTS.speed,
     }
+
     let size = DEFAULTS.size;
-    $: grid = createGrid(size);
+    let grid = new Grid(size);
+    $: { resetGrid(size); } // Kör när size ändras
+    let iterator = new Iterator();
+    $: iterator.speed = speed.current;
+    // Måste uppdatera en variabel manuellt,
+    // Svelte känner inte av när Iterator ändras av sina funktioner
+    // Använder callback men går kanske att lösa med en Svelte-store
+    let isPaused = iterator.isPaused;
+    iterator.onPauseChange = (value) => isPaused = value;
 
-    function createGrid(size){
-        iterator = null;
-        const grid = []
-        for(let columnIndex = 0; columnIndex < size; columnIndex++){
-            const row = new Array(size);
-            for(let rowIndex = 0; rowIndex < size; rowIndex++){
-                row[rowIndex] = {
-                    coordinates:{
-                        x: columnIndex,
-                        y: rowIndex,
-                    },
-                    active: false,
-                    visited: false,
-                    finished: false,
-                    walls: {
-                        up: true,
-                        down: true,
-                        left: true,
-                        right: true,
-                    }
-                }
-            }
-            grid.push(row);
-        }
-        return grid;
-    }    
-
-    let isPaused = false;
-    let iterator;
-    function clickCell(cellX, cellY, activeGrid){
+    function resetGrid(size){
+        iterator.target = null;
+        grid = new Grid(size);
+    }
+    function clickCell(x, y){
         // Ska inte gå att starta från flera celler.
-        if(iterator != null)
+        if(iterator.target != null)
             return;
-
-        iterator = move(cellX, cellY, activeGrid);
+        iterator.target = move(x, y);
         if(isPaused === false)
-            start();
-        else next(); // Kör första step för att sätta cellen som aktiv utan delay
-    }
-    function start(){
-        isPaused = false;
-        function loopingTimer(){
-            if(isPaused === false && iterator != null){
-                setTimeout(loopingTimer, speed.current);
-                next();
-            }
-        }
-        loopingTimer();
-    }
-    function stop(){
-        isPaused = true;
-    }
-    function step(){
-        isPaused = true;
-        next();
-    }
-    function next(){
-        const iteration = iterator?.next();
-        if(iteration?.done){
-            iterator = null;
-        }
-    }
-    
+            iterator.start();
+        else iterator.step(); // Ett steg sätter första cellen till aktiv
+    } 
 
-    function* move(currentX, currentY, activeGrid){
-        // Avbryter om grid ändras, t.ex. byter storlek
-        // Kolla innan celler ändras
-        if(activeGrid !== grid)
-            return;
+    function* move(currentX, currentY){
         grid[currentX][currentY].active = true;
         grid[currentX][currentY].visited = true;
 
-        const randomizedDirections = shuffleArray(Object.keys(DIRECTIONS));
-        for(const newDirection of randomizedDirections){
-            const newX = currentX + DIRECTIONS[newDirection].x;
-            const newY = currentY + DIRECTIONS[newDirection].y;
-            if(isCellValid(newX, newY, activeGrid)){
+        for(const direction of DIRECTIONS.getRandomized()){
+            const newX = currentX + direction.coordinates.x;
+            const newY = currentY + direction.coordinates.y;            
+            if(grid.isCellValid(newX, newY)){
                 yield;
                 // Ta bort BÅDA väggarna innan nästa move,
                 // för att inte behöva hålla koll på vilken den förra rutan var 
-                activeGrid[currentX][currentY].walls[newDirection.toLowerCase()] = false;                
-                activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
+                grid[currentX][currentY].walls[direction.name] = false;
+                grid[newX][newY].walls[DIRECTIONS.opposite(direction).name] = false;
                 grid[currentX][currentY].active = false;
-                yield* move(newX, newY, activeGrid);
-            }
-            if(activeGrid !== grid)
-                return;
-            // Vandra bakåt
-            grid[currentX][currentY].active = true;             
-        }    
+                yield* move(newX, newY);
+                // Vandra bakåt
+                grid[currentX][currentY].active = true;   
+            }            
+        }
         // Alla directions klara betyder att cellen inte kan besökas igen
         yield;
-        if(activeGrid !== grid)
-                return;
         grid[currentX][currentY].finished = true ;
     }
 
-    function isCellValid(x, y, grid){
-        if(x > grid.length - 1 || x < 0)
-            return false;
-        if(y > grid[x].length - 1 || y < 0)
-            return false;
-        if(grid[x][y].visited === true)
-            return false;
-        return true;
-    }
-
-    // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-    // answered Sep 28, 2012 at 20:20 Laurens Holst
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
 </script>
 
 <main>    
@@ -164,10 +74,12 @@
 
         <div class="table-container">
             <h2>Tryck på en ruta för att starta</h2>
+            <h2>{isPaused}</h2>
             <table>
                 {#each grid as row, y}
                     <tr>
-                        {#each row as cell , x (x+","+y)}
+                        <!-- x = index,  x+","+y = key -->
+                        {#each row as cell , x (x+","+y)} 
                             <td 
                                 on:click={() => clickCell(x, y, grid)}
                                 style:background-color = { 
@@ -189,14 +101,17 @@
 
     </div>
 
-    <div class="controls">
+    <div class="settings">
+        <div class="">
 
-        <button class="new-button" on:click={() => step()}>Step</button>
-        <button class="new-button" on:click={() => start()}>Start</button>
-        <button class="new-button" on:click={() => stop()}>Stop</button>
+        </div>
+        <button class="new-button" on:click={() => iterator.step()}>Step</button>
+        <button class="new-button" on:click={() => iterator.start()}  >Start</button>
+        <button class="new-button" on:click={() => iterator.stop()}  >Stop</button>
+        <button class="new-button" on:click={() => iterator.instant()}  >Instant</button>
 
 
-        <button class="new-button" on:click={() => grid = createGrid(size)}>Ny</button>
+        <button class="new-button" on:click={() => resetGrid(size)}>Ny</button>
         <!-- Size -->
         <div>
             <div class="slider-label-container">
@@ -294,26 +209,26 @@
         align-items: center;
         justify-content: center;
     }    
-    .controls{
+    .settings{
         align-self: center;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-        .controls > div{
+        .settings > div{
             padding: 10px;
             margin: 10px;
             display: flex;
             flex-direction: column;
         } 
-        .controls .new-button{
+        .settings .new-button{
             margin: 0;
             padding: 5px 15px;
             min-width: 100px;
             background-color: rgb(233, 233, 233);
             border: 2px solid gray;
         }   
-        .controls .new-button:hover{
+        .settings .new-button:hover{
             filter:contrast(1.1)
         }   
     .slider-label-container{
