@@ -2,8 +2,8 @@
     import ColorPicker from "./ColorPicker.svelte";
     import WikipediaDetails from "./WikipediaDetails.svelte";
     import ResetButton from "./ResetButton.svelte"
-    import Iterator from "./javascript/Iterator"
-    import Grid from "./javascript/Grid"
+    import Iterator from "./Iterator"
+    import Grid from "./Grid"
     import { DEFAULTS } from "./Defaults"
     import { DIRECTIONS } from "./Directions"
 
@@ -24,16 +24,20 @@
     // Använder callback men går kanske att lösa med en Svelte-store
     let isPaused = iterator.isPaused;
     iterator.onPauseChange = (value) => isPaused = value;
+    let isFinished = true;
+    iterator.onFinished = () => isFinished = true;
 
     function resetGrid(size){
-        iterator.target = null;
+        iterator.function = null;
+        isFinished = true;
         grid = new Grid(size);
     }
     function clickCell(x, y){
         // Ska inte gå att starta från flera celler.
-        if(iterator.target != null)
+        if(iterator.function != null)
             return;
-        iterator.target = move(x, y);
+        iterator.function = move(x, y);
+        isFinished = false;
         if(isPaused === false)
             iterator.start();
         else iterator.step(); // Ett steg sätter första cellen till aktiv
@@ -74,7 +78,13 @@
 
         <div class="table-container">
             <h2>Tryck på en ruta för att starta</h2>
-            <h2>{isPaused}</h2>
+            <div class="play-controls">
+                <button title="Starta" disabled={!isPaused} on:click={() => iterator.start()} >⯈</button>
+                <button title="Pausa" class="pause" disabled={isPaused}  on:click={() => iterator.stop()} >||</button>
+                <button title="Ett steg" class="step" disabled={isFinished}  on:click={() => iterator.step()} >⤺</button>
+                <button title="Lös direkt" class="instant" disabled={isFinished} on:click={() => iterator.instant()} >🗲</button>
+                <button title="Ny" class="reset" disabled={iterator.function == null} on:click={() => resetGrid(size)}>↺</button>
+            </div>            
             <table>
                 {#each grid as row, y}
                     <tr>
@@ -102,18 +112,10 @@
     </div>
 
     <div class="settings">
-        <div class="">
 
-        </div>
-        <button class="new-button" on:click={() => iterator.step()}>Step</button>
-        <button class="new-button" on:click={() => iterator.start()}  >Start</button>
-        <button class="new-button" on:click={() => iterator.stop()}  >Stop</button>
-        <button class="new-button" on:click={() => iterator.instant()}  >Instant</button>
-
-
-        <button class="new-button" on:click={() => resetGrid(size)}>Ny</button>
         <!-- Size -->
-        <div>
+        <div class="group">
+            <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
             <div class="slider-label-container">
                 <label for="size" class="slider-label-container">
                     <h3 style="margin-right: 5px;">Storlek:</h3>
@@ -123,12 +125,14 @@
             </div>
             <input id="size" type="range" bind:value={size} min="5" max="20" />            
         </div>
+
         <!-- Speed -->
-        <div class="speed-container">
+        <div class="group">
+            <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
             <div class="slider-label-container">
                 <label class="slider-label-container">
                     <h3>Hastighet(ms): </h3>
-                    <input type="number" bind:value={speed.current} min={speed.min} max={speed.max} style="width: 100px; margin-left:10px"  />
+                    <input type="number" bind:value={speed.current} min={speed.min} max={speed.max} />
                 </label>
                 <ResetButton class="reset" on:click={() => speed.current = DEFAULTS.speed} />
             </div>
@@ -137,9 +141,10 @@
                 <input class="slider" type="range" bind:value={speed.current} min={speed.min} max={speed.max} />
                 <span>{speed.max}</span>
             </div>
-        </div>        
+        </div>    
+
         <!-- Color -->
-        <div class="color-container" >
+        <div style="align-items: stretch;" >
             <h3 class="color-title">Färger</h3>
             <!-- Kan inte binda color till objektet från Object.entries -->
             <!-- Måste binda till colors objektet -->
@@ -165,11 +170,12 @@
         box-sizing: border-box;
     }
     h1{
-        margin: 0;
         font-size: 1.3rem;
+        margin: 0;
     }
     h2{
         font-size: 1.3rem;
+        margin: 0;
     }    
     h3{
         font-size: 1rem;
@@ -182,6 +188,54 @@
         }
             input[type=range]:active{
                 cursor:grabbing;
+            }
+        input[type=number]{
+            width: 5rem; 
+            margin-left: 10px;
+            text-align: center;
+        }
+    .play-controls{
+        display: flex;
+        flex-flow: row wrap;
+        font-size: 1.4rem;
+    }
+        .play-controls button{
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            margin: 10px 4px;            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ececec;
+            border: 2px solid rgb(80, 80, 80);
+            box-sizing: border-box;
+        }
+            .play-controls button:hover:not(:disabled){
+                filter: brightness(1.1);
+            } 
+            .play-controls button:disabled{
+                border: 1px solid lightgray;
+            } 
+            .play-controls .pause{
+                font-weight: 900;
+                font-size: 0.60em;
+            }
+            .play-controls .step{
+                font-weight: 900;
+                font-size: 1.35em;    
+                 /* Kan inte ha mer padding utan att knappen blir större */
+                padding-bottom: 0.50em;
+                /* Flip */
+                transform: scaleX(-1);
+            }
+            .play-controls .instant{
+                font-size: 0.9em;
+            }
+            .play-controls .reset{
+                font-size: 1.0em;
+                font-weight: 900;
+                padding-bottom: 0.45em;
             }
     table{
         border-collapse: collapse;
@@ -215,22 +269,13 @@
         flex-direction: column;
         align-items: center;
     }
-        .settings > div{
+        .settings .group{
             padding: 10px;
             margin: 10px;
             display: flex;
             flex-direction: column;
-        } 
-        .settings .new-button{
-            margin: 0;
-            padding: 5px 15px;
-            min-width: 100px;
-            background-color: rgb(233, 233, 233);
-            border: 2px solid gray;
-        }   
-        .settings .new-button:hover{
-            filter:contrast(1.1)
-        }   
+            align-items: center;
+        }
     .slider-label-container{
         display: flex;
         flex-direction: row;
@@ -250,13 +295,9 @@
             /* horizontal */
             margin: 0 15px;
         }
-    .color-container{
-        display: flex;
-        flex-direction: column;
+    .color-title{
+        margin: 15px;
+        margin-top: 0;
+        text-align: center;
     }
-        .color-title{
-            margin: 15px;
-            margin-top: 0;
-            margin-left: 30px;            
-        }
 </style>

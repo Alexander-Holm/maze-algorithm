@@ -8,9 +8,9 @@
 </script>
 
 <div class="color-settings">
-    <ResetButton style="margin-right: 10px" on:click={() => color = originalColor} />
     <input id={id} type="color" class="color-picker" bind:value={color} />
     <label for={id} >{text}</label>
+    <ResetButton style="margin-left: 10px" on:click={() => color = originalColor} />
 </div>
 
 <style>
@@ -30,6 +30,7 @@
     label{
         text-transform: capitalize;
         padding-left: 10px;
+        flex-grow: 1;
     }
     
 </style>
