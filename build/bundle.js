@@ -504,6 +504,10 @@ var app = (function () {
         else
             dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
     }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev('SvelteDOMSetProperty', { node, property, value });
+    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.wholeText === data)
@@ -553,7 +557,7 @@ var app = (function () {
 
     function create_fragment$3(ctx) {
     	let button;
-    	let span;
+    	let t;
     	let button_class_value;
     	let button_style_value;
     	let mounted;
@@ -562,11 +566,8 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			button = element("button");
-    			span = element("span");
-    			span.textContent = "↺";
-    			attr_dev(span, "class", "svelte-jlpe1b");
-    			add_location(span, file$3, 1, 4, 68);
-    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$$props*/ ctx[0].class) + " svelte-jlpe1b"));
+    			t = text("↺");
+    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*$$props*/ ctx[0].class) + " svelte-15ulq7z"));
     			attr_dev(button, "style", button_style_value = /*$$props*/ ctx[0].style);
     			add_location(button, file$3, 0, 0, 0);
     		},
@@ -575,7 +576,7 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
-    			append_dev(button, span);
+    			append_dev(button, t);
 
     			if (!mounted) {
     				dispose = listen_dev(button, "click", /*click_handler*/ ctx[1], false, false, false);
@@ -583,7 +584,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*$$props*/ 1 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$$props*/ ctx[0].class) + " svelte-jlpe1b"))) {
+    			if (dirty & /*$$props*/ 1 && button_class_value !== (button_class_value = "" + (null_to_empty(/*$$props*/ ctx[0].class) + " svelte-15ulq7z"))) {
     				attr_dev(button, "class", button_class_value);
     			}
 
@@ -654,40 +655,40 @@ var app = (function () {
 
     function create_fragment$2(ctx) {
     	let div;
-    	let resetbutton;
-    	let t0;
     	let input;
-    	let t1;
+    	let t0;
     	let label;
+    	let t1;
     	let t2;
+    	let resetbutton;
     	let current;
     	let mounted;
     	let dispose;
 
     	resetbutton = new ResetButton({
-    			props: { style: "margin-right: 10px" },
+    			props: { style: "margin-left: 10px" },
     			$$inline: true
     		});
 
-    	resetbutton.$on("click", /*click_handler*/ ctx[4]);
+    	resetbutton.$on("click", /*click_handler*/ ctx[5]);
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			create_component(resetbutton.$$.fragment);
-    			t0 = space();
     			input = element("input");
-    			t1 = space();
+    			t0 = space();
     			label = element("label");
-    			t2 = text(/*text*/ ctx[2]);
+    			t1 = text(/*text*/ ctx[2]);
+    			t2 = space();
+    			create_component(resetbutton.$$.fragment);
     			attr_dev(input, "id", /*id*/ ctx[1]);
     			attr_dev(input, "type", "color");
-    			attr_dev(input, "class", "color-picker svelte-10ksb7o");
-    			add_location(input, file$2, 11, 4, 298);
+    			attr_dev(input, "class", "color-picker svelte-1ahnwn5");
+    			add_location(input, file$2, 10, 4, 211);
     			attr_dev(label, "for", /*id*/ ctx[1]);
-    			attr_dev(label, "class", "svelte-10ksb7o");
-    			add_location(label, file$2, 12, 4, 374);
-    			attr_dev(div, "class", "color-settings svelte-10ksb7o");
+    			attr_dev(label, "class", "svelte-1ahnwn5");
+    			add_location(label, file$2, 11, 4, 287);
+    			attr_dev(div, "class", "color-settings svelte-1ahnwn5");
     			add_location(div, file$2, 9, 0, 177);
     		},
     		l: function claim(nodes) {
@@ -695,17 +696,17 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			mount_component(resetbutton, div, null);
-    			append_dev(div, t0);
     			append_dev(div, input);
     			set_input_value(input, /*color*/ ctx[0]);
-    			append_dev(div, t1);
+    			append_dev(div, t0);
     			append_dev(div, label);
-    			append_dev(label, t2);
+    			append_dev(label, t1);
+    			append_dev(div, t2);
+    			mount_component(resetbutton, div, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[5]);
+    				dispose = listen_dev(input, "input", /*input_input_handler*/ ctx[4]);
     				mounted = true;
     			}
     		},
@@ -718,7 +719,7 @@ var app = (function () {
     				set_input_value(input, /*color*/ ctx[0]);
     			}
 
-    			if (!current || dirty & /*text*/ 4) set_data_dev(t2, /*text*/ ctx[2]);
+    			if (!current || dirty & /*text*/ 4) set_data_dev(t1, /*text*/ ctx[2]);
 
     			if (!current || dirty & /*id*/ 2) {
     				attr_dev(label, "for", /*id*/ ctx[1]);
@@ -765,12 +766,12 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ColorPicker> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = () => $$invalidate(0, color = originalColor);
-
     	function input_input_handler() {
     		color = this.value;
     		$$invalidate(0, color);
     	}
+
+    	const click_handler = () => $$invalidate(0, color = originalColor);
 
     	$$self.$$set = $$props => {
     		if ('color' in $$props) $$invalidate(0, color = $$props.color);
@@ -796,7 +797,7 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [color, id, text, originalColor, click_handler, input_input_handler];
+    	return [color, id, text, originalColor, input_input_handler, click_handler];
     }
 
     class ColorPicker extends SvelteComponentDev {
@@ -995,6 +996,163 @@ var app = (function () {
     	}
     }
 
+    class Iterator {
+        function = null; // Generator function
+        #_isPaused = false;
+        set #isPaused(value){
+            if(this.#_isPaused !== value){
+                this.#_isPaused = value;
+                this.onPauseChange?.call(this, value);
+            }
+        }
+        get isPaused() { return this.#_isPaused }
+        speed = 300; //ms
+        #timerRunning = false;
+        // Svelte utanför klassen känner inte av när properties ändras inifrån av funktionerna
+        // Lättast att lösa med en callback men det går kanske att använda Svelte-store istället
+        onPauseChange;
+        onFinished;
+
+        #loopingTimer(){
+            if(this.#_isPaused === false && this.function != null){
+                this.#timerRunning = true;
+                setTimeout(() => {
+                    this.#timerRunning = false;
+                    this.#loopingTimer();
+                }, this.speed);
+                this.#next();
+            }
+        }
+        #next(){
+            const iteration = this.function?.next();
+            if(iteration?.done){
+                this.function = null;
+                this.onFinished?.call();
+            }
+        }
+
+        start(){
+            // Starta bara om timern inte redan är igång
+            if(this.#timerRunning === false){
+                this.#isPaused = false;
+                this.#loopingTimer();
+            }
+        }
+        stop(){
+            this.#isPaused = true;
+        }
+        step(){
+            this.#isPaused = true;
+            this.#next();
+        }
+        instant(){
+            let done = false;
+            while(done === false){
+                // För att inte kunna fastna i en evighets-loop     
+                if(this.function == null)
+                    return;
+                done = this.function.next().done;
+            }
+            this.onFinished?.call();
+        }
+    }
+
+    class Grid extends Array{
+        constructor(size){
+            super();
+            for(let columnIndex = 0; columnIndex < size; columnIndex++){
+                const row = new Array(size);
+                for(let rowIndex = 0; rowIndex < size; rowIndex++){
+                    row[rowIndex] = new Cell(columnIndex, rowIndex);
+                }
+                this.push(row);
+            }
+        }
+
+        isCellValid(x, y){
+            if(x > this.length - 1 || x < 0)
+                return false;
+            if(y > this[x].length - 1 || y < 0)
+                return false;
+            if(this[x][y].visited === true)
+                return false;
+            return true;
+        }
+    }
+
+    class Cell{
+        active = false;
+        visited = false;
+        finished = false;
+        walls = {
+            up: true,
+            down: true,
+            left: true,
+            right: true,
+        };
+        coordinates;
+        
+        constructor(x, y){
+            this.coordinates = {
+                x: x,
+                y: y,
+            };
+        }
+    }
+
+    const DEFAULTS = {
+        // colors property-namn används för labels till <ColorPicker>, därför på svenska
+        colors: {
+            start: "#94b5c9",
+            väg: "#ffffff",
+            färdig: "#89e66f",
+            aktiv: "#dd0069",
+            väggar: "#000000",
+        },
+        speed: 150,
+        size: 10,
+    };
+
+    class Directions extends Array {
+        constructor(){
+            super();
+            this.push(new Direction("up", 0, -1) );
+            this.push(new Direction("down", 0, 1) );
+            this.push(new Direction("left", -1, 0) );
+            this.push(new Direction("right", 1, 0) );
+        }
+        opposite(direction) {
+            const {x, y} = direction.coordinates;
+            const newX = ( x * (-1) );
+            const newY = ( y * (-1) );
+            const opposite = this.find(direction => 
+                direction.coordinates.x === newX 
+                && direction.coordinates.y === newY);
+            return opposite;
+        }
+        getRandomized(){
+            // Ändrar inte orginal-arrayen
+            return this.#shuffleArray([...this]);
+
+        }
+        // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        // answered Sep 28, 2012 at 20:20 Laurens Holst
+        #shuffleArray(array){
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    }
+    class Direction {
+        constructor(name, x, y){
+            this.name = name;
+            this.coordinates = { x: x, y: y};
+        }
+    }
+    const DIRECTIONS = new Directions();
+
     /* src\App.svelte generated by Svelte v3.46.4 */
 
     const { Object: Object_1 } = globals;
@@ -1002,34 +1160,34 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i][0];
-    	child_ctx[19] = list;
-    	child_ctx[20] = i;
+    	child_ctx[22] = list[i][0];
+    	child_ctx[23] = list;
+    	child_ctx[24] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[21] = list[i];
-    	child_ctx[23] = i;
+    	child_ctx[25] = list[i];
+    	child_ctx[27] = i;
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[24] = list[i];
-    	child_ctx[26] = i;
+    	child_ctx[28] = list[i];
+    	child_ctx[30] = i;
     	return child_ctx;
     }
 
-    // (129:24) {#each row as cell , x (x+","+y)}
+    // (92:24) {#each row as cell , x (x+","+y)}
     function create_each_block_2(key_1, ctx) {
     	let td;
     	let mounted;
     	let dispose;
 
-    	function click_handler() {
-    		return /*click_handler*/ ctx[7](/*x*/ ctx[26], /*y*/ ctx[23]);
+    	function click_handler_5() {
+    		return /*click_handler_5*/ ctx[14](/*x*/ ctx[30], /*y*/ ctx[27]);
     	}
 
     	const block = {
@@ -1037,27 +1195,27 @@ var app = (function () {
     		first: null,
     		c: function create() {
     			td = element("td");
-    			attr_dev(td, "class", "svelte-1ow3g0a");
+    			attr_dev(td, "class", "svelte-1f3snnq");
 
     			set_style(
     				td,
     				"background-color",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].finished
-    				? /*colors*/ ctx[1].färdig
-    				: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].active
-    					? /*colors*/ ctx[1].aktiv
-    					: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].visited
-    						? /*colors*/ ctx[1].väg
-    						: /*colors*/ ctx[1].start,
+    				/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].finished
+    				? /*colors*/ ctx[2].färdig
+    				: /*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].active
+    					? /*colors*/ ctx[2].aktiv
+    					: /*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].visited
+    						? /*colors*/ ctx[2].väg
+    						: /*colors*/ ctx[2].start,
     				false
     			);
 
-    			set_style(td, "border-color", /*colors*/ ctx[1].väggar, false);
+    			set_style(td, "border-color", /*colors*/ ctx[2].väggar, false);
 
     			set_style(
     				td,
     				"border-top-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.up
+    				/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.up
     				? "3px"
     				: 0,
     				false
@@ -1066,7 +1224,7 @@ var app = (function () {
     			set_style(
     				td,
     				"border-bottom-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.down
+    				/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.down
     				? "3px"
     				: 0,
     				false
@@ -1075,7 +1233,7 @@ var app = (function () {
     			set_style(
     				td,
     				"border-left-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.left
+    				/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.left
     				? "3px"
     				: 0,
     				false
@@ -1084,50 +1242,50 @@ var app = (function () {
     			set_style(
     				td,
     				"border-right-width",
-    				/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.right
+    				/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.right
     				? "3px"
     				: 0,
     				false
     			);
 
-    			add_location(td, file, 129, 28, 4451);
+    			add_location(td, file, 92, 28, 3844);
     			this.first = td;
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(td, "click", click_handler, false, false, false);
+    				dispose = listen_dev(td, "click", click_handler_5, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*grid, colors*/ 10) {
+    			if (dirty & /*grid, colors*/ 12) {
     				set_style(
     					td,
     					"background-color",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].finished
-    					? /*colors*/ ctx[1].färdig
-    					: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].active
-    						? /*colors*/ ctx[1].aktiv
-    						: /*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].visited
-    							? /*colors*/ ctx[1].väg
-    							: /*colors*/ ctx[1].start,
+    					/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].finished
+    					? /*colors*/ ctx[2].färdig
+    					: /*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].active
+    						? /*colors*/ ctx[2].aktiv
+    						: /*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].visited
+    							? /*colors*/ ctx[2].väg
+    							: /*colors*/ ctx[2].start,
     					false
     				);
     			}
 
-    			if (dirty & /*colors*/ 2) {
-    				set_style(td, "border-color", /*colors*/ ctx[1].väggar, false);
+    			if (dirty & /*colors*/ 4) {
+    				set_style(td, "border-color", /*colors*/ ctx[2].väggar, false);
     			}
 
     			if (dirty & /*grid*/ 8) {
     				set_style(
     					td,
     					"border-top-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.up
+    					/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.up
     					? "3px"
     					: 0,
     					false
@@ -1138,7 +1296,7 @@ var app = (function () {
     				set_style(
     					td,
     					"border-bottom-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.down
+    					/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.down
     					? "3px"
     					: 0,
     					false
@@ -1149,7 +1307,7 @@ var app = (function () {
     				set_style(
     					td,
     					"border-left-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.left
+    					/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.left
     					? "3px"
     					: 0,
     					false
@@ -1160,7 +1318,7 @@ var app = (function () {
     				set_style(
     					td,
     					"border-right-width",
-    					/*grid*/ ctx[3][/*x*/ ctx[26]][/*y*/ ctx[23]].walls.right
+    					/*grid*/ ctx[3][/*x*/ ctx[30]][/*y*/ ctx[27]].walls.right
     					? "3px"
     					: 0,
     					false
@@ -1178,22 +1336,22 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(129:24) {#each row as cell , x (x+\\\",\\\"+y)}",
+    		source: "(92:24) {#each row as cell , x (x+\\\",\\\"+y)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:16) {#each grid as row, y}
+    // (89:16) {#each grid as row, y}
     function create_each_block_1(ctx) {
     	let tr;
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let t;
-    	let each_value_2 = /*row*/ ctx[21];
+    	let each_value_2 = /*row*/ ctx[25];
     	validate_each_argument(each_value_2);
-    	const get_key = ctx => /*x*/ ctx[26] + "," + /*y*/ ctx[23];
+    	const get_key = ctx => /*x*/ ctx[30] + "," + /*y*/ ctx[27];
     	validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
 
     	for (let i = 0; i < each_value_2.length; i += 1) {
@@ -1211,7 +1369,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(tr, file, 127, 20, 4358);
+    			add_location(tr, file, 89, 20, 3690);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -1223,8 +1381,8 @@ var app = (function () {
     			append_dev(tr, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*grid, colors, move*/ 74) {
-    				each_value_2 = /*row*/ ctx[21];
+    			if (dirty & /*grid, colors, clickCell*/ 268) {
+    				each_value_2 = /*row*/ ctx[25];
     				validate_each_argument(each_value_2);
     				validate_each_keys(ctx, each_value_2, get_each_context_2, get_key);
     				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_2, each_1_lookup, tr, destroy_block, create_each_block_2, t, get_each_context_2);
@@ -1243,30 +1401,30 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(127:16) {#each grid as row, y}",
+    		source: "(89:16) {#each grid as row, y}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (184:12) {#each Object.entries(colors) as [name] }
+    // (151:12) {#each Object.entries(colors) as [name] }
     function create_each_block(ctx) {
     	let colorpicker;
     	let updating_color;
     	let current;
 
     	function colorpicker_color_binding(value) {
-    		/*colorpicker_color_binding*/ ctx[14](value, /*name*/ ctx[18]);
+    		/*colorpicker_color_binding*/ ctx[20](value, /*name*/ ctx[22]);
     	}
 
     	let colorpicker_props = {
-    		id: `color-${/*name*/ ctx[18]}`,
-    		text: /*name*/ ctx[18]
+    		id: `color-${/*name*/ ctx[22]}`,
+    		text: /*name*/ ctx[22]
     	};
 
-    	if (/*colors*/ ctx[1][/*name*/ ctx[18]] !== void 0) {
-    		colorpicker_props.color = /*colors*/ ctx[1][/*name*/ ctx[18]];
+    	if (/*colors*/ ctx[2][/*name*/ ctx[22]] !== void 0) {
+    		colorpicker_props.color = /*colors*/ ctx[2][/*name*/ ctx[22]];
     	}
 
     	colorpicker = new ColorPicker({ props: colorpicker_props, $$inline: true });
@@ -1283,12 +1441,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const colorpicker_changes = {};
-    			if (dirty & /*colors*/ 2) colorpicker_changes.id = `color-${/*name*/ ctx[18]}`;
-    			if (dirty & /*colors*/ 2) colorpicker_changes.text = /*name*/ ctx[18];
+    			if (dirty & /*colors*/ 4) colorpicker_changes.id = `color-${/*name*/ ctx[22]}`;
+    			if (dirty & /*colors*/ 4) colorpicker_changes.text = /*name*/ ctx[22];
 
-    			if (!updating_color && dirty & /*colors, Object*/ 2) {
+    			if (!updating_color && dirty & /*colors, Object*/ 4) {
     				updating_color = true;
-    				colorpicker_changes.color = /*colors*/ ctx[1][/*name*/ ctx[18]];
+    				colorpicker_changes.color = /*colors*/ ctx[2][/*name*/ ctx[22]];
     				add_flush_callback(() => updating_color = false);
     			}
 
@@ -1312,7 +1470,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(184:12) {#each Object.entries(colors) as [name] }",
+    		source: "(151:12) {#each Object.entries(colors) as [name] }",
     		ctx
     	});
 
@@ -1321,60 +1479,76 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div2;
+    	let div3;
     	let div0;
     	let h1;
     	let t1;
     	let wikipediadetails;
     	let t2;
-    	let div1;
+    	let div2;
     	let h2;
     	let t4;
-    	let table;
+    	let div1;
+    	let button0;
     	let t5;
-    	let div9;
-    	let button;
+    	let button0_disabled_value;
+    	let t6;
+    	let button1;
     	let t7;
-    	let div4;
-    	let div3;
-    	let label0;
-    	let h30;
+    	let t8;
+    	let button2;
     	let t9;
     	let t10;
+    	let button3;
     	let t11;
     	let t12;
+    	let button4;
     	let t13;
-    	let resetbutton0;
+    	let button4_disabled_value;
     	let t14;
-    	let input0;
+    	let table;
     	let t15;
-    	let div7;
+    	let div10;
     	let div5;
+    	let div4;
+    	let label0;
+    	let h30;
+    	let t17;
+    	let t18;
+    	let t19;
+    	let t20;
+    	let t21;
+    	let resetbutton0;
+    	let t22;
+    	let input0;
+    	let t23;
+    	let div8;
+    	let div6;
     	let label1;
     	let h31;
-    	let t17;
+    	let t25;
     	let input1;
     	let input1_min_value;
     	let input1_max_value;
-    	let t18;
+    	let t26;
     	let resetbutton1;
-    	let t19;
-    	let div6;
+    	let t27;
+    	let div7;
     	let span0;
-    	let t20_value = /*speed*/ ctx[2].min + "";
-    	let t20;
-    	let t21;
+    	let t28_value = /*speed*/ ctx[0].min + "";
+    	let t28;
+    	let t29;
     	let input2;
     	let input2_min_value;
     	let input2_max_value;
-    	let t22;
+    	let t30;
     	let span1;
-    	let t23_value = /*speed*/ ctx[2].max + "";
-    	let t23;
-    	let t24;
-    	let div8;
+    	let t31_value = /*speed*/ ctx[0].max + "";
+    	let t31;
+    	let t32;
+    	let div9;
     	let h32;
-    	let t26;
+    	let t34;
     	let current;
     	let mounted;
     	let dispose;
@@ -1392,15 +1566,15 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	resetbutton0.$on("click", /*click_handler_2*/ ctx[9]);
+    	resetbutton0.$on("click", /*click_handler_6*/ ctx[15]);
 
     	resetbutton1 = new ResetButton({
     			props: { class: "reset" },
     			$$inline: true
     		});
 
-    	resetbutton1.$on("click", /*click_handler_3*/ ctx[12]);
-    	let each_value = Object.entries(/*colors*/ ctx[1]);
+    	resetbutton1.$on("click", /*click_handler_7*/ ctx[18]);
+    	let each_value = Object.entries(/*colors*/ ctx[2]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1415,215 +1589,284 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div2 = element("div");
+    			div3 = element("div");
     			div0 = element("div");
     			h1 = element("h1");
     			h1.textContent = "Randomized depth-first search / recursive backtracker";
     			t1 = space();
     			create_component(wikipediadetails.$$.fragment);
     			t2 = space();
-    			div1 = element("div");
+    			div2 = element("div");
     			h2 = element("h2");
     			h2.textContent = "Tryck på en ruta för att starta";
     			t4 = space();
+    			div1 = element("div");
+    			button0 = element("button");
+    			t5 = text("⯈");
+    			t6 = space();
+    			button1 = element("button");
+    			t7 = text("||");
+    			t8 = space();
+    			button2 = element("button");
+    			t9 = text("⤺");
+    			t10 = space();
+    			button3 = element("button");
+    			t11 = text("🗲");
+    			t12 = space();
+    			button4 = element("button");
+    			t13 = text("↺");
+    			t14 = space();
     			table = element("table");
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
-    			t5 = space();
-    			div9 = element("div");
-    			button = element("button");
-    			button.textContent = "Ny";
-    			t7 = space();
+    			t15 = space();
+    			div10 = element("div");
+    			div5 = element("div");
     			div4 = element("div");
-    			div3 = element("div");
     			label0 = element("label");
     			h30 = element("h3");
     			h30.textContent = "Storlek:";
-    			t9 = space();
-    			t10 = text(/*size*/ ctx[0]);
-    			t11 = text(" x ");
-    			t12 = text(/*size*/ ctx[0]);
-    			t13 = space();
+    			t17 = space();
+    			t18 = text(/*size*/ ctx[1]);
+    			t19 = text(" x ");
+    			t20 = text(/*size*/ ctx[1]);
+    			t21 = space();
     			create_component(resetbutton0.$$.fragment);
-    			t14 = space();
+    			t22 = space();
     			input0 = element("input");
-    			t15 = space();
-    			div7 = element("div");
-    			div5 = element("div");
+    			t23 = space();
+    			div8 = element("div");
+    			div6 = element("div");
     			label1 = element("label");
     			h31 = element("h3");
     			h31.textContent = "Hastighet(ms):";
-    			t17 = space();
+    			t25 = space();
     			input1 = element("input");
-    			t18 = space();
+    			t26 = space();
     			create_component(resetbutton1.$$.fragment);
-    			t19 = space();
-    			div6 = element("div");
+    			t27 = space();
+    			div7 = element("div");
     			span0 = element("span");
-    			t20 = text(t20_value);
-    			t21 = space();
+    			t28 = text(t28_value);
+    			t29 = space();
     			input2 = element("input");
-    			t22 = space();
+    			t30 = space();
     			span1 = element("span");
-    			t23 = text(t23_value);
-    			t24 = space();
-    			div8 = element("div");
+    			t31 = text(t31_value);
+    			t32 = space();
+    			div9 = element("div");
     			h32 = element("h3");
     			h32.textContent = "Färger";
-    			t26 = space();
+    			t34 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h1, "class", "svelte-1ow3g0a");
-    			add_location(h1, file, 119, 12, 4067);
-    			add_location(div0, file, 118, 8, 4048);
-    			attr_dev(h2, "class", "svelte-1ow3g0a");
-    			add_location(h2, file, 124, 12, 4235);
-    			attr_dev(table, "class", "svelte-1ow3g0a");
-    			add_location(table, file, 125, 12, 4289);
-    			attr_dev(div1, "class", "table-container svelte-1ow3g0a");
-    			add_location(div1, file, 123, 8, 4192);
-    			attr_dev(div2, "class", "content-container svelte-1ow3g0a");
-    			add_location(div2, file, 117, 4, 4007);
-    			attr_dev(button, "class", "new-button svelte-1ow3g0a");
-    			add_location(button, file, 151, 8, 5510);
+    			attr_dev(h1, "class", "svelte-1f3snnq");
+    			add_location(h1, file, 74, 12, 2714);
+    			add_location(div0, file, 73, 8, 2695);
+    			attr_dev(h2, "class", "svelte-1f3snnq");
+    			add_location(h2, file, 79, 12, 2882);
+    			attr_dev(button0, "title", "Starta");
+    			button0.disabled = button0_disabled_value = !/*isPaused*/ ctx[5];
+    			attr_dev(button0, "class", "svelte-1f3snnq");
+    			add_location(button0, file, 81, 16, 2981);
+    			attr_dev(button1, "title", "Pausa");
+    			attr_dev(button1, "class", "pause svelte-1f3snnq");
+    			button1.disabled = /*isPaused*/ ctx[5];
+    			add_location(button1, file, 82, 16, 3088);
+    			attr_dev(button2, "title", "Ett steg");
+    			attr_dev(button2, "class", "step svelte-1f3snnq");
+    			button2.disabled = /*isFinished*/ ctx[6];
+    			add_location(button2, file, 83, 16, 3208);
+    			attr_dev(button3, "title", "Lös direkt");
+    			attr_dev(button3, "class", "instant svelte-1f3snnq");
+    			button3.disabled = /*isFinished*/ ctx[6];
+    			add_location(button3, file, 84, 16, 3331);
+    			attr_dev(button4, "title", "Ny");
+    			attr_dev(button4, "class", "reset svelte-1f3snnq");
+    			button4.disabled = button4_disabled_value = /*iterator*/ ctx[4].function == null;
+    			add_location(button4, file, 85, 16, 3462);
+    			attr_dev(div1, "class", "play-controls svelte-1f3snnq");
+    			add_location(div1, file, 80, 12, 2936);
+    			attr_dev(table, "class", "svelte-1f3snnq");
+    			add_location(table, file, 87, 12, 3621);
+    			attr_dev(div2, "class", "table-container svelte-1f3snnq");
+    			add_location(div2, file, 78, 8, 2839);
+    			attr_dev(div3, "class", "content-container svelte-1f3snnq");
+    			add_location(div3, file, 72, 4, 2654);
     			set_style(h30, "margin-right", "5px");
-    			attr_dev(h30, "class", "svelte-1ow3g0a");
-    			add_location(h30, file, 156, 20, 5766);
+    			attr_dev(h30, "class", "svelte-1f3snnq");
+    			add_location(h30, file, 120, 20, 5195);
     			attr_dev(label0, "for", "size");
-    			attr_dev(label0, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(label0, file, 155, 16, 5695);
-    			attr_dev(div3, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(div3, file, 154, 12, 5641);
+    			attr_dev(label0, "class", "slider-label-container svelte-1f3snnq");
+    			add_location(label0, file, 119, 16, 5124);
+    			attr_dev(div4, "class", "slider-label-container svelte-1f3snnq");
+    			add_location(div4, file, 118, 12, 5070);
     			attr_dev(input0, "id", "size");
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "5");
     			attr_dev(input0, "max", "20");
-    			attr_dev(input0, "class", "svelte-1ow3g0a");
-    			add_location(input0, file, 161, 12, 5992);
-    			attr_dev(div4, "class", "svelte-1ow3g0a");
-    			add_location(div4, file, 153, 8, 5622);
-    			attr_dev(h31, "class", "svelte-1ow3g0a");
-    			add_location(h31, file, 167, 20, 6278);
+    			attr_dev(input0, "class", "svelte-1f3snnq");
+    			add_location(input0, file, 125, 12, 5421);
+    			attr_dev(div5, "class", "group svelte-1f3snnq");
+    			add_location(div5, file, 116, 8, 4933);
+    			attr_dev(h31, "class", "svelte-1f3snnq");
+    			add_location(h31, file, 133, 20, 5803);
     			attr_dev(input1, "type", "number");
-    			attr_dev(input1, "min", input1_min_value = /*speed*/ ctx[2].min);
-    			attr_dev(input1, "max", input1_max_value = /*speed*/ ctx[2].max);
-    			set_style(input1, "width", "100px");
-    			set_style(input1, "margin-left", "10px");
-    			attr_dev(input1, "class", "svelte-1ow3g0a");
-    			add_location(input1, file, 168, 20, 6324);
-    			attr_dev(label1, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(label1, file, 166, 16, 6218);
-    			attr_dev(div5, "class", "slider-label-container svelte-1ow3g0a");
-    			add_location(div5, file, 165, 12, 6164);
-    			add_location(span0, file, 173, 16, 6645);
-    			attr_dev(input2, "class", "slider svelte-1ow3g0a");
+    			attr_dev(input1, "min", input1_min_value = /*speed*/ ctx[0].min);
+    			attr_dev(input1, "max", input1_max_value = /*speed*/ ctx[0].max);
+    			attr_dev(input1, "class", "svelte-1f3snnq");
+    			add_location(input1, file, 134, 20, 5849);
+    			attr_dev(label1, "class", "slider-label-container svelte-1f3snnq");
+    			add_location(label1, file, 132, 16, 5743);
+    			attr_dev(div6, "class", "slider-label-container svelte-1f3snnq");
+    			add_location(div6, file, 131, 12, 5689);
+    			add_location(span0, file, 139, 16, 6130);
+    			attr_dev(input2, "class", "slider svelte-1f3snnq");
     			attr_dev(input2, "type", "range");
-    			attr_dev(input2, "min", input2_min_value = /*speed*/ ctx[2].min);
-    			attr_dev(input2, "max", input2_max_value = /*speed*/ ctx[2].max);
-    			add_location(input2, file, 174, 16, 6687);
-    			add_location(span1, file, 175, 16, 6801);
-    			attr_dev(div6, "class", "speed-slider svelte-1ow3g0a");
-    			add_location(div6, file, 172, 12, 6601);
-    			attr_dev(div7, "class", "speed-container svelte-1ow3g0a");
-    			add_location(div7, file, 164, 8, 6121);
-    			attr_dev(h32, "class", "color-title svelte-1ow3g0a");
-    			add_location(h32, file, 180, 12, 6947);
-    			attr_dev(div8, "class", "color-container svelte-1ow3g0a");
-    			add_location(div8, file, 179, 8, 6903);
-    			attr_dev(div9, "class", "controls svelte-1ow3g0a");
-    			add_location(div9, file, 150, 4, 5478);
-    			attr_dev(main, "class", "svelte-1ow3g0a");
-    			add_location(main, file, 116, 0, 3991);
+    			attr_dev(input2, "min", input2_min_value = /*speed*/ ctx[0].min);
+    			attr_dev(input2, "max", input2_max_value = /*speed*/ ctx[0].max);
+    			add_location(input2, file, 140, 16, 6172);
+    			add_location(span1, file, 141, 16, 6286);
+    			attr_dev(div7, "class", "speed-slider svelte-1f3snnq");
+    			add_location(div7, file, 138, 12, 6086);
+    			attr_dev(div8, "class", "group svelte-1f3snnq");
+    			add_location(div8, file, 129, 8, 5552);
+    			attr_dev(h32, "class", "color-title svelte-1f3snnq");
+    			add_location(h32, file, 147, 12, 6436);
+    			set_style(div9, "align-items", "stretch");
+    			add_location(div9, file, 146, 8, 6386);
+    			attr_dev(div10, "class", "settings svelte-1f3snnq");
+    			add_location(div10, file, 113, 4, 4876);
+    			attr_dev(main, "class", "svelte-1f3snnq");
+    			add_location(main, file, 71, 0, 2638);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div2);
-    			append_dev(div2, div0);
+    			append_dev(main, div3);
+    			append_dev(div3, div0);
     			append_dev(div0, h1);
     			append_dev(div0, t1);
     			mount_component(wikipediadetails, div0, null);
-    			append_dev(div2, t2);
+    			append_dev(div3, t2);
+    			append_dev(div3, div2);
+    			append_dev(div2, h2);
+    			append_dev(div2, t4);
     			append_dev(div2, div1);
-    			append_dev(div1, h2);
-    			append_dev(div1, t4);
-    			append_dev(div1, table);
+    			append_dev(div1, button0);
+    			append_dev(button0, t5);
+    			append_dev(div1, t6);
+    			append_dev(div1, button1);
+    			append_dev(button1, t7);
+    			append_dev(div1, t8);
+    			append_dev(div1, button2);
+    			append_dev(button2, t9);
+    			append_dev(div1, t10);
+    			append_dev(div1, button3);
+    			append_dev(button3, t11);
+    			append_dev(div1, t12);
+    			append_dev(div1, button4);
+    			append_dev(button4, t13);
+    			append_dev(div2, t14);
+    			append_dev(div2, table);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].m(table, null);
     			}
 
-    			append_dev(main, t5);
-    			append_dev(main, div9);
-    			append_dev(div9, button);
-    			append_dev(div9, t7);
-    			append_dev(div9, div4);
-    			append_dev(div4, div3);
-    			append_dev(div3, label0);
+    			append_dev(main, t15);
+    			append_dev(main, div10);
+    			append_dev(div10, div5);
+    			append_dev(div5, div4);
+    			append_dev(div4, label0);
     			append_dev(label0, h30);
-    			append_dev(label0, t9);
-    			append_dev(label0, t10);
-    			append_dev(label0, t11);
-    			append_dev(label0, t12);
-    			append_dev(div3, t13);
-    			mount_component(resetbutton0, div3, null);
-    			append_dev(div4, t14);
-    			append_dev(div4, input0);
-    			set_input_value(input0, /*size*/ ctx[0]);
-    			append_dev(div9, t15);
-    			append_dev(div9, div7);
-    			append_dev(div7, div5);
-    			append_dev(div5, label1);
+    			append_dev(label0, t17);
+    			append_dev(label0, t18);
+    			append_dev(label0, t19);
+    			append_dev(label0, t20);
+    			append_dev(div4, t21);
+    			mount_component(resetbutton0, div4, null);
+    			append_dev(div5, t22);
+    			append_dev(div5, input0);
+    			set_input_value(input0, /*size*/ ctx[1]);
+    			append_dev(div10, t23);
+    			append_dev(div10, div8);
+    			append_dev(div8, div6);
+    			append_dev(div6, label1);
     			append_dev(label1, h31);
-    			append_dev(label1, t17);
+    			append_dev(label1, t25);
     			append_dev(label1, input1);
-    			set_input_value(input1, /*speed*/ ctx[2].current);
-    			append_dev(div5, t18);
-    			mount_component(resetbutton1, div5, null);
-    			append_dev(div7, t19);
-    			append_dev(div7, div6);
-    			append_dev(div6, span0);
-    			append_dev(span0, t20);
-    			append_dev(div6, t21);
-    			append_dev(div6, input2);
-    			set_input_value(input2, /*speed*/ ctx[2].current);
-    			append_dev(div6, t22);
-    			append_dev(div6, span1);
-    			append_dev(span1, t23);
-    			append_dev(div9, t24);
-    			append_dev(div9, div8);
-    			append_dev(div8, h32);
-    			append_dev(div8, t26);
+    			set_input_value(input1, /*speed*/ ctx[0].current);
+    			append_dev(div6, t26);
+    			mount_component(resetbutton1, div6, null);
+    			append_dev(div8, t27);
+    			append_dev(div8, div7);
+    			append_dev(div7, span0);
+    			append_dev(span0, t28);
+    			append_dev(div7, t29);
+    			append_dev(div7, input2);
+    			set_input_value(input2, /*speed*/ ctx[0].current);
+    			append_dev(div7, t30);
+    			append_dev(div7, span1);
+    			append_dev(span1, t31);
+    			append_dev(div10, t32);
+    			append_dev(div10, div9);
+    			append_dev(div9, h32);
+    			append_dev(div9, t34);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div8, null);
+    				each_blocks[i].m(div9, null);
     			}
 
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button, "click", /*click_handler_1*/ ctx[8], false, false, false),
-    					listen_dev(input0, "change", /*input0_change_input_handler*/ ctx[10]),
-    					listen_dev(input0, "input", /*input0_change_input_handler*/ ctx[10]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[11]),
-    					listen_dev(input2, "change", /*input2_change_input_handler*/ ctx[13]),
-    					listen_dev(input2, "input", /*input2_change_input_handler*/ ctx[13])
+    					listen_dev(button0, "click", /*click_handler*/ ctx[9], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_1*/ ctx[10], false, false, false),
+    					listen_dev(button2, "click", /*click_handler_2*/ ctx[11], false, false, false),
+    					listen_dev(button3, "click", /*click_handler_3*/ ctx[12], false, false, false),
+    					listen_dev(button4, "click", /*click_handler_4*/ ctx[13], false, false, false),
+    					listen_dev(input0, "change", /*input0_change_input_handler*/ ctx[16]),
+    					listen_dev(input0, "input", /*input0_change_input_handler*/ ctx[16]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[17]),
+    					listen_dev(input2, "change", /*input2_change_input_handler*/ ctx[19]),
+    					listen_dev(input2, "input", /*input2_change_input_handler*/ ctx[19])
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*grid, colors, move*/ 74) {
+    			if (!current || dirty & /*isPaused*/ 32 && button0_disabled_value !== (button0_disabled_value = !/*isPaused*/ ctx[5])) {
+    				prop_dev(button0, "disabled", button0_disabled_value);
+    			}
+
+    			if (!current || dirty & /*isPaused*/ 32) {
+    				prop_dev(button1, "disabled", /*isPaused*/ ctx[5]);
+    			}
+
+    			if (!current || dirty & /*isFinished*/ 64) {
+    				prop_dev(button2, "disabled", /*isFinished*/ ctx[6]);
+    			}
+
+    			if (!current || dirty & /*isFinished*/ 64) {
+    				prop_dev(button3, "disabled", /*isFinished*/ ctx[6]);
+    			}
+
+    			if (!current || dirty & /*iterator*/ 16 && button4_disabled_value !== (button4_disabled_value = /*iterator*/ ctx[4].function == null)) {
+    				prop_dev(button4, "disabled", button4_disabled_value);
+    			}
+
+    			if (dirty & /*grid, colors, clickCell*/ 268) {
     				each_value_1 = /*grid*/ ctx[3];
     				validate_each_argument(each_value_1);
     				let i;
@@ -1647,43 +1890,43 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (!current || dirty & /*size*/ 1) set_data_dev(t10, /*size*/ ctx[0]);
-    			if (!current || dirty & /*size*/ 1) set_data_dev(t12, /*size*/ ctx[0]);
+    			if (!current || dirty & /*size*/ 2) set_data_dev(t18, /*size*/ ctx[1]);
+    			if (!current || dirty & /*size*/ 2) set_data_dev(t20, /*size*/ ctx[1]);
 
-    			if (dirty & /*size*/ 1) {
-    				set_input_value(input0, /*size*/ ctx[0]);
+    			if (dirty & /*size*/ 2) {
+    				set_input_value(input0, /*size*/ ctx[1]);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input1_min_value !== (input1_min_value = /*speed*/ ctx[2].min)) {
+    			if (!current || dirty & /*speed*/ 1 && input1_min_value !== (input1_min_value = /*speed*/ ctx[0].min)) {
     				attr_dev(input1, "min", input1_min_value);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input1_max_value !== (input1_max_value = /*speed*/ ctx[2].max)) {
+    			if (!current || dirty & /*speed*/ 1 && input1_max_value !== (input1_max_value = /*speed*/ ctx[0].max)) {
     				attr_dev(input1, "max", input1_max_value);
     			}
 
-    			if (dirty & /*speed*/ 4 && to_number(input1.value) !== /*speed*/ ctx[2].current) {
-    				set_input_value(input1, /*speed*/ ctx[2].current);
+    			if (dirty & /*speed*/ 1 && to_number(input1.value) !== /*speed*/ ctx[0].current) {
+    				set_input_value(input1, /*speed*/ ctx[0].current);
     			}
 
-    			if ((!current || dirty & /*speed*/ 4) && t20_value !== (t20_value = /*speed*/ ctx[2].min + "")) set_data_dev(t20, t20_value);
+    			if ((!current || dirty & /*speed*/ 1) && t28_value !== (t28_value = /*speed*/ ctx[0].min + "")) set_data_dev(t28, t28_value);
 
-    			if (!current || dirty & /*speed*/ 4 && input2_min_value !== (input2_min_value = /*speed*/ ctx[2].min)) {
+    			if (!current || dirty & /*speed*/ 1 && input2_min_value !== (input2_min_value = /*speed*/ ctx[0].min)) {
     				attr_dev(input2, "min", input2_min_value);
     			}
 
-    			if (!current || dirty & /*speed*/ 4 && input2_max_value !== (input2_max_value = /*speed*/ ctx[2].max)) {
+    			if (!current || dirty & /*speed*/ 1 && input2_max_value !== (input2_max_value = /*speed*/ ctx[0].max)) {
     				attr_dev(input2, "max", input2_max_value);
     			}
 
-    			if (dirty & /*speed*/ 4) {
-    				set_input_value(input2, /*speed*/ ctx[2].current);
+    			if (dirty & /*speed*/ 1) {
+    				set_input_value(input2, /*speed*/ ctx[0].current);
     			}
 
-    			if ((!current || dirty & /*speed*/ 4) && t23_value !== (t23_value = /*speed*/ ctx[2].max + "")) set_data_dev(t23, t23_value);
+    			if ((!current || dirty & /*speed*/ 1) && t31_value !== (t31_value = /*speed*/ ctx[0].max + "")) set_data_dev(t31, t31_value);
 
-    			if (dirty & /*Object, colors*/ 2) {
-    				each_value = Object.entries(/*colors*/ ctx[1]);
+    			if (dirty & /*Object, colors*/ 4) {
+    				each_value = Object.entries(/*colors*/ ctx[2]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -1697,7 +1940,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div8, null);
+    						each_blocks[i].m(div9, null);
     					}
     				}
 
@@ -1757,47 +2000,9 @@ var app = (function () {
     	return block;
     }
 
-    function shuffleArray(array) {
-    	for (let i = array.length - 1; i > 0; i--) {
-    		const j = Math.floor(Math.random() * (i + 1));
-    		[array[i], array[j]] = [array[j], array[i]];
-    	}
-
-    	return array;
-    }
-
     function instance($$self, $$props, $$invalidate) {
-    	let grid;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
-
-    	const DIRECTIONS = {
-    		UP: { x: 0, y: -1 },
-    		DOWN: { x: 0, y: 1 },
-    		LEFT: { x: -1, y: 0 },
-    		RIGHT: { x: 1, y: 0 }
-    	};
-
-    	const OPPOSITE = {
-    		UP: "DOWN",
-    		DOWN: "UP",
-    		LEFT: "RIGHT",
-    		RIGHT: "LEFT"
-    	};
-
-    	const DEFAULTS = {
-    		// colors property-namn används för labels till <ColorPicker>
-    		colors: {
-    			start: "#ded7ff",
-    			väg: "#ffffff",
-    			färdig: "#afff9b",
-    			aktiv: "#dd0069",
-    			väggar: "#000000"
-    		},
-    		speed: 150,
-    		size: 10
-    	};
-
     	let colors = { ...DEFAULTS.colors };
 
     	let speed = {
@@ -1807,77 +2012,61 @@ var app = (function () {
     	};
 
     	let size = DEFAULTS.size;
+    	let grid = new Grid(size);
+    	let iterator = new Iterator();
 
-    	function createGrid(size) {
-    		const grid = [];
+    	// Måste uppdatera en variabel manuellt,
+    	// Svelte känner inte av när Iterator ändras av sina funktioner
+    	// Använder callback men går kanske att lösa med en Svelte-store
+    	let isPaused = iterator.isPaused;
 
-    		for (let column = 0; column < size; column++) {
-    			const row = new Array(size);
+    	iterator.onPauseChange = value => $$invalidate(5, isPaused = value);
+    	let isFinished = true;
+    	iterator.onFinished = () => $$invalidate(6, isFinished = true);
 
-    			for (let i = 0; i < size; i++) {
-    				row[i] = {
-    					active: false,
-    					visited: false,
-    					finished: false,
-    					walls: {
-    						up: true,
-    						down: true,
-    						left: true,
-    						right: true
-    					}
-    				};
-    			}
-
-    			grid.push(row);
-    		}
-
-    		return grid;
+    	function resetGrid(size) {
+    		$$invalidate(4, iterator.function = null, iterator);
+    		$$invalidate(6, isFinished = true);
+    		$$invalidate(3, grid = new Grid(size));
     	}
 
-    	async function move(currentX, currentY, activeGrid) {
-    		// Avbryter om grid ändras, t.ex. byter storlek
-    		// Kolla innan celler ändras
-    		if (activeGrid !== grid) return;
+    	function clickCell(x, y) {
+    		// Ska inte gå att starta från flera celler.
+    		if (iterator.function != null) return;
 
+    		$$invalidate(4, iterator.function = move(x, y), iterator);
+    		$$invalidate(6, isFinished = false);
+    		if (isPaused === false) iterator.start(); else iterator.step(); // Ett steg sätter första cellen till aktiv
+    	}
+
+    	function* move(currentX, currentY) {
     		$$invalidate(3, grid[currentX][currentY].active = true, grid);
     		$$invalidate(3, grid[currentX][currentY].visited = true, grid);
-    		const randomizedDirections = shuffleArray(Object.keys(DIRECTIONS));
 
-    		for (const newDirection of randomizedDirections) {
-    			const newX = currentX + DIRECTIONS[newDirection].x;
-    			const newY = currentY + DIRECTIONS[newDirection].y;
+    		for (const direction of DIRECTIONS.getRandomized()) {
+    			const newX = currentX + direction.coordinates.x;
+    			const newY = currentY + direction.coordinates.y;
 
-    			if (isCellValid(newX, newY, activeGrid)) {
-    				// Delay till nästa move
-    				await new Promise(resolve => setTimeout(resolve, speed.current));
+    			if (grid.isCellValid(newX, newY)) {
+    				yield;
 
     				// Ta bort BÅDA väggarna innan nästa move,
     				// för att inte behöva hålla koll på vilken den förra rutan var 
-    				activeGrid[currentX][currentY].walls[newDirection.toLowerCase()] = false;
+    				$$invalidate(3, grid[currentX][currentY].walls[direction.name] = false, grid);
 
-    				activeGrid[newX][newY].walls[OPPOSITE[newDirection].toLowerCase()] = false;
+    				$$invalidate(3, grid[newX][newY].walls[DIRECTIONS.opposite(direction).name] = false, grid);
     				$$invalidate(3, grid[currentX][currentY].active = false, grid);
-    				await move(newX, newY, activeGrid);
+    				yield* move(newX, newY);
+
+    				// Vandra bakåt
+    				$$invalidate(3, grid[currentX][currentY].active = true, grid);
     			}
-
-    			if (activeGrid !== grid) return;
-
-    			// Vandra bakåt
-    			$$invalidate(3, grid[currentX][currentY].active = true, grid);
     		}
 
-    		// Alla directions klara betyder att cellen inte kan besökas igen      
-    		await new Promise(resolve => setTimeout(resolve, speed.current));
+    		// Alla directions klara betyder att cellen inte kan besökas igen
+    		yield;
 
-    		if (activeGrid !== grid) return;
     		$$invalidate(3, grid[currentX][currentY].finished = true, grid);
-    	}
-
-    	function isCellValid(x, y, grid) {
-    		if (x > grid.length - 1 || x < 0) return false;
-    		if (y > grid[x].length - 1 || y < 0) return false;
-    		if (grid[x][y].visited === true) return false;
-    		return true;
     	}
 
     	const writable_props = [];
@@ -1886,31 +2075,35 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = (x, y) => move(x, y, grid);
-    	const click_handler_1 = () => $$invalidate(3, grid = createGrid(size));
-    	const click_handler_2 = () => $$invalidate(0, size = DEFAULTS.size);
+    	const click_handler = () => iterator.start();
+    	const click_handler_1 = () => iterator.stop();
+    	const click_handler_2 = () => iterator.step();
+    	const click_handler_3 = () => iterator.instant();
+    	const click_handler_4 = () => resetGrid(size);
+    	const click_handler_5 = (x, y) => clickCell(x, y);
+    	const click_handler_6 = () => $$invalidate(1, size = DEFAULTS.size);
 
     	function input0_change_input_handler() {
     		size = to_number(this.value);
-    		$$invalidate(0, size);
+    		$$invalidate(1, size);
     	}
 
     	function input1_input_handler() {
     		speed.current = to_number(this.value);
-    		$$invalidate(2, speed);
+    		$$invalidate(0, speed);
     	}
 
-    	const click_handler_3 = () => $$invalidate(2, speed.current = DEFAULTS.speed, speed);
+    	const click_handler_7 = () => $$invalidate(0, speed.current = DEFAULTS.speed, speed);
 
     	function input2_change_input_handler() {
     		speed.current = to_number(this.value);
-    		$$invalidate(2, speed);
+    		$$invalidate(0, speed);
     	}
 
     	function colorpicker_color_binding(value, name) {
     		if ($$self.$$.not_equal(colors[name], value)) {
     			colors[name] = value;
-    			$$invalidate(1, colors);
+    			$$invalidate(2, colors);
     		}
     	}
 
@@ -1918,24 +2111,30 @@ var app = (function () {
     		ColorPicker,
     		WikipediaDetails,
     		ResetButton,
-    		DIRECTIONS,
-    		OPPOSITE,
+    		Iterator,
+    		Grid,
     		DEFAULTS,
+    		DIRECTIONS,
     		colors,
     		speed,
     		size,
-    		createGrid,
-    		move,
-    		isCellValid,
-    		shuffleArray,
-    		grid
+    		grid,
+    		iterator,
+    		isPaused,
+    		isFinished,
+    		resetGrid,
+    		clickCell,
+    		move
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('colors' in $$props) $$invalidate(1, colors = $$props.colors);
-    		if ('speed' in $$props) $$invalidate(2, speed = $$props.speed);
-    		if ('size' in $$props) $$invalidate(0, size = $$props.size);
+    		if ('colors' in $$props) $$invalidate(2, colors = $$props.colors);
+    		if ('speed' in $$props) $$invalidate(0, speed = $$props.speed);
+    		if ('size' in $$props) $$invalidate(1, size = $$props.size);
     		if ('grid' in $$props) $$invalidate(3, grid = $$props.grid);
+    		if ('iterator' in $$props) $$invalidate(4, iterator = $$props.iterator);
+    		if ('isPaused' in $$props) $$invalidate(5, isPaused = $$props.isPaused);
+    		if ('isFinished' in $$props) $$invalidate(6, isFinished = $$props.isFinished);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1943,25 +2142,37 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*size*/ 1) {
-    			$$invalidate(3, grid = createGrid(size));
+    		if ($$self.$$.dirty & /*size*/ 2) {
+    			{
+    				resetGrid(size);
+    			} // Kör när size ändras
+    		}
+
+    		if ($$self.$$.dirty & /*speed*/ 1) {
+    			$$invalidate(4, iterator.speed = speed.current, iterator);
     		}
     	};
 
     	return [
+    		speed,
     		size,
     		colors,
-    		speed,
     		grid,
-    		DEFAULTS,
-    		createGrid,
-    		move,
+    		iterator,
+    		isPaused,
+    		isFinished,
+    		resetGrid,
+    		clickCell,
     		click_handler,
     		click_handler_1,
     		click_handler_2,
+    		click_handler_3,
+    		click_handler_4,
+    		click_handler_5,
+    		click_handler_6,
     		input0_change_input_handler,
     		input1_input_handler,
-    		click_handler_3,
+    		click_handler_7,
     		input2_change_input_handler,
     		colorpicker_color_binding
     	];
