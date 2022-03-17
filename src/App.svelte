@@ -26,10 +26,12 @@
     iterator.onPauseChange = (value) => isPaused = value;
     let isFinished = true;
     iterator.onFinished = () => isFinished = true;
+    let hasStarted = false;
 
     function resetGrid(size){
         iterator.function = null;
         isFinished = true;
+        hasStarted = false;
         grid = new Grid(size);
     }
     function clickCell(x, y){
@@ -38,6 +40,7 @@
             return;
         iterator.function = move(x, y);
         isFinished = false;
+        hasStarted = true;
         if(isPaused === false)
             iterator.start();
         else iterator.step(); // Ett steg sätter första cellen till aktiv
@@ -83,7 +86,7 @@
                 <button title="Pausa" class="pause" disabled={isPaused}  on:click={() => iterator.stop()} >||</button>
                 <button title="Ett steg" class="step" disabled={isFinished}  on:click={() => iterator.step()} >⤺</button>
                 <button title="Lös direkt" class="instant" disabled={isFinished} on:click={() => iterator.instant()} >🗲</button>
-                <button title="Ny" class="reset" disabled={iterator.function == null} on:click={() => resetGrid(size)}>↺</button>
+                <button title="Ny" class="reset" disabled={isFinished && !hasStarted} on:click={() => resetGrid(size)}>↺</button>
             </div>            
             <table>
                 {#each grid as row, y}
