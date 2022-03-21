@@ -87,8 +87,8 @@
                 <button title="Ett steg" class="step" disabled={isFinished}  on:click={() => iterator.step()} >⤺</button>
                 <button title="Lös direkt" class="instant" disabled={isFinished} on:click={() => iterator.instant()} >🗲</button>
                 <button title="Ny" class="reset" disabled={isFinished && !hasStarted} on:click={() => resetGrid(size)}>↺</button>
-            </div>            
-            <table>
+            </div>     
+            <table style:border-color = {colors.väggar}>
                 {#each grid as row, y}
                     <tr>
                         <!-- x = index,  x+","+y = key -->
@@ -101,17 +101,16 @@
                                     grid[x][y].visited ? colors.väg : colors.start
                                 }
                                 style:border-color = {colors.väggar}
-                                style:border-top-width = {grid[x][y].walls.up ? "3px" : 0 }
-                                style:border-bottom-width = {grid[x][y].walls.down ? "3px" : 0}
-                                style:border-left-width = {grid[x][y].walls.left ? "3px" : 0}
-                                style:border-right-width = {grid[x][y].walls.right ? "3px" : 0}
+                                style:border-top-width = {grid[x][y].walls.up ? "1px" : 0 }
+                                style:border-bottom-width = {grid[x][y].walls.down ? "1px" : 0}
+                                style:border-left-width = {grid[x][y].walls.left ? "1px" : 0}
+                                style:border-right-width = {grid[x][y].walls.right ? "1px" : 0}
                             />
                         {/each}
                     </tr>
                 {/each}
             </table>
         </div>
-
     </div>
 
     <div class="settings">
@@ -216,7 +215,7 @@
         }
             .play-controls button:hover:not(:disabled){
                 filter: brightness(1.1);
-            } 
+            }
             .play-controls button:disabled{
                 border: 1px solid lightgray;
             } 
@@ -241,8 +240,15 @@
                 padding-bottom: 0.45em;
             }
     table{
-        border-collapse: collapse;
-        border: 5px solid black;
+        /* border-spacing är bättre än border-collapse för att inte få glapp i hörnen */
+        /* Med border-spacing:0 blir border dubbelt så tjock mellan alla td, men inte mellan td och table. */
+        /* Därför border på table som tar samma färg som td border */
+        border-spacing: 0;
+        /* Outline är utanför border, byter inte färg */
+        outline: 3px solid black;
+        /* Hälften av border-width för td, färg sätts inline */
+        border-width: 1px;
+        border-style: solid;
     }
     td{
         width: 30px;
