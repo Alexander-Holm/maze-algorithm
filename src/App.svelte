@@ -216,6 +216,9 @@
             .play-controls button:hover:not(:disabled){
                 filter: brightness(1.1);
             }
+            .play-controls button:active:not(:disabled){
+                box-shadow: 0 0 3px 1px rgb(150, 150, 150) inset;
+            } 
             .play-controls button:disabled{
                 border: 1px solid lightgray;
             } 
