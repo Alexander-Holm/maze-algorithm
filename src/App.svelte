@@ -87,8 +87,13 @@
                 <button title="Ett steg" class="step" disabled={isFinished}  on:click={() => iterator.step()} >⤺</button>
                 <button title="Lös direkt" class="instant" disabled={isFinished} on:click={() => iterator.instant()} >🗲</button>
                 <button title="Ny" class="reset" disabled={isFinished && !hasStarted} on:click={() => resetGrid(size)}>↺</button>
-            </div>     
-            <table style:border-color = {colors.väggar}>
+            </div>
+            <!-- Vissa webbläsare har ibland ett glapp mellan table border och cellerna. -->
+            <!-- Fixar det med background-color  -->
+            <table 
+                style:border-color = {colors.väggar}
+                style:background-color = {colors.väggar}
+            >
                 {#each grid as row, y}
                     <tr>
                         <!-- x = index,  x+","+y = key -->
@@ -205,7 +210,7 @@
             border-radius: 50%;
             width: 2rem;
             height: 2rem;
-            margin: 10px 4px;            
+            margin: 10px 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -228,10 +233,7 @@
             }
             .play-controls .step{
                 font-weight: 900;
-                font-size: 1.35em;    
-                 /* Kan inte ha mer padding utan att knappen blir större */
-                padding-bottom: 0.50em;
-                /* Flip */
+                font-size: 1.1em;
                 transform: scaleX(-1);
             }
             .play-controls .instant{
@@ -243,13 +245,13 @@
                 padding-bottom: 0.45em;
             }
     table{
-        /* border-spacing är bättre än border-collapse för att inte få glapp i hörnen */
+        /* border-spacing är bättre än border-collapse för att inte få glapp i hörnen av cellerna. */
         /* Med border-spacing:0 blir border dubbelt så tjock mellan alla td, men inte mellan td och table. */
         /* Därför border på table som tar samma färg som td border */
         border-spacing: 0;
         /* Outline är utanför border, byter inte färg */
         outline: 3px solid black;
-        /* Hälften av border-width för td, färg sätts inline */
+        /* Samma width som td, färg sätts inline */
         border-width: 1px;
         border-style: solid;
     }

@@ -26,6 +26,7 @@
         height: 40px;
         width: 40px;
         margin:0;
+        padding: 4px;
     }
     label{
         text-transform: capitalize;
