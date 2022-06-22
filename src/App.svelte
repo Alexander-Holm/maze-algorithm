@@ -164,7 +164,10 @@
             Det blir lite mer padding-top när fönsterhöjden är liten.
         */
         padding: var(--body-padding) 0px;
-    }    
+    }  
+    :global(h1){
+        font-size: 1.4rem;
+    }  
     :global(h2){
         font-size: 1.3rem;
     }   
