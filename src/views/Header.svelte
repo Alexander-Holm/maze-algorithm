@@ -32,10 +32,10 @@
         max-width: 35rem;
         line-height: 1.6;
     }
-    details summary{
-        cursor: pointer;        
+    summary{
         font-weight: 600;
-        /* Vertical */
         padding: 10px 0; 
+        cursor: pointer;        
+        user-select: none;
     }
 </style>

@@ -1296,9 +1296,9 @@ var app = (function () {
     			t15 = space();
     			a = element("a");
     			a.textContent = "Wikipedia";
-    			attr_dev(h1, "class", "svelte-j2vbg");
+    			attr_dev(h1, "class", "svelte-y735r3");
     			add_location(h1, file$3, 1, 0, 2);
-    			attr_dev(summary, "class", "svelte-j2vbg");
+    			attr_dev(summary, "class", "svelte-y735r3");
     			add_location(summary, file$3, 3, 4, 82);
     			add_location(li0, file$3, 7, 8, 310);
     			add_location(li1, file$3, 8, 8, 365);
@@ -1313,7 +1313,7 @@ var app = (function () {
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "rel", "noopener noreferrer");
     			add_location(a, file$3, 20, 4, 861);
-    			attr_dev(details, "class", "svelte-j2vbg");
+    			attr_dev(details, "class", "svelte-y735r3");
     			add_location(details, file$3, 2, 0, 67);
     		},
     		l: function claim(nodes) {
