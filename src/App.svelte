@@ -124,29 +124,46 @@
 
 <style>
     :global(body){
+        --body-padding: 40px;
         height: 100%;
         width: 100%;
         min-width: fit-content;
-        padding: 20px 50px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        padding: var(--body-padding);
+    }
+    header{
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: center;
+        height: fit-content;
     }
     main{
+        grid-row: 2;
+        grid-column: 1;
+        margin-inline: auto;
+        margin-top: 60px;
+        margin-bottom: 110px;
         width: max-content;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        padding: 50px 0;
+        justify-content: center; 
     }
     aside{
-        position: absolute;
-        /* center right */
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        z-index: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        grid-column: 1;
+        margin: auto;
+        /* Ignorera body padding för att ligga längst ut till höger */
+        margin-right: calc( var(--body-padding) * -1 );
+        /* 
+            body padding-bottom tas inte med i overflow.
+            Lägger till padding för att inte ska ta i botten av sidan.
+            Det blir lite mer padding-top när fönsterhöjden är liten.
+        */
+        padding: var(--body-padding) 0px;
     }    
     :global(h2){
         font-size: 1.3rem;

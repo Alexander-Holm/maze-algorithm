@@ -2390,7 +2390,7 @@ var app = (function () {
     		first: null,
     		c: function create() {
     			td = element("td");
-    			attr_dev(td, "class", "svelte-1t224xo");
+    			attr_dev(td, "class", "svelte-1qp9hzk");
 
     			set_style(
     				td,
@@ -2712,38 +2712,39 @@ var app = (function () {
     			t13 = space();
     			aside = element("aside");
     			create_component(settings.$$.fragment);
+    			attr_dev(header1, "class", "svelte-1qp9hzk");
     			add_location(header1, file, 71, 0, 2808);
     			set_style(h2, "margin", "0");
     			add_location(h2, file, 76, 4, 2859);
     			attr_dev(button0, "title", "Starta");
     			button0.disabled = button0_disabled_value = !/*isPaused*/ ctx[5];
-    			attr_dev(button0, "class", "svelte-1t224xo");
+    			attr_dev(button0, "class", "svelte-1qp9hzk");
     			add_location(button0, file, 78, 8, 2961);
     			attr_dev(button1, "title", "Pausa");
-    			attr_dev(button1, "class", "pause svelte-1t224xo");
+    			attr_dev(button1, "class", "pause svelte-1qp9hzk");
     			button1.disabled = /*isPaused*/ ctx[5];
     			add_location(button1, file, 79, 8, 3060);
     			attr_dev(button2, "title", "Ett steg");
-    			attr_dev(button2, "class", "step svelte-1t224xo");
+    			attr_dev(button2, "class", "step svelte-1qp9hzk");
     			button2.disabled = /*isFinished*/ ctx[6];
     			add_location(button2, file, 80, 8, 3172);
     			attr_dev(button3, "title", "Lös direkt");
-    			attr_dev(button3, "class", "instant svelte-1t224xo");
+    			attr_dev(button3, "class", "instant svelte-1qp9hzk");
     			button3.disabled = /*isFinished*/ ctx[6];
     			add_location(button3, file, 81, 8, 3287);
     			attr_dev(button4, "title", "Ny");
-    			attr_dev(button4, "class", "reset svelte-1t224xo");
+    			attr_dev(button4, "class", "reset svelte-1qp9hzk");
     			button4.disabled = button4_disabled_value = /*isFinished*/ ctx[6] && !/*hasStarted*/ ctx[7];
     			add_location(button4, file, 82, 8, 3410);
-    			attr_dev(div, "class", "play-controls svelte-1t224xo");
+    			attr_dev(div, "class", "play-controls svelte-1qp9hzk");
     			add_location(div, file, 77, 4, 2924);
-    			attr_dev(table, "class", "svelte-1t224xo");
+    			attr_dev(table, "class", "svelte-1qp9hzk");
     			set_style(table, "border-color", /*colors*/ ctx[2].väggar, false);
     			set_style(table, "background-color", /*colors*/ ctx[2].väggar, false);
     			add_location(table, file, 86, 4, 3673);
-    			attr_dev(main, "class", "svelte-1t224xo");
+    			attr_dev(main, "class", "svelte-1qp9hzk");
     			add_location(main, file, 75, 0, 2847);
-    			attr_dev(aside, "class", "svelte-1t224xo");
+    			attr_dev(aside, "class", "svelte-1qp9hzk");
     			add_location(aside, file, 113, 0, 4838);
     		},
     		l: function claim(nodes) {
