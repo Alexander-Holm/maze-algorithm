@@ -26,7 +26,7 @@
 
 <div id="settings">
     <button 
-        on:click={() => closed = !closed}
+        on:click|preventDefault={() => closed = !closed}
         id="open-settings"
         class:closed
     >
@@ -114,6 +114,9 @@
     }
         #open-settings:hover{
             filter: contrast(1.3);
+        }
+        #open-settings:focus-visible{
+            border: 3px solid #009fff;
         }
         #open-settings span{
             display: block;

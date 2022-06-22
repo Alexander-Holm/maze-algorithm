@@ -71,6 +71,13 @@ var app = (function () {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
     }
+    function prevent_default(fn) {
+        return function (event) {
+            event.preventDefault();
+            // @ts-ignore
+            return fn.call(this, event);
+        };
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -1984,41 +1991,41 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(span0, "class", "svelte-1skchey");
-    			add_location(span0, file$1, 32, 8, 876);
+    			attr_dev(span0, "class", "svelte-g5gs1z");
+    			add_location(span0, file$1, 32, 8, 891);
     			attr_dev(button, "id", "open-settings");
-    			attr_dev(button, "class", "svelte-1skchey");
+    			attr_dev(button, "class", "svelte-g5gs1z");
     			toggle_class(button, "closed", /*closed*/ ctx[3]);
     			add_location(button, file$1, 27, 4, 758);
-    			add_location(h2, file$1, 36, 8, 960);
-    			add_location(h30, file$1, 42, 16, 1203);
-    			attr_dev(span1, "class", "svelte-1skchey");
-    			add_location(span1, file$1, 49, 20, 1550);
-    			attr_dev(div0, "class", "input__box-container svelte-1skchey");
-    			add_location(div0, file$1, 43, 16, 1238);
-    			attr_dev(div1, "class", "slider-header svelte-1skchey");
-    			add_location(div1, file$1, 41, 12, 1158);
-    			attr_dev(div2, "class", "group svelte-1skchey");
-    			add_location(div2, file$1, 39, 8, 1021);
-    			add_location(h31, file$1, 63, 16, 2092);
-    			attr_dev(span2, "class", "svelte-1skchey");
-    			add_location(span2, file$1, 70, 20, 2425);
-    			attr_dev(div3, "class", "input__box-container svelte-1skchey");
-    			add_location(div3, file$1, 64, 16, 2130);
-    			attr_dev(div4, "class", "slider-header svelte-1skchey");
-    			add_location(div4, file$1, 62, 12, 2047);
-    			attr_dev(div5, "class", "group svelte-1skchey");
-    			add_location(div5, file$1, 60, 8, 1910);
-    			attr_dev(h32, "class", "color-title svelte-1skchey");
-    			add_location(h32, file$1, 82, 12, 2844);
+    			add_location(h2, file$1, 36, 8, 975);
+    			add_location(h30, file$1, 42, 16, 1218);
+    			attr_dev(span1, "class", "svelte-g5gs1z");
+    			add_location(span1, file$1, 49, 20, 1565);
+    			attr_dev(div0, "class", "input__box-container svelte-g5gs1z");
+    			add_location(div0, file$1, 43, 16, 1253);
+    			attr_dev(div1, "class", "slider-header svelte-g5gs1z");
+    			add_location(div1, file$1, 41, 12, 1173);
+    			attr_dev(div2, "class", "group svelte-g5gs1z");
+    			add_location(div2, file$1, 39, 8, 1036);
+    			add_location(h31, file$1, 63, 16, 2107);
+    			attr_dev(span2, "class", "svelte-g5gs1z");
+    			add_location(span2, file$1, 70, 20, 2440);
+    			attr_dev(div3, "class", "input__box-container svelte-g5gs1z");
+    			add_location(div3, file$1, 64, 16, 2145);
+    			attr_dev(div4, "class", "slider-header svelte-g5gs1z");
+    			add_location(div4, file$1, 62, 12, 2062);
+    			attr_dev(div5, "class", "group svelte-g5gs1z");
+    			add_location(div5, file$1, 60, 8, 1925);
+    			attr_dev(h32, "class", "color-title svelte-g5gs1z");
+    			add_location(h32, file$1, 82, 12, 2859);
     			attr_dev(div6, "id", "color-settings");
-    			attr_dev(div6, "class", "group svelte-1skchey");
-    			add_location(div6, file$1, 81, 8, 2790);
-    			attr_dev(div7, "class", "expandable svelte-1skchey");
+    			attr_dev(div6, "class", "group svelte-g5gs1z");
+    			add_location(div6, file$1, 81, 8, 2805);
+    			attr_dev(div7, "class", "expandable svelte-g5gs1z");
     			toggle_class(div7, "closed", /*closed*/ ctx[3]);
-    			add_location(div7, file$1, 35, 4, 913);
+    			add_location(div7, file$1, 35, 4, 928);
     			attr_dev(div8, "id", "settings");
-    			attr_dev(div8, "class", "svelte-1skchey");
+    			attr_dev(div8, "class", "svelte-g5gs1z");
     			add_location(div8, file$1, 26, 0, 733);
     		},
     		l: function claim(nodes) {
@@ -2071,7 +2078,7 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[5], false, false, false);
+    				dispose = listen_dev(button, "click", prevent_default(/*click_handler*/ ctx[5]), false, true, false);
     				mounted = true;
     			}
     		},
