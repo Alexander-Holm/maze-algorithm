@@ -112,6 +112,9 @@
         font-size: 2rem;
         width: 1em;
     }
+        #open-settings:hover{
+            filter: contrast(1.3);
+        }
         #open-settings span{
             display: block;
             color: white;
