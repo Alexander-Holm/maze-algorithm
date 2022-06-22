@@ -10,7 +10,7 @@
 <div class="color-settings">
     <input id={id} type="color" class="color-picker" bind:value={color} />
     <label for={id} >{text}</label>
-    <ResetButton style="margin-left: 10px" on:click={() => color = originalColor} />
+    <ResetButton on:click={() => color = originalColor} />
 </div>
 
 <style>
@@ -20,6 +20,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 5px;
     }
     .color-picker{
@@ -30,8 +31,7 @@
     }
     label{
         text-transform: capitalize;
-        padding-left: 10px;
-        flex-grow: 1;
+        padding-inline: 15px;
     }
     
 </style>

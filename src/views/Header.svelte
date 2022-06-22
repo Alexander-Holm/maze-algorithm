@@ -1,3 +1,5 @@
+
+<h1> Randomized depth-first search / recursive backtracker</h1>
 <details>
     <summary>Beskrivning från Wikipedia</summary>
 
@@ -22,8 +24,13 @@
 </details>
 
 <style>
+    h1{
+        font-size: 1.4rem;
+        margin: 0;
+    }
     details{
-        max-width: 500px;
+        max-width: 35rem;
+        line-height: 1.6;
     }
     details summary{
         cursor: pointer;        
