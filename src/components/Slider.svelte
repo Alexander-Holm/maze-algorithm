@@ -25,6 +25,8 @@
     }
     input{
         margin: 0 15px;
+        /* padding-inline för att kanterna inte ska täckas av padding om slidern är liten */
+        padding-inline: 0;
         flex-grow: 1;
         /* https://stackoverflow.com/questions/36230944/prevent-flex-items-from-overflowing-a-container */
         min-width: 0;

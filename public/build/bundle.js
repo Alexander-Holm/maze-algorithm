@@ -882,10 +882,10 @@ var app = (function () {
     			attr_dev(input, "min", /*min*/ ctx[1]);
     			attr_dev(input, "max", /*max*/ ctx[2]);
     			attr_dev(input, "step", /*step*/ ctx[3]);
-    			attr_dev(input, "class", "svelte-x6rrxl");
+    			attr_dev(input, "class", "svelte-3frgtn");
     			add_location(input, file$4, 9, 4, 165);
     			add_location(span1, file$4, 15, 4, 306);
-    			attr_dev(div, "class", "slider svelte-x6rrxl");
+    			attr_dev(div, "class", "slider svelte-3frgtn");
     			add_location(div, file$4, 7, 0, 115);
     		},
     		l: function claim(nodes) {
