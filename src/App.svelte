@@ -159,6 +159,12 @@
         /* Ignorera body padding för att ligga längst ut till höger */
         margin-right: calc( var(--body-padding) * -1 );
         /* 
+            Ingen margin-top gör att aside inte flyttas ner när tabellen blir större.
+            Det blir hyffsat centrerat på 1080p men aside ligger högre upp på större upplösning,
+            lägre på mindre upplösning.
+        */
+        margin-top: 0;
+        /* 
             body padding-bottom tas inte med i overflow.
             Lägger till padding för att inte ska ta i botten av sidan.
             Det blir lite mer padding-top när fönsterhöjden är liten.
