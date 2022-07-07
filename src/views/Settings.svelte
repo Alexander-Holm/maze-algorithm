@@ -4,6 +4,7 @@
     import ResetButton from "../components/ResetButton.svelte"
     import Slider from "../components/Slider.svelte"
     import InputBoxNumber from "../components/InputBoxNumber.svelte"
+    import DarkModeToggle from "../components/DarkModeToggle.svelte";
 
     export let size = DEFAULTS.size;
     export let speed = DEFAULTS.speed; // ms
@@ -24,82 +25,108 @@
     
 </script>
 
-<div id="settings">
-    <button 
-        on:click|preventDefault={() => closed = !closed}
-        id="open-settings"
-        class:closed
-    >
-        <span>⏵</span>
-    </button>
-
-    <div class="expandable" class:closed>
-        <h2>Inställningar</h2>
+<aside>
+    <div id="settings">
+        <button 
+            on:click|preventDefault={() => closed = !closed}
+            id="open-settings"
+            class:closed
+        >
+            <span>⏵</span>
+        </button>
     
-        <!-- Size -->
-        <div class="group">
-            <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
-            <div class="slider-header">
-                <h3>Storlek:</h3>
-                <div class="input__box-container">                    
-                    <InputBoxNumber 
-                        bind:value={size}
-                        min={sliderSettings.size.min} max={sliderSettings.size.max} step={1}
-                        width="3ch"
-                    />
-                    <span>x {size}</span>
+        <div class="expandable" class:closed>
+            <h2>Inställningar</h2>
+            <DarkModeToggle />
+        
+            <!-- Size -->
+            <div class="group">
+                <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
+                <div class="slider-header">
+                    <h3>Storlek:</h3>
+                    <div class="input__box-container">                    
+                        <InputBoxNumber 
+                            bind:value={size}
+                            min={sliderSettings.size.min} max={sliderSettings.size.max} step={1}
+                            width="3ch"
+                        />
+                        <span>x {size}</span>
+                    </div>
+                    <ResetButton on:click={() => size = sliderSettings.size.value} />
                 </div>
-                <ResetButton on:click={() => size = sliderSettings.size.value} />
-            </div>
-            <Slider
-                bind:value={size}
-                min={sliderSettings.size.min} max={sliderSettings.size.max} step=1
-            />
-        </div>
-    
-        <!-- Speed -->
-        <div class="group">
-            <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
-            <div class="slider-header">
-                <h3>Hastighet: </h3>
-                <div class="input__box-container">
-                    <InputBoxNumber 
-                        bind:value={speed}
-                        min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
-                        width="4ch"
-                    />
-                    <span>ms</span>
-                </div>
-                <ResetButton on:click={() => speed = sliderSettings.speed.value} />
-            </div>
-            <Slider
-                bind:value={speed}
-                min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
-            />
-        </div>    
-    
-        <!-- Color -->
-        <div id="color-settings" class="group" >
-            <h3 class="color-title">Färger</h3>
-            <!-- Kan inte binda color till objektet från Object.entries -->
-            <!-- Måste binda till colors objektet -->
-            {#each Object.entries(colors) as [key] }
-                <ColorPicker 
-                    id={`color-${key}`} 
-                    text={key}
-                    bind:color={colors[key]}
+                <Slider
+                    bind:value={size}
+                    min={sliderSettings.size.min} max={sliderSettings.size.max} step=1
                 />
-            {/each}
-        </div>    
+            </div>
+        
+            <!-- Speed -->
+            <div class="group">
+                <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
+                <div class="slider-header">
+                    <h3>Hastighet: </h3>
+                    <div class="input__box-container">
+                        <InputBoxNumber 
+                            bind:value={speed}
+                            min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
+                            width="4ch"
+                        />
+                        <span>ms</span>
+                    </div>
+                    <ResetButton on:click={() => speed = sliderSettings.speed.value} />
+                </div>
+                <Slider
+                    bind:value={speed}
+                    min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
+                />
+            </div>    
+        
+            <!-- Color -->
+            <div id="color-settings" class="group" >
+                <h3 class="color-title">Färger</h3>
+                <!-- Kan inte binda color till objektet från Object.entries -->
+                <!-- Måste binda till colors objektet -->
+                {#each Object.entries(colors) as [key] }
+                    <ColorPicker 
+                        id={`color-${key}`} 
+                        text={key}
+                        bind:color={colors[key]}
+                    />
+                {/each}
+            </div>    
+        </div>
     </div>
-</div>
+</aside>
 
 <style>
+    aside{
+        z-index: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        grid-column: 1;
+        margin: auto;
+        /* Ignorera body padding för att ligga längst ut till höger */
+        margin-right: calc( var(--body-padding) * -1 );
+        /* 
+            Ingen margin-top gör att aside inte flyttas ner när tabellen blir större.
+            Det blir hyffsat centrerat på 1080p men aside ligger högre upp på större upplösning,
+            lägre på mindre upplösning.
+        */
+        margin-top: 0;
+        /* 
+            body padding-bottom tas inte med i overflow.
+            Lägger till padding för att inte ska ta i botten av sidan.
+            Det blir lite mer padding-top när fönsterhöjden är liten.
+        */
+        padding: var(--body-padding) 0px;
+
+    }  
     #settings{
         display: flex;
         border-radius: 8px 0px 0px 8px;
         overflow: hidden;
         box-shadow: 0 0 2px 0px black;
+        
     }
     #open-settings{
         background: #484848;
@@ -126,6 +153,7 @@
                 transform: rotateY(180deg);
             }
     .expandable{
+        position: relative;
         align-self: center;
         display: flex;
         flex-direction: column;
@@ -135,11 +163,13 @@
         width: 20rem;
         padding-inline: 40px;
         overflow: hidden;
+        opacity: 1;
         transition: 0.35s ease-out;;
     }
         .expandable.closed{
             width: 0;
             padding-inline: 0;
+            opacity: 0;
         }
     .group{
         width: 100%;

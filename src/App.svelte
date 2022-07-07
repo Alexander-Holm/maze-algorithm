@@ -68,11 +68,9 @@
     }
 
 </script>
- 
-<header>
-    <Header />
-</header>
 
+
+<Header />
 <main>
     <h2 style="margin: 0;">Tryck på en ruta för att starta</h2>
     <div class="play-controls">
@@ -110,34 +108,32 @@
         {/each}
     </table>
 </main>
-
-<aside>
-    <Settings
-        bind:size
-        bind:speed
-        bind:colors
-    />
-</aside>
-
-
-
+<Settings
+    bind:size
+    bind:speed
+    bind:colors
+/>
 
 <style>
     :global(body){
+        --text-color: #333333;
+        --bg-color: #ffffff;
+
         --body-padding: 40px;
+
         height: 100%;
         width: 100%;
         min-width: fit-content;
         display: grid;
         grid-template-rows: auto 1fr;
         padding: var(--body-padding);
+        background-color: var(--bg-color);
+        color: var(--text-color);
     }
-    header{
-        grid-row: 1;
-        grid-column: 1;
-        justify-self: center;
-        height: fit-content;
-    }
+    :global([data-dark-mode = true]){
+        --text-color: white;
+        --bg-color: #333333;
+    }  
     main{
         grid-row: 2;
         grid-column: 1;
@@ -150,27 +146,6 @@
         align-items: center;
         justify-content: center; 
     }
-    aside{
-        z-index: 2;
-        grid-row-start: 1;
-        grid-row-end: 3;
-        grid-column: 1;
-        margin: auto;
-        /* Ignorera body padding för att ligga längst ut till höger */
-        margin-right: calc( var(--body-padding) * -1 );
-        /* 
-            Ingen margin-top gör att aside inte flyttas ner när tabellen blir större.
-            Det blir hyffsat centrerat på 1080p men aside ligger högre upp på större upplösning,
-            lägre på mindre upplösning.
-        */
-        margin-top: 0;
-        /* 
-            body padding-bottom tas inte med i overflow.
-            Lägger till padding för att inte ska ta i botten av sidan.
-            Det blir lite mer padding-top när fönsterhöjden är liten.
-        */
-        padding: var(--body-padding) 0px;
-    }  
     :global(h1){
         font-size: 1.4rem;
     }  
@@ -229,7 +204,7 @@
         /* Därför border på table som tar samma färg som td border */
         border-spacing: 0;
         /* Outline är utanför border, byter inte färg */
-        outline: 3px solid black;
+        outline: 3px solid var(--text-color);
         /* Samma width som td, färg sätts inline */
         border-width: 1px;
         border-style: solid;
