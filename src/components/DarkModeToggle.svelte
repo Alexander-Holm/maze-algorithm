@@ -30,7 +30,9 @@
         /* font-size bestämmer storleken på allt */
         font-size: 1.9rem;
         height: 1em;
-        width: 2.3em;
+        width: 2.3em;        
+        box-shadow: 0 0 2px 1px gray;  
+        border-radius: 999px;
 
         display: flex;
         justify-content: space-between;
@@ -39,16 +41,23 @@
         background-color: transparent;
         padding: 0;
         margin: 0;
-        border: 0;        
-    }
+        border: 0;
+    }  
+        #dark-mode-toggle:hover{
+            filter: saturate(1.5);
+            box-shadow: 0 0 6px 0px var(--text-color);
+        }
+        #dark-mode-toggle:focus-visible{
+            outline: 3px solid var(--accent-color);
+        }
     .background{
+        background: linear-gradient(90deg, rgb(197, 250, 255) 0%, rgb(158, 135, 187) 100%);
         position: absolute;
         top: 0; left: 0;
         width: 100%;
-        height: 100%;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgb(197, 250, 255) 0%, rgb(158, 135, 187) 100%);
-        box-shadow: 0 0 2px 1px gray;
+        height: 100%;        
+        border-radius: inherit;
+        
     }
     .icon{
         z-index: 2;

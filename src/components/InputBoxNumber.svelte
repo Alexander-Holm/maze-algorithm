@@ -1,4 +1,7 @@
 <script>
+    import ButtonSmall from "./ButtonSmall.svelte"
+    const iconStyle = "transform: scaleX(1.5);"
+
     export let value;
     export let min = Number.MIN_SAFE_INTEGER;
     export let max = Number.MAX_SAFE_INTEGER;
@@ -34,22 +37,31 @@
         return number - extra;
     }
 
+    function buttonOnKeyDown(event, increment){
+        if(event.key === "Enter" && event.repeat === false)
+            startInterval(increment);
+    }
+
 
     // --- Timer ---
     let timerId;
-    const TIMER_CONSTANTS = {
-        ACCELERATION: 3,
-        INTERVAL_MIN: 50,
-        INTERVAL_INITIAL: 400,
+
+    function *intervalGenerator(){
+        const intervals = [400, 200, 150, 100, 75, 50];
+        const minInterval = 30;
+        for(const interval of intervals)
+            yield interval;
+        while(true)
+            yield minInterval;
     }
-    function startInterval(increment, interval = TIMER_CONSTANTS.INTERVAL_INITIAL){
+
+    function startInterval(increment, intervals = intervalGenerator()){
+        const interval = intervals.next().value;
         validate(value + increment);
-
-        let nextInterval = interval / TIMER_CONSTANTS.ACCELERATION;
-        if(nextInterval < TIMER_CONSTANTS.INTERVAL_MIN)
-            nextInterval = TIMER_CONSTANTS.INTERVAL_MIN;
-
-        timerId = setTimeout(() => startInterval(increment, nextInterval), interval);
+        timerId = setTimeout(() => 
+            startInterval(increment, intervals), 
+            interval
+        );
     }
     function stopInterval(){
         clearInterval(timerId);
@@ -67,18 +79,18 @@
     bort innehållet och skriva in ett eget värde utan att value sätts till min.
 -->
 <!-- 
-    <input> type="text" istället för "number" för att ta bort pil-knapparna som är svåra att stylea.
+    <input> type="text" istället för "number" för att ta bort pil-knapparna som är svåra att styla.
     inputmode="numeric" tar upp tangentbord för touch som om det vore type="number".
  -->
 <div class="input-box-number">
-    <button 
+    <ButtonSmall
+        content="⋏" contentStyle={iconStyle}
         on:mousedown={() => startInterval(step)}
-        on:mouseup={stopInterval}
-        on:mouseleave={stopInterval}
-        disabled={value >= max}   
-    >
-        <span>⋏</span>
-    </button>
+        on:mouseup={stopInterval} on:mouseleave={stopInterval}
+        on:keydown={event => buttonOnKeyDown(event, step)}
+        on:keyup={stopInterval} 
+        disabled={value >= max}
+    />
 
     <input 
         bind:this={inputRef}
@@ -87,15 +99,15 @@
         value={value} min={min} max={max} step={step}
         on:change={e => validate(e.target.value)}
     />     
-
-    <button 
+    
+    <ButtonSmall
+        content="⋎" contentStyle={iconStyle}
         on:mousedown={() => startInterval(-step)}
-        on:mouseup={stopInterval}
-        on:mouseleave={stopInterval}
+        on:mouseup={stopInterval} on:mouseleave={stopInterval}
+        on:keydown={event => buttonOnKeyDown(event, -step)}
+        on:keyup={stopInterval}
         disabled={value <= min}     
-    >
-        <span>⋎</span>
-    </button>    
+    />
 </div>
 
 <style>
@@ -109,21 +121,10 @@
         padding: 2px 6px;
         text-align: center;
         box-sizing: content-box;
+        background: var(--bg-color);
+        color: var(--text-color);
     }
-    button{
-        margin: 3px 0;
-        padding: 0;
-        border-radius: 50%;
-        background: transparent;
-        border: 0;
-    }
-        button:hover:enabled{
-            background: lightgray;
+        :global([data-dark-mode = true]) input{
+            border-color: #484848;
         }
-    button span{
-        display: block;
-        transform: scaleX(1.5);
-        height: 1.5em;
-        width: 1.5em;
-    }
 </style>

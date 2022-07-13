@@ -115,25 +115,7 @@
 />
 
 <style>
-    :global(body){
-        --text-color: #333333;
-        --bg-color: #ffffff;
-
-        --body-padding: 40px;
-
-        height: 100%;
-        width: 100%;
-        min-width: fit-content;
-        display: grid;
-        grid-template-rows: auto 1fr;
-        padding: var(--body-padding);
-        background-color: var(--bg-color);
-        color: var(--text-color);
-    }
-    :global([data-dark-mode = true]){
-        --text-color: white;
-        --bg-color: #333333;
-    }  
+    /* body style i public/global.css */
     main{
         grid-row: 2;
         grid-column: 1;

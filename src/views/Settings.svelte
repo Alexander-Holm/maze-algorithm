@@ -130,24 +130,24 @@
     }
     #open-settings{
         background: #484848;
-        border: 0;
-        margin: 0;
-        border-radius: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        color: white;
         font-size: 2rem;
         width: 1em;
-    }
+        border-radius: inherit;
+        
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        
+        margin: 0; 
+        padding: 0;
+        border: 0;
+    }        
         #open-settings:hover{
             filter: contrast(1.3);
         }
         #open-settings:focus-visible{
-            border: 3px solid #009fff;
-        }
-        #open-settings span{
-            display: block;
-            color: white;
+            border: 3px solid var(--accent-color);
         }
             #open-settings.closed span{
                 transform: rotateY(180deg);
@@ -159,12 +159,13 @@
         flex-direction: column;
         align-items: center;
 
-        background: rgba(245, 245, 245, 0.9);
+        background-color: rgba(245, 245, 245, 0.9);
         width: 20rem;
         padding-inline: 40px;
         overflow: hidden;
         opacity: 1;
-        transition: 0.35s ease-out;;
+        transition: 0.35s ease-out;
+        transition-property: width, opacity;
     }
         .expandable.closed{
             width: 0;
@@ -217,4 +218,13 @@
         margin-top: 0;
         text-align: center;
     }
+
+    /* Dark mode */
+    :global([data-dark-mode = true]) .expandable{
+        background-color: rgba(50, 55, 55, 0.99);
+    }
+    :global([data-dark-mode = true]) #open-settings{
+        /* background: linear-gradient(0deg, rgb(65, 55, 168) 0%, rgb(118, 109, 221) 100%); */
+        background-color: #6f7677;
+    }    
 </style>
