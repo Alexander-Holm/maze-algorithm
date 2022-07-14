@@ -1,17 +1,16 @@
 <script>
-    import ButtonSmall from "./ButtonSmall.svelte"
-    const iconStyle = "transform: scaleX(1.5);"
-
-    export let value;
+    import IncrementButton from "./IncrementButton.svelte";
+    
+    export let value = 1;
     export let min = Number.MIN_SAFE_INTEGER;
     export let max = Number.MAX_SAFE_INTEGER;
     export let step = 1;
-    export let width = "5ch";
-
+    export let width = "100%";
+    
+    const iconStyle = "transform: scaleX(1.5)"
     let inputRef;   
 
-    // validate() uppdaterar <input> value och prop value manuellt
-    function validate(input){
+    function updateValue(input){
         input = Number(input);
         if(Number.isNaN(input)){
             // Sätter <input> value till senast korrekta värdet
@@ -37,42 +36,12 @@
         return number - extra;
     }
 
-    function buttonOnKeyDown(event, increment){
-        if(event.key === "Enter" && event.repeat === false)
-            startInterval(increment);
-    }
-
-
-    // --- Timer ---
-    let timerId;
-
-    function *intervalGenerator(){
-        const intervals = [400, 200, 150, 100, 75, 50];
-        const minInterval = 30;
-        for(const interval of intervals)
-            yield interval;
-        while(true)
-            yield minInterval;
-    }
-
-    function startInterval(increment, intervals = intervalGenerator()){
-        const interval = intervals.next().value;
-        validate(value + increment);
-        timerId = setTimeout(() => 
-            startInterval(increment, intervals), 
-            interval
-        );
-    }
-    function stopInterval(){
-        clearInterval(timerId);
-    }
-
 </script>
 
 
 <!-- 
     Ingen binding till <input> value,
-    går genom validate() och uppdaterar prop value manuellt.
+    går genom on:change och uppdaterar både <input> och prop value manuellt.
 -->
 <!-- 
     onChange är bättre än onInput för att det ska vara möjligt att ta
@@ -82,36 +51,30 @@
     <input> type="text" istället för "number" för att ta bort pil-knapparna som är svåra att styla.
     inputmode="numeric" tar upp tangentbord för touch som om det vore type="number".
  -->
-<div class="input-box-number">
-    <ButtonSmall
+<div class="input-number">
+    <IncrementButton
         content="⋏" contentStyle={iconStyle}
-        on:mousedown={() => startInterval(step)}
-        on:mouseup={stopInterval} on:mouseleave={stopInterval}
-        on:keydown={event => buttonOnKeyDown(event, step)}
-        on:keyup={stopInterval} 
         disabled={value >= max}
+        callback={() => updateValue(value + step)}
     />
 
     <input 
         bind:this={inputRef}
-        style:width
+        style:width={width}
         type="text" inputmode="numeric"
         value={value} min={min} max={max} step={step}
-        on:change={e => validate(e.target.value)}
+        on:change={e => updateValue(e.target.value)}
     />     
     
-    <ButtonSmall
-        content="⋎" contentStyle={iconStyle}
-        on:mousedown={() => startInterval(-step)}
-        on:mouseup={stopInterval} on:mouseleave={stopInterval}
-        on:keydown={event => buttonOnKeyDown(event, -step)}
-        on:keyup={stopInterval}
-        disabled={value <= min}     
+    <IncrementButton
+        content="⋎" contentStyle={iconStyle + " translateY(1px)"}
+        disabled={value <= min}
+        callback={() => updateValue(value + -step)}
     />
 </div>
 
 <style>
-    .input-box-number{
+    .input-number{
         display: flex;
         flex-direction: column;
         align-items: center;

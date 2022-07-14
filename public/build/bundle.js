@@ -552,7 +552,7 @@ var app = (function () {
 
     const file$9 = "src\\components\\ButtonSmall.svelte";
 
-    function create_fragment$a(ctx) {
+    function create_fragment$b(ctx) {
     	let button;
     	let span;
     	let t;
@@ -563,12 +563,12 @@ var app = (function () {
     		c: function create() {
     			button = element("button");
     			span = element("span");
-    			t = text(/*content*/ ctx[1]);
-    			attr_dev(span, "style", /*contentStyle*/ ctx[2]);
-    			attr_dev(span, "class", "svelte-jpx75x");
-    			add_location(span, file$9, 12, 8, 264);
-    			button.disabled = /*disabled*/ ctx[0];
-    			attr_dev(button, "class", "svelte-jpx75x");
+    			t = text(/*content*/ ctx[0]);
+    			attr_dev(span, "style", /*contentStyle*/ ctx[1]);
+    			attr_dev(span, "class", "svelte-p041gy");
+    			add_location(span, file$9, 12, 8, 272);
+    			button.disabled = /*disabled*/ ctx[2];
+    			attr_dev(button, "class", "svelte-p041gy");
     			add_location(button, file$9, 6, 0, 117);
     		},
     		l: function claim(nodes) {
@@ -586,21 +586,22 @@ var app = (function () {
     					listen_dev(button, "mouseup", /*mouseup_handler*/ ctx[5], false, false, false),
     					listen_dev(button, "mouseleave", /*mouseleave_handler*/ ctx[6], false, false, false),
     					listen_dev(button, "keydown", /*keydown_handler*/ ctx[7], false, false, false),
-    					listen_dev(button, "keyup", /*keyup_handler*/ ctx[8], false, false, false)
+    					listen_dev(button, "keyup", /*keyup_handler*/ ctx[8], false, false, false),
+    					listen_dev(button, "blur", /*blur_handler*/ ctx[9], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*content*/ 2) set_data_dev(t, /*content*/ ctx[1]);
+    			if (dirty & /*content*/ 1) set_data_dev(t, /*content*/ ctx[0]);
 
-    			if (dirty & /*contentStyle*/ 4) {
-    				attr_dev(span, "style", /*contentStyle*/ ctx[2]);
+    			if (dirty & /*contentStyle*/ 2) {
+    				attr_dev(span, "style", /*contentStyle*/ ctx[1]);
     			}
 
-    			if (dirty & /*disabled*/ 1) {
-    				prop_dev(button, "disabled", /*disabled*/ ctx[0]);
+    			if (dirty & /*disabled*/ 4) {
+    				prop_dev(button, "disabled", /*disabled*/ ctx[2]);
     			}
     		},
     		i: noop,
@@ -614,7 +615,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$a.name,
+    		id: create_fragment$b.name,
     		type: "component",
     		source: "",
     		ctx
@@ -623,13 +624,13 @@ var app = (function () {
     	return block;
     }
 
-    function instance$a($$self, $$props, $$invalidate) {
+    function instance$b($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('ButtonSmall', slots, []);
-    	let { disabled = false } = $$props;
     	let { content } = $$props;
     	let { contentStyle = "" } = $$props;
-    	const writable_props = ['disabled', 'content', 'contentStyle'];
+    	let { disabled = false } = $$props;
+    	const writable_props = ['content', 'contentStyle', 'disabled'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ButtonSmall> was created with unknown prop '${key}'`);
@@ -659,18 +660,22 @@ var app = (function () {
     		bubble.call(this, $$self, event);
     	}
 
+    	function blur_handler(event) {
+    		bubble.call(this, $$self, event);
+    	}
+
     	$$self.$$set = $$props => {
-    		if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
-    		if ('content' in $$props) $$invalidate(1, content = $$props.content);
-    		if ('contentStyle' in $$props) $$invalidate(2, contentStyle = $$props.contentStyle);
+    		if ('content' in $$props) $$invalidate(0, content = $$props.content);
+    		if ('contentStyle' in $$props) $$invalidate(1, contentStyle = $$props.contentStyle);
+    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
     	};
 
-    	$$self.$capture_state = () => ({ disabled, content, contentStyle });
+    	$$self.$capture_state = () => ({ content, contentStyle, disabled });
 
     	$$self.$inject_state = $$props => {
-    		if ('disabled' in $$props) $$invalidate(0, disabled = $$props.disabled);
-    		if ('content' in $$props) $$invalidate(1, content = $$props.content);
-    		if ('contentStyle' in $$props) $$invalidate(2, contentStyle = $$props.contentStyle);
+    		if ('content' in $$props) $$invalidate(0, content = $$props.content);
+    		if ('contentStyle' in $$props) $$invalidate(1, contentStyle = $$props.contentStyle);
+    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -678,44 +683,37 @@ var app = (function () {
     	}
 
     	return [
-    		disabled,
     		content,
     		contentStyle,
+    		disabled,
     		click_handler,
     		mousedown_handler,
     		mouseup_handler,
     		mouseleave_handler,
     		keydown_handler,
-    		keyup_handler
+    		keyup_handler,
+    		blur_handler
     	];
     }
 
     class ButtonSmall extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$a, create_fragment$a, safe_not_equal, { disabled: 0, content: 1, contentStyle: 2 });
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { content: 0, contentStyle: 1, disabled: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "ButtonSmall",
     			options,
-    			id: create_fragment$a.name
+    			id: create_fragment$b.name
     		});
 
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*content*/ ctx[1] === undefined && !('content' in props)) {
+    		if (/*content*/ ctx[0] === undefined && !('content' in props)) {
     			console.warn("<ButtonSmall> was created without expected prop 'content'");
     		}
-    	}
-
-    	get disabled() {
-    		throw new Error("<ButtonSmall>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set disabled(value) {
-    		throw new Error("<ButtonSmall>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get content() {
@@ -733,18 +731,26 @@ var app = (function () {
     	set contentStyle(value) {
     		throw new Error("<ButtonSmall>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get disabled() {
+    		throw new Error("<ButtonSmall>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set disabled(value) {
+    		throw new Error("<ButtonSmall>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src\components\ResetButton.svelte generated by Svelte v3.46.4 */
 
-    function create_fragment$9(ctx) {
+    function create_fragment$a(ctx) {
     	let buttonsmall;
     	let current;
 
     	buttonsmall = new ButtonSmall({
     			props: {
     				content: "↺",
-    				contentStyle: "transform: scale(1.2);"
+    				contentStyle: "transform: scale(1.2) translateY(1px);"
     			},
     			$$inline: true
     		});
@@ -779,7 +785,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$9.name,
+    		id: create_fragment$a.name,
     		type: "component",
     		source: "",
     		ctx
@@ -788,7 +794,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$9($$self, $$props, $$invalidate) {
+    function instance$a($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('ResetButton', slots, []);
     	const writable_props = [];
@@ -808,13 +814,13 @@ var app = (function () {
     class ResetButton extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$9, create_fragment$9, safe_not_equal, {});
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "ResetButton",
     			options,
-    			id: create_fragment$9.name
+    			id: create_fragment$a.name
     		});
     	}
     }
@@ -822,7 +828,7 @@ var app = (function () {
     /* src\components\ColorPicker.svelte generated by Svelte v3.46.4 */
     const file$8 = "src\\components\\ColorPicker.svelte";
 
-    function create_fragment$8(ctx) {
+    function create_fragment$9(ctx) {
     	let div;
     	let input;
     	let t0;
@@ -908,7 +914,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$8.name,
+    		id: create_fragment$9.name,
     		type: "component",
     		source: "",
     		ctx
@@ -917,7 +923,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$8($$self, $$props, $$invalidate) {
+    function instance$9($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('ColorPicker', slots, []);
     	let { color } = $$props;
@@ -967,13 +973,13 @@ var app = (function () {
     class ColorPicker extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { color: 0, id: 1, text: 2 });
+    		init(this, options, instance$9, create_fragment$9, safe_not_equal, { color: 0, id: 1, text: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "ColorPicker",
     			options,
-    			id: create_fragment$8.name
+    			id: create_fragment$9.name
     		});
 
     		const { ctx } = this.$$;
@@ -1021,7 +1027,7 @@ var app = (function () {
 
     const file$7 = "src\\components\\Slider.svelte";
 
-    function create_fragment$7(ctx) {
+    function create_fragment$8(ctx) {
     	let div;
     	let span0;
     	let t0;
@@ -1111,7 +1117,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$7.name,
+    		id: create_fragment$8.name,
     		type: "component",
     		source: "",
     		ctx
@@ -1120,7 +1126,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$7($$self, $$props, $$invalidate) {
+    function instance$8($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Slider', slots, []);
     	let { value } = $$props;
@@ -1180,13 +1186,13 @@ var app = (function () {
     class Slider extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { value: 0, min: 1, max: 2, step: 3 });
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { value: 0, min: 1, max: 2, step: 3 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Slider",
     			options,
-    			id: create_fragment$7.name
+    			id: create_fragment$8.name
     		});
 
     		const { ctx } = this.$$;
@@ -1399,7 +1405,7 @@ var app = (function () {
 
     const file$6 = "src\\views\\Header.svelte";
 
-    function create_fragment$6(ctx) {
+    function create_fragment$7(ctx) {
     	let header;
     	let h1;
     	let t1;
@@ -1525,7 +1531,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$6.name,
+    		id: create_fragment$7.name,
     		type: "component",
     		source: "",
     		ctx
@@ -1534,7 +1540,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$6($$self, $$props) {
+    function instance$7($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Header', slots, []);
     	const writable_props = [];
@@ -1549,103 +1555,325 @@ var app = (function () {
     class Header extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Header",
     			options,
-    			id: create_fragment$6.name
+    			id: create_fragment$7.name
     		});
     	}
     }
 
-    /* src\components\InputBoxNumber.svelte generated by Svelte v3.46.4 */
-    const file$5 = "src\\components\\InputBoxNumber.svelte";
+    /* src\components\InputNumber\IncrementButton.svelte generated by Svelte v3.46.4 */
+
+    function create_fragment$6(ctx) {
+    	let buttonsmall;
+    	let current;
+
+    	buttonsmall = new ButtonSmall({
+    			props: {
+    				content: /*content*/ ctx[0],
+    				contentStyle: /*contentStyle*/ ctx[1],
+    				disabled: /*disabled*/ ctx[2]
+    			},
+    			$$inline: true
+    		});
+
+    	buttonsmall.$on("mousedown", /*startInterval*/ ctx[4]);
+    	buttonsmall.$on("keydown", /*keydown_handler*/ ctx[7]);
+    	buttonsmall.$on("mouseup", /*stopInterval*/ ctx[5]);
+    	buttonsmall.$on("mouseleave", /*stopInterval*/ ctx[5]);
+    	buttonsmall.$on("keyup", /*stopInterval*/ ctx[5]);
+    	buttonsmall.$on("blur", /*stopInterval*/ ctx[5]);
+
+    	const block = {
+    		c: function create() {
+    			create_component(buttonsmall.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(buttonsmall, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const buttonsmall_changes = {};
+    			if (dirty & /*content*/ 1) buttonsmall_changes.content = /*content*/ ctx[0];
+    			if (dirty & /*contentStyle*/ 2) buttonsmall_changes.contentStyle = /*contentStyle*/ ctx[1];
+    			if (dirty & /*disabled*/ 4) buttonsmall_changes.disabled = /*disabled*/ ctx[2];
+    			buttonsmall.$set(buttonsmall_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(buttonsmall.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(buttonsmall.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(buttonsmall, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$6.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function* intervalGenerator() {
+    	// ms
+    	const intervals = [400, 200, 150, 100, 75, 50];
+
+    	const minInterval = 30;
+    	for (const interval of intervals) yield interval;
+    	while (true) yield minInterval;
+    }
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('IncrementButton', slots, []);
+    	let { content, contentStyle = "" } = $$props;
+    	let { callback } = $$props;
+    	let { disabled = false } = $$props;
+
+    	function keyDown(event) {
+    		if (event.key === "Enter" && event.repeat === false) {
+    			startInterval();
+    		}
+    	}
+
+    	// --- Timer ---
+    	let timerId;
+
+    	let intervals = intervalGenerator();
+
+    	function startInterval() {
+    		callback?.call();
+
+    		timerId = setTimeout(
+    			() => {
+    				startInterval();
+    			},
+    			intervals.next().value
+    		);
+    	}
+
+    	function stopInterval() {
+    		clearTimeout(timerId);
+    		intervals = intervalGenerator();
+    	}
+
+    	const writable_props = ['content', 'contentStyle', 'callback', 'disabled'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<IncrementButton> was created with unknown prop '${key}'`);
+    	});
+
+    	const keydown_handler = event => keyDown(event);
+
+    	$$self.$$set = $$props => {
+    		if ('content' in $$props) $$invalidate(0, content = $$props.content);
+    		if ('contentStyle' in $$props) $$invalidate(1, contentStyle = $$props.contentStyle);
+    		if ('callback' in $$props) $$invalidate(6, callback = $$props.callback);
+    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		ButtonSmall,
+    		content,
+    		contentStyle,
+    		callback,
+    		disabled,
+    		keyDown,
+    		timerId,
+    		intervals,
+    		intervalGenerator,
+    		startInterval,
+    		stopInterval
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('content' in $$props) $$invalidate(0, content = $$props.content);
+    		if ('contentStyle' in $$props) $$invalidate(1, contentStyle = $$props.contentStyle);
+    		if ('callback' in $$props) $$invalidate(6, callback = $$props.callback);
+    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
+    		if ('timerId' in $$props) timerId = $$props.timerId;
+    		if ('intervals' in $$props) intervals = $$props.intervals;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*disabled*/ 4) {
+    			if (disabled) stopInterval();
+    		}
+    	};
+
+    	return [
+    		content,
+    		contentStyle,
+    		disabled,
+    		keyDown,
+    		startInterval,
+    		stopInterval,
+    		callback,
+    		keydown_handler
+    	];
+    }
+
+    class IncrementButton extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {
+    			content: 0,
+    			contentStyle: 1,
+    			callback: 6,
+    			disabled: 2
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "IncrementButton",
+    			options,
+    			id: create_fragment$6.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*content*/ ctx[0] === undefined && !('content' in props)) {
+    			console.warn("<IncrementButton> was created without expected prop 'content'");
+    		}
+
+    		if (/*callback*/ ctx[6] === undefined && !('callback' in props)) {
+    			console.warn("<IncrementButton> was created without expected prop 'callback'");
+    		}
+    	}
+
+    	get content() {
+    		throw new Error("<IncrementButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set content(value) {
+    		throw new Error("<IncrementButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get contentStyle() {
+    		throw new Error("<IncrementButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set contentStyle(value) {
+    		throw new Error("<IncrementButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get callback() {
+    		throw new Error("<IncrementButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set callback(value) {
+    		throw new Error("<IncrementButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get disabled() {
+    		throw new Error("<IncrementButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set disabled(value) {
+    		throw new Error("<IncrementButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\components\InputNumber\InputNumber.svelte generated by Svelte v3.46.4 */
+    const file$5 = "src\\components\\InputNumber\\InputNumber.svelte";
 
     function create_fragment$5(ctx) {
     	let div;
-    	let buttonsmall0;
+    	let incrementbutton0;
     	let t0;
     	let input;
     	let t1;
-    	let buttonsmall1;
+    	let incrementbutton1;
     	let current;
     	let mounted;
     	let dispose;
 
-    	buttonsmall0 = new ButtonSmall({
+    	incrementbutton0 = new IncrementButton({
     			props: {
     				content: "⋏",
     				contentStyle: iconStyle,
-    				disabled: /*value*/ ctx[0] >= /*max*/ ctx[2]
+    				disabled: /*value*/ ctx[0] >= /*max*/ ctx[2],
+    				callback: /*func*/ ctx[7]
     			},
     			$$inline: true
     		});
 
-    	buttonsmall0.$on("mousedown", /*mousedown_handler*/ ctx[10]);
-    	buttonsmall0.$on("mouseup", /*stopInterval*/ ctx[9]);
-    	buttonsmall0.$on("mouseleave", /*stopInterval*/ ctx[9]);
-    	buttonsmall0.$on("keydown", /*keydown_handler*/ ctx[11]);
-    	buttonsmall0.$on("keyup", /*stopInterval*/ ctx[9]);
-
-    	buttonsmall1 = new ButtonSmall({
+    	incrementbutton1 = new IncrementButton({
     			props: {
     				content: "⋎",
-    				contentStyle: iconStyle,
-    				disabled: /*value*/ ctx[0] <= /*min*/ ctx[1]
+    				contentStyle: iconStyle + " translateY(1px)",
+    				disabled: /*value*/ ctx[0] <= /*min*/ ctx[1],
+    				callback: /*func_1*/ ctx[10]
     			},
     			$$inline: true
     		});
-
-    	buttonsmall1.$on("mousedown", /*mousedown_handler_1*/ ctx[14]);
-    	buttonsmall1.$on("mouseup", /*stopInterval*/ ctx[9]);
-    	buttonsmall1.$on("mouseleave", /*stopInterval*/ ctx[9]);
-    	buttonsmall1.$on("keydown", /*keydown_handler_1*/ ctx[15]);
-    	buttonsmall1.$on("keyup", /*stopInterval*/ ctx[9]);
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			create_component(buttonsmall0.$$.fragment);
+    			create_component(incrementbutton0.$$.fragment);
     			t0 = space();
     			input = element("input");
     			t1 = space();
-    			create_component(buttonsmall1.$$.fragment);
+    			create_component(incrementbutton1.$$.fragment);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "inputmode", "numeric");
     			input.value = /*value*/ ctx[0];
     			attr_dev(input, "min", /*min*/ ctx[1]);
     			attr_dev(input, "max", /*max*/ ctx[2]);
     			attr_dev(input, "step", /*step*/ ctx[3]);
-    			attr_dev(input, "class", "svelte-bkussq");
+    			attr_dev(input, "class", "svelte-xz7uw2");
     			set_style(input, "width", /*width*/ ctx[4], false);
-    			add_location(input, file$5, 94, 4, 2740);
-    			attr_dev(div, "class", "input-box-number svelte-bkussq");
-    			add_location(div, file$5, 84, 0, 2389);
+    			add_location(input, file$5, 60, 4, 1733);
+    			attr_dev(div, "class", "input-number svelte-xz7uw2");
+    			add_location(div, file$5, 53, 0, 1538);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			mount_component(buttonsmall0, div, null);
+    			mount_component(incrementbutton0, div, null);
     			append_dev(div, t0);
     			append_dev(div, input);
-    			/*input_binding*/ ctx[12](input);
+    			/*input_binding*/ ctx[8](input);
     			append_dev(div, t1);
-    			mount_component(buttonsmall1, div, null);
+    			mount_component(incrementbutton1, div, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "change", /*change_handler*/ ctx[13], false, false, false);
+    				dispose = listen_dev(input, "change", /*change_handler*/ ctx[9], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			const buttonsmall0_changes = {};
-    			if (dirty & /*value, max*/ 5) buttonsmall0_changes.disabled = /*value*/ ctx[0] >= /*max*/ ctx[2];
-    			buttonsmall0.$set(buttonsmall0_changes);
+    			const incrementbutton0_changes = {};
+    			if (dirty & /*value, max*/ 5) incrementbutton0_changes.disabled = /*value*/ ctx[0] >= /*max*/ ctx[2];
+    			if (dirty & /*value, step*/ 9) incrementbutton0_changes.callback = /*func*/ ctx[7];
+    			incrementbutton0.$set(incrementbutton0_changes);
 
     			if (!current || dirty & /*value*/ 1 && input.value !== /*value*/ ctx[0]) {
     				prop_dev(input, "value", /*value*/ ctx[0]);
@@ -1667,26 +1895,27 @@ var app = (function () {
     				set_style(input, "width", /*width*/ ctx[4], false);
     			}
 
-    			const buttonsmall1_changes = {};
-    			if (dirty & /*value, min*/ 3) buttonsmall1_changes.disabled = /*value*/ ctx[0] <= /*min*/ ctx[1];
-    			buttonsmall1.$set(buttonsmall1_changes);
+    			const incrementbutton1_changes = {};
+    			if (dirty & /*value, min*/ 3) incrementbutton1_changes.disabled = /*value*/ ctx[0] <= /*min*/ ctx[1];
+    			if (dirty & /*value, step*/ 9) incrementbutton1_changes.callback = /*func_1*/ ctx[10];
+    			incrementbutton1.$set(incrementbutton1_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(buttonsmall0.$$.fragment, local);
-    			transition_in(buttonsmall1.$$.fragment, local);
+    			transition_in(incrementbutton0.$$.fragment, local);
+    			transition_in(incrementbutton1.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(buttonsmall0.$$.fragment, local);
-    			transition_out(buttonsmall1.$$.fragment, local);
+    			transition_out(incrementbutton0.$$.fragment, local);
+    			transition_out(incrementbutton1.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
-    			destroy_component(buttonsmall0);
-    			/*input_binding*/ ctx[12](null);
-    			destroy_component(buttonsmall1);
+    			destroy_component(incrementbutton0);
+    			/*input_binding*/ ctx[8](null);
+    			destroy_component(incrementbutton1);
     			mounted = false;
     			dispose();
     		}
@@ -1703,27 +1932,19 @@ var app = (function () {
     	return block;
     }
 
-    const iconStyle = "transform: scaleX(1.5);";
-
-    function* intervalGenerator() {
-    	const intervals = [400, 200, 150, 100, 75, 50];
-    	const minInterval = 30;
-    	for (const interval of intervals) yield interval;
-    	while (true) yield minInterval;
-    }
+    const iconStyle = "transform: scaleX(1.5)";
 
     function instance$5($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('InputBoxNumber', slots, []);
-    	let { value } = $$props;
+    	validate_slots('InputNumber', slots, []);
+    	let { value = 1 } = $$props;
     	let { min = Number.MIN_SAFE_INTEGER } = $$props;
     	let { max = Number.MAX_SAFE_INTEGER } = $$props;
     	let { step = 1 } = $$props;
-    	let { width = "5ch" } = $$props;
+    	let { width = "100%" } = $$props;
     	let inputRef;
 
-    	// validate() uppdaterar <input> value och prop value manuellt
-    	function validate(input) {
+    	function updateValue(input) {
     		input = Number(input);
 
     		if (Number.isNaN(input)) {
@@ -1749,31 +1970,13 @@ var app = (function () {
     		return number - extra;
     	}
 
-    	function buttonOnKeyDown(event, increment) {
-    		if (event.key === "Enter" && event.repeat === false) startInterval(increment);
-    	}
-
-    	// --- Timer ---
-    	let timerId;
-
-    	function startInterval(increment, intervals = intervalGenerator()) {
-    		const interval = intervals.next().value;
-    		validate(value + increment);
-    		timerId = setTimeout(() => startInterval(increment, intervals), interval);
-    	}
-
-    	function stopInterval() {
-    		clearInterval(timerId);
-    	}
-
     	const writable_props = ['value', 'min', 'max', 'step', 'width'];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<InputBoxNumber> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<InputNumber> was created with unknown prop '${key}'`);
     	});
 
-    	const mousedown_handler = () => startInterval(step);
-    	const keydown_handler = event => buttonOnKeyDown(event, step);
+    	const func = () => updateValue(value + step);
 
     	function input_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
@@ -1782,9 +1985,8 @@ var app = (function () {
     		});
     	}
 
-    	const change_handler = e => validate(e.target.value);
-    	const mousedown_handler_1 = () => startInterval(-step);
-    	const keydown_handler_1 = event => buttonOnKeyDown(event, -step);
+    	const change_handler = e => updateValue(e.target.value);
+    	const func_1 = () => updateValue(value + -step);
 
     	$$self.$$set = $$props => {
     		if ('value' in $$props) $$invalidate(0, value = $$props.value);
@@ -1795,22 +1997,17 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => ({
-    		ButtonSmall,
-    		iconStyle,
+    		IncrementButton,
     		value,
     		min,
     		max,
     		step,
     		width,
+    		iconStyle,
     		inputRef,
-    		validate,
+    		updateValue,
     		enforceMinMax,
-    		roundToStep,
-    		buttonOnKeyDown,
-    		timerId,
-    		intervalGenerator,
-    		startInterval,
-    		stopInterval
+    		roundToStep
     	});
 
     	$$self.$inject_state = $$props => {
@@ -1820,7 +2017,6 @@ var app = (function () {
     		if ('step' in $$props) $$invalidate(3, step = $$props.step);
     		if ('width' in $$props) $$invalidate(4, width = $$props.width);
     		if ('inputRef' in $$props) $$invalidate(5, inputRef = $$props.inputRef);
-    		if ('timerId' in $$props) timerId = $$props.timerId;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1834,20 +2030,15 @@ var app = (function () {
     		step,
     		width,
     		inputRef,
-    		validate,
-    		buttonOnKeyDown,
-    		startInterval,
-    		stopInterval,
-    		mousedown_handler,
-    		keydown_handler,
+    		updateValue,
+    		func,
     		input_binding,
     		change_handler,
-    		mousedown_handler_1,
-    		keydown_handler_1
+    		func_1
     	];
     }
 
-    class InputBoxNumber extends SvelteComponentDev {
+    class InputNumber extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
 
@@ -1861,57 +2052,50 @@ var app = (function () {
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "InputBoxNumber",
+    			tagName: "InputNumber",
     			options,
     			id: create_fragment$5.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*value*/ ctx[0] === undefined && !('value' in props)) {
-    			console.warn("<InputBoxNumber> was created without expected prop 'value'");
-    		}
     	}
 
     	get value() {
-    		throw new Error("<InputBoxNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set value(value) {
-    		throw new Error("<InputBoxNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get min() {
-    		throw new Error("<InputBoxNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set min(value) {
-    		throw new Error("<InputBoxNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get max() {
-    		throw new Error("<InputBoxNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set max(value) {
-    		throw new Error("<InputBoxNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get step() {
-    		throw new Error("<InputBoxNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set step(value) {
-    		throw new Error("<InputBoxNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	get width() {
-    		throw new Error("<InputBoxNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set width(value) {
-    		throw new Error("<InputBoxNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    		throw new Error("<InputNumber>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -2603,7 +2787,7 @@ var app = (function () {
     	let h30;
     	let t6;
     	let div0;
-    	let inputboxnumber0;
+    	let inputnumber0;
     	let updating_value;
     	let t7;
     	let span1;
@@ -2620,7 +2804,7 @@ var app = (function () {
     	let h31;
     	let t14;
     	let div3;
-    	let inputboxnumber1;
+    	let inputnumber1;
     	let updating_value_2;
     	let t15;
     	let span2;
@@ -2638,11 +2822,11 @@ var app = (function () {
     	let dispose;
     	darkmodetoggle = new DarkModeToggle({ $$inline: true });
 
-    	function inputboxnumber0_value_binding(value) {
-    		/*inputboxnumber0_value_binding*/ ctx[6](value);
+    	function inputnumber0_value_binding(value) {
+    		/*inputnumber0_value_binding*/ ctx[6](value);
     	}
 
-    	let inputboxnumber0_props = {
+    	let inputnumber0_props = {
     		min: /*sliderSettings*/ ctx[4].size.min,
     		max: /*sliderSettings*/ ctx[4].size.max,
     		step: 1,
@@ -2650,15 +2834,15 @@ var app = (function () {
     	};
 
     	if (/*size*/ ctx[0] !== void 0) {
-    		inputboxnumber0_props.value = /*size*/ ctx[0];
+    		inputnumber0_props.value = /*size*/ ctx[0];
     	}
 
-    	inputboxnumber0 = new InputBoxNumber({
-    			props: inputboxnumber0_props,
+    	inputnumber0 = new InputNumber({
+    			props: inputnumber0_props,
     			$$inline: true
     		});
 
-    	binding_callbacks.push(() => bind(inputboxnumber0, 'value', inputboxnumber0_value_binding));
+    	binding_callbacks.push(() => bind(inputnumber0, 'value', inputnumber0_value_binding));
     	resetbutton0 = new ResetButton({ $$inline: true });
     	resetbutton0.$on("click", /*click_handler_1*/ ctx[7]);
 
@@ -2679,11 +2863,11 @@ var app = (function () {
     	slider0 = new Slider({ props: slider0_props, $$inline: true });
     	binding_callbacks.push(() => bind(slider0, 'value', slider0_value_binding));
 
-    	function inputboxnumber1_value_binding(value) {
-    		/*inputboxnumber1_value_binding*/ ctx[9](value);
+    	function inputnumber1_value_binding(value) {
+    		/*inputnumber1_value_binding*/ ctx[9](value);
     	}
 
-    	let inputboxnumber1_props = {
+    	let inputnumber1_props = {
     		min: /*sliderSettings*/ ctx[4].speed.min,
     		max: /*sliderSettings*/ ctx[4].speed.max,
     		step: 1,
@@ -2691,15 +2875,15 @@ var app = (function () {
     	};
 
     	if (/*speed*/ ctx[1] !== void 0) {
-    		inputboxnumber1_props.value = /*speed*/ ctx[1];
+    		inputnumber1_props.value = /*speed*/ ctx[1];
     	}
 
-    	inputboxnumber1 = new InputBoxNumber({
-    			props: inputboxnumber1_props,
+    	inputnumber1 = new InputNumber({
+    			props: inputnumber1_props,
     			$$inline: true
     		});
 
-    	binding_callbacks.push(() => bind(inputboxnumber1, 'value', inputboxnumber1_value_binding));
+    	binding_callbacks.push(() => bind(inputnumber1, 'value', inputnumber1_value_binding));
     	resetbutton1 = new ResetButton({ $$inline: true });
     	resetbutton1.$on("click", /*click_handler_2*/ ctx[10]);
 
@@ -2751,7 +2935,7 @@ var app = (function () {
     			h30.textContent = "Storlek:";
     			t6 = space();
     			div0 = element("div");
-    			create_component(inputboxnumber0.$$.fragment);
+    			create_component(inputnumber0.$$.fragment);
     			t7 = space();
     			span1 = element("span");
     			t8 = text("x ");
@@ -2767,7 +2951,7 @@ var app = (function () {
     			h31.textContent = "Hastighet:";
     			t14 = space();
     			div3 = element("div");
-    			create_component(inputboxnumber1.$$.fragment);
+    			create_component(inputnumber1.$$.fragment);
     			t15 = space();
     			span2 = element("span");
     			span2.textContent = "ms";
@@ -2786,30 +2970,30 @@ var app = (function () {
     			}
 
     			attr_dev(span0, "class", "svelte-ghso1j");
-    			add_location(span0, file$1, 34, 12, 999);
+    			add_location(span0, file$1, 34, 12, 1005);
     			attr_dev(button, "id", "open-settings");
     			attr_dev(button, "class", "svelte-ghso1j");
     			toggle_class(button, "closed", /*closed*/ ctx[3]);
-    			add_location(button, file$1, 29, 8, 846);
-    			add_location(h2, file$1, 38, 12, 1099);
-    			add_location(h30, file$1, 45, 20, 1398);
+    			add_location(button, file$1, 29, 8, 852);
+    			add_location(h2, file$1, 38, 12, 1105);
+    			add_location(h30, file$1, 45, 20, 1404);
     			attr_dev(span1, "class", "svelte-ghso1j");
-    			add_location(span1, file$1, 52, 24, 1773);
+    			add_location(span1, file$1, 52, 24, 1776);
     			attr_dev(div0, "class", "input__box-container svelte-ghso1j");
-    			add_location(div0, file$1, 46, 20, 1437);
+    			add_location(div0, file$1, 46, 20, 1443);
     			attr_dev(div1, "class", "slider-header svelte-ghso1j");
-    			add_location(div1, file$1, 44, 16, 1349);
+    			add_location(div1, file$1, 44, 16, 1355);
     			attr_dev(div2, "class", "group svelte-ghso1j");
-    			add_location(div2, file$1, 42, 12, 1204);
-    			add_location(h31, file$1, 66, 20, 2371);
+    			add_location(div2, file$1, 42, 12, 1210);
+    			add_location(h31, file$1, 66, 20, 2374);
     			attr_dev(span2, "class", "svelte-ghso1j");
     			add_location(span2, file$1, 73, 24, 2732);
     			attr_dev(div3, "class", "input__box-container svelte-ghso1j");
-    			add_location(div3, file$1, 67, 20, 2413);
+    			add_location(div3, file$1, 67, 20, 2416);
     			attr_dev(div4, "class", "slider-header svelte-ghso1j");
-    			add_location(div4, file$1, 65, 16, 2322);
+    			add_location(div4, file$1, 65, 16, 2325);
     			attr_dev(div5, "class", "group svelte-ghso1j");
-    			add_location(div5, file$1, 63, 12, 2177);
+    			add_location(div5, file$1, 63, 12, 2180);
     			attr_dev(h32, "class", "color-title svelte-ghso1j");
     			add_location(h32, file$1, 85, 16, 3199);
     			attr_dev(div6, "id", "color-settings");
@@ -2817,12 +3001,12 @@ var app = (function () {
     			add_location(div6, file$1, 84, 12, 3141);
     			attr_dev(div7, "class", "expandable svelte-ghso1j");
     			toggle_class(div7, "closed", /*closed*/ ctx[3]);
-    			add_location(div7, file$1, 37, 8, 1048);
+    			add_location(div7, file$1, 37, 8, 1054);
     			attr_dev(div8, "id", "settings");
     			attr_dev(div8, "class", "svelte-ghso1j");
-    			add_location(div8, file$1, 28, 4, 817);
+    			add_location(div8, file$1, 28, 4, 823);
     			attr_dev(aside, "class", "svelte-ghso1j");
-    			add_location(aside, file$1, 27, 0, 804);
+    			add_location(aside, file$1, 27, 0, 810);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2843,7 +3027,7 @@ var app = (function () {
     			append_dev(div1, h30);
     			append_dev(div1, t6);
     			append_dev(div1, div0);
-    			mount_component(inputboxnumber0, div0, null);
+    			mount_component(inputnumber0, div0, null);
     			append_dev(div0, t7);
     			append_dev(div0, span1);
     			append_dev(span1, t8);
@@ -2858,7 +3042,7 @@ var app = (function () {
     			append_dev(div4, h31);
     			append_dev(div4, t14);
     			append_dev(div4, div3);
-    			mount_component(inputboxnumber1, div3, null);
+    			mount_component(inputnumber1, div3, null);
     			append_dev(div3, t15);
     			append_dev(div3, span2);
     			append_dev(div4, t17);
@@ -2886,15 +3070,15 @@ var app = (function () {
     				toggle_class(button, "closed", /*closed*/ ctx[3]);
     			}
 
-    			const inputboxnumber0_changes = {};
+    			const inputnumber0_changes = {};
 
     			if (!updating_value && dirty & /*size*/ 1) {
     				updating_value = true;
-    				inputboxnumber0_changes.value = /*size*/ ctx[0];
+    				inputnumber0_changes.value = /*size*/ ctx[0];
     				add_flush_callback(() => updating_value = false);
     			}
 
-    			inputboxnumber0.$set(inputboxnumber0_changes);
+    			inputnumber0.$set(inputnumber0_changes);
     			if (!current || dirty & /*size*/ 1) set_data_dev(t9, /*size*/ ctx[0]);
     			const slider0_changes = {};
 
@@ -2905,15 +3089,15 @@ var app = (function () {
     			}
 
     			slider0.$set(slider0_changes);
-    			const inputboxnumber1_changes = {};
+    			const inputnumber1_changes = {};
 
     			if (!updating_value_2 && dirty & /*speed*/ 2) {
     				updating_value_2 = true;
-    				inputboxnumber1_changes.value = /*speed*/ ctx[1];
+    				inputnumber1_changes.value = /*speed*/ ctx[1];
     				add_flush_callback(() => updating_value_2 = false);
     			}
 
-    			inputboxnumber1.$set(inputboxnumber1_changes);
+    			inputnumber1.$set(inputnumber1_changes);
     			const slider1_changes = {};
 
     			if (!updating_value_3 && dirty & /*speed*/ 2) {
@@ -2959,10 +3143,10 @@ var app = (function () {
     		i: function intro(local) {
     			if (current) return;
     			transition_in(darkmodetoggle.$$.fragment, local);
-    			transition_in(inputboxnumber0.$$.fragment, local);
+    			transition_in(inputnumber0.$$.fragment, local);
     			transition_in(resetbutton0.$$.fragment, local);
     			transition_in(slider0.$$.fragment, local);
-    			transition_in(inputboxnumber1.$$.fragment, local);
+    			transition_in(inputnumber1.$$.fragment, local);
     			transition_in(resetbutton1.$$.fragment, local);
     			transition_in(slider1.$$.fragment, local);
 
@@ -2974,10 +3158,10 @@ var app = (function () {
     		},
     		o: function outro(local) {
     			transition_out(darkmodetoggle.$$.fragment, local);
-    			transition_out(inputboxnumber0.$$.fragment, local);
+    			transition_out(inputnumber0.$$.fragment, local);
     			transition_out(resetbutton0.$$.fragment, local);
     			transition_out(slider0.$$.fragment, local);
-    			transition_out(inputboxnumber1.$$.fragment, local);
+    			transition_out(inputnumber1.$$.fragment, local);
     			transition_out(resetbutton1.$$.fragment, local);
     			transition_out(slider1.$$.fragment, local);
     			each_blocks = each_blocks.filter(Boolean);
@@ -2991,10 +3175,10 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(aside);
     			destroy_component(darkmodetoggle);
-    			destroy_component(inputboxnumber0);
+    			destroy_component(inputnumber0);
     			destroy_component(resetbutton0);
     			destroy_component(slider0);
-    			destroy_component(inputboxnumber1);
+    			destroy_component(inputnumber1);
     			destroy_component(resetbutton1);
     			destroy_component(slider1);
     			destroy_each(each_blocks, detaching);
@@ -3035,7 +3219,7 @@ var app = (function () {
 
     	const click_handler = () => $$invalidate(3, closed = !closed);
 
-    	function inputboxnumber0_value_binding(value) {
+    	function inputnumber0_value_binding(value) {
     		size = value;
     		$$invalidate(0, size);
     	}
@@ -3047,7 +3231,7 @@ var app = (function () {
     		$$invalidate(0, size);
     	}
 
-    	function inputboxnumber1_value_binding(value) {
+    	function inputnumber1_value_binding(value) {
     		speed = value;
     		$$invalidate(1, speed);
     	}
@@ -3078,7 +3262,7 @@ var app = (function () {
     		ColorPicker,
     		ResetButton,
     		Slider,
-    		InputBoxNumber,
+    		InputNumber,
     		DarkModeToggle,
     		size,
     		speed,
@@ -3105,10 +3289,10 @@ var app = (function () {
     		closed,
     		sliderSettings,
     		click_handler,
-    		inputboxnumber0_value_binding,
+    		inputnumber0_value_binding,
     		click_handler_1,
     		slider0_value_binding,
-    		inputboxnumber1_value_binding,
+    		inputnumber1_value_binding,
     		click_handler_2,
     		slider1_value_binding,
     		colorpicker_color_binding

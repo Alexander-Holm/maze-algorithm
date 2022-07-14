@@ -3,7 +3,7 @@
     import ColorPicker from "../components/ColorPicker.svelte";
     import ResetButton from "../components/ResetButton.svelte"
     import Slider from "../components/Slider.svelte"
-    import InputBoxNumber from "../components/InputBoxNumber.svelte"
+    import InputNumber from "../components/InputNumber/InputNumber.svelte"
     import DarkModeToggle from "../components/DarkModeToggle.svelte";
 
     export let size = DEFAULTS.size;
@@ -45,7 +45,7 @@
                 <div class="slider-header">
                     <h3>Storlek:</h3>
                     <div class="input__box-container">                    
-                        <InputBoxNumber 
+                        <InputNumber 
                             bind:value={size}
                             min={sliderSettings.size.min} max={sliderSettings.size.max} step={1}
                             width="3ch"
@@ -66,7 +66,7 @@
                 <div class="slider-header">
                     <h3>Hastighet: </h3>
                     <div class="input__box-container">
-                        <InputBoxNumber 
+                        <InputNumber 
                             bind:value={speed}
                             min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
                             width="4ch"
