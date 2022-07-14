@@ -28,8 +28,8 @@
 <aside>
     <div id="settings">
         <button 
-            on:click|preventDefault={() => closed = !closed}
             id="open-settings"
+            on:click|preventDefault={() => closed = !closed}
             class:closed
         >
             <span>⏵</span>
@@ -124,11 +124,11 @@
     #settings{
         display: flex;
         border-radius: 8px 0px 0px 8px;
-        overflow: hidden;
         box-shadow: 0 0 2px 0px black;
         
     }
     #open-settings{
+        z-index: 2;
         background: #484848;
         color: white;
         font-size: 2rem;
@@ -147,7 +147,10 @@
             filter: contrast(1.3);
         }
         #open-settings:focus-visible{
-            border: 3px solid var(--accent-color);
+            /* box-shadow för att outline inte är tydligt nog */
+            box-shadow: 0 0 4px 4px var(--accent-color);
+            /* För dålig kontrast mellan outline/shadow och knappen annars  */
+            filter: saturate(1.2) contrast(1.2);
         }
             #open-settings.closed span{
                 transform: rotateY(180deg);

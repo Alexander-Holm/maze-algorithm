@@ -49,6 +49,7 @@
         }
         #dark-mode-toggle:focus-visible{
             outline: 3px solid var(--accent-color);
+            outline-offset: 8px;
         }
     .background{
         background: linear-gradient(90deg, rgb(197, 250, 255) 0%, rgb(158, 135, 187) 100%);

@@ -7,7 +7,8 @@ html, body {
 body {
     --text-color: #333333;
     --bg-color: #ffffff;
-    --accent-color: rgb(255, 150, 0);
+    --accent-color: rgb(143 64 95);
+    /* --accent-color: rgb(255, 150, 0); */
 
     --body-padding: 40px;
 
@@ -29,6 +30,7 @@ body {
     --text-color: #f0f0f0;
     --bg-color: #222;
     --accent-color: #d4ff88;
+    color-scheme: dark;
 }  
 
 a {
@@ -57,7 +59,9 @@ input, button, select, textarea {
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 2px;
+
     accent-color: var(--accent-color);
+    outline-color: var(--accent-color);
 }
 
 input:disabled {

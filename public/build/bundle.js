@@ -2565,20 +2565,20 @@ var app = (function () {
     			span3 = element("span");
     			t3 = space();
     			span4 = element("span");
-    			attr_dev(span0, "class", "background svelte-105rh4f");
+    			attr_dev(span0, "class", "background svelte-1fox53q");
     			add_location(span0, file$2, 12, 4, 508);
-    			attr_dev(span1, "class", "icon svelte-105rh4f");
+    			attr_dev(span1, "class", "icon svelte-1fox53q");
     			add_location(span1, file$2, 13, 4, 541);
-    			attr_dev(span2, "class", "icon svelte-105rh4f");
+    			attr_dev(span2, "class", "icon svelte-1fox53q");
     			add_location(span2, file$2, 14, 4, 580);
-    			attr_dev(span3, "class", "selected-indicator svelte-105rh4f");
+    			attr_dev(span3, "class", "selected-indicator svelte-1fox53q");
     			toggle_class(span3, "right", /*darkMode*/ ctx[0]);
     			add_location(span3, file$2, 15, 4, 623);
-    			attr_dev(span4, "class", "selected-indicator-shadow svelte-105rh4f");
+    			attr_dev(span4, "class", "selected-indicator-shadow svelte-1fox53q");
     			toggle_class(span4, "right", /*darkMode*/ ctx[0]);
     			add_location(span4, file$2, 22, 4, 935);
     			attr_dev(button, "id", "dark-mode-toggle");
-    			attr_dev(button, "class", "svelte-105rh4f");
+    			attr_dev(button, "class", "svelte-1fox53q");
     			add_location(button, file$2, 11, 0, 434);
     		},
     		l: function claim(nodes) {
@@ -2969,43 +2969,43 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(span0, "class", "svelte-ghso1j");
+    			attr_dev(span0, "class", "svelte-kvi0zx");
     			add_location(span0, file$1, 34, 12, 1005);
     			attr_dev(button, "id", "open-settings");
-    			attr_dev(button, "class", "svelte-ghso1j");
+    			attr_dev(button, "class", "svelte-kvi0zx");
     			toggle_class(button, "closed", /*closed*/ ctx[3]);
     			add_location(button, file$1, 29, 8, 852);
     			add_location(h2, file$1, 38, 12, 1105);
     			add_location(h30, file$1, 45, 20, 1404);
-    			attr_dev(span1, "class", "svelte-ghso1j");
+    			attr_dev(span1, "class", "svelte-kvi0zx");
     			add_location(span1, file$1, 52, 24, 1776);
-    			attr_dev(div0, "class", "input__box-container svelte-ghso1j");
+    			attr_dev(div0, "class", "input__box-container svelte-kvi0zx");
     			add_location(div0, file$1, 46, 20, 1443);
-    			attr_dev(div1, "class", "slider-header svelte-ghso1j");
+    			attr_dev(div1, "class", "slider-header svelte-kvi0zx");
     			add_location(div1, file$1, 44, 16, 1355);
-    			attr_dev(div2, "class", "group svelte-ghso1j");
+    			attr_dev(div2, "class", "group svelte-kvi0zx");
     			add_location(div2, file$1, 42, 12, 1210);
     			add_location(h31, file$1, 66, 20, 2374);
-    			attr_dev(span2, "class", "svelte-ghso1j");
+    			attr_dev(span2, "class", "svelte-kvi0zx");
     			add_location(span2, file$1, 73, 24, 2732);
-    			attr_dev(div3, "class", "input__box-container svelte-ghso1j");
+    			attr_dev(div3, "class", "input__box-container svelte-kvi0zx");
     			add_location(div3, file$1, 67, 20, 2416);
-    			attr_dev(div4, "class", "slider-header svelte-ghso1j");
+    			attr_dev(div4, "class", "slider-header svelte-kvi0zx");
     			add_location(div4, file$1, 65, 16, 2325);
-    			attr_dev(div5, "class", "group svelte-ghso1j");
+    			attr_dev(div5, "class", "group svelte-kvi0zx");
     			add_location(div5, file$1, 63, 12, 2180);
-    			attr_dev(h32, "class", "color-title svelte-ghso1j");
+    			attr_dev(h32, "class", "color-title svelte-kvi0zx");
     			add_location(h32, file$1, 85, 16, 3199);
     			attr_dev(div6, "id", "color-settings");
-    			attr_dev(div6, "class", "group svelte-ghso1j");
+    			attr_dev(div6, "class", "group svelte-kvi0zx");
     			add_location(div6, file$1, 84, 12, 3141);
-    			attr_dev(div7, "class", "expandable svelte-ghso1j");
+    			attr_dev(div7, "class", "expandable svelte-kvi0zx");
     			toggle_class(div7, "closed", /*closed*/ ctx[3]);
     			add_location(div7, file$1, 37, 8, 1054);
     			attr_dev(div8, "id", "settings");
-    			attr_dev(div8, "class", "svelte-ghso1j");
+    			attr_dev(div8, "class", "svelte-kvi0zx");
     			add_location(div8, file$1, 28, 4, 823);
-    			attr_dev(aside, "class", "svelte-ghso1j");
+    			attr_dev(aside, "class", "svelte-kvi0zx");
     			add_location(aside, file$1, 27, 0, 810);
     		},
     		l: function claim(nodes) {
