@@ -26,7 +26,8 @@
 <style>
     #dark-mode-toggle{
         position: absolute;
-        top: 10px; right: 10px;
+        top: 50%; right: -20px;
+        transform: translateY(-50%);
         /* font-size bestämmer storleken på allt */
         font-size: 1.9rem;
         height: 1em;

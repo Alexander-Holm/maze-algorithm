@@ -2565,20 +2565,20 @@ var app = (function () {
     			span3 = element("span");
     			t3 = space();
     			span4 = element("span");
-    			attr_dev(span0, "class", "background svelte-1fox53q");
+    			attr_dev(span0, "class", "background svelte-1l5y94r");
     			add_location(span0, file$2, 12, 4, 508);
-    			attr_dev(span1, "class", "icon svelte-1fox53q");
+    			attr_dev(span1, "class", "icon svelte-1l5y94r");
     			add_location(span1, file$2, 13, 4, 541);
-    			attr_dev(span2, "class", "icon svelte-1fox53q");
+    			attr_dev(span2, "class", "icon svelte-1l5y94r");
     			add_location(span2, file$2, 14, 4, 580);
-    			attr_dev(span3, "class", "selected-indicator svelte-1fox53q");
+    			attr_dev(span3, "class", "selected-indicator svelte-1l5y94r");
     			toggle_class(span3, "right", /*darkMode*/ ctx[0]);
     			add_location(span3, file$2, 15, 4, 623);
-    			attr_dev(span4, "class", "selected-indicator-shadow svelte-1fox53q");
+    			attr_dev(span4, "class", "selected-indicator-shadow svelte-1l5y94r");
     			toggle_class(span4, "right", /*darkMode*/ ctx[0]);
     			add_location(span4, file$2, 22, 4, 935);
     			attr_dev(button, "id", "dark-mode-toggle");
-    			attr_dev(button, "class", "svelte-1fox53q");
+    			attr_dev(button, "class", "svelte-1l5y94r");
     			add_location(button, file$2, 11, 0, 434);
     		},
     		l: function claim(nodes) {
@@ -2702,7 +2702,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (89:16) {#each Object.entries(colors) as [key] }
+    // (91:16) {#each Object.entries(colors) as [key] }
     function create_each_block$1(ctx) {
     	let colorpicker;
     	let updating_color;
@@ -2764,7 +2764,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(89:16) {#each Object.entries(colors) as [key] }",
+    		source: "(91:16) {#each Object.entries(colors) as [key] }",
     		ctx
     	});
 
@@ -2773,20 +2773,21 @@ var app = (function () {
 
     function create_fragment$1(ctx) {
     	let aside;
-    	let div8;
+    	let div9;
     	let button;
     	let span0;
     	let t1;
-    	let div7;
+    	let div8;
+    	let div0;
     	let h2;
     	let t3;
     	let darkmodetoggle;
     	let t4;
+    	let div3;
     	let div2;
-    	let div1;
     	let h30;
     	let t6;
-    	let div0;
+    	let div1;
     	let inputnumber0;
     	let updating_value;
     	let t7;
@@ -2799,11 +2800,11 @@ var app = (function () {
     	let slider0;
     	let updating_value_1;
     	let t12;
+    	let div6;
     	let div5;
-    	let div4;
     	let h31;
     	let t14;
-    	let div3;
+    	let div4;
     	let inputnumber1;
     	let updating_value_2;
     	let t15;
@@ -2814,7 +2815,7 @@ var app = (function () {
     	let slider1;
     	let updating_value_3;
     	let t19;
-    	let div6;
+    	let div7;
     	let h32;
     	let t21;
     	let current;
@@ -2918,23 +2919,24 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			aside = element("aside");
-    			div8 = element("div");
+    			div9 = element("div");
     			button = element("button");
     			span0 = element("span");
     			span0.textContent = "⏵";
     			t1 = space();
-    			div7 = element("div");
+    			div8 = element("div");
+    			div0 = element("div");
     			h2 = element("h2");
     			h2.textContent = "Inställningar";
     			t3 = space();
     			create_component(darkmodetoggle.$$.fragment);
     			t4 = space();
+    			div3 = element("div");
     			div2 = element("div");
-    			div1 = element("div");
     			h30 = element("h3");
     			h30.textContent = "Storlek:";
     			t6 = space();
-    			div0 = element("div");
+    			div1 = element("div");
     			create_component(inputnumber0.$$.fragment);
     			t7 = space();
     			span1 = element("span");
@@ -2945,12 +2947,12 @@ var app = (function () {
     			t11 = space();
     			create_component(slider0.$$.fragment);
     			t12 = space();
+    			div6 = element("div");
     			div5 = element("div");
-    			div4 = element("div");
     			h31 = element("h3");
     			h31.textContent = "Hastighet:";
     			t14 = space();
-    			div3 = element("div");
+    			div4 = element("div");
     			create_component(inputnumber1.$$.fragment);
     			t15 = space();
     			span2 = element("span");
@@ -2960,7 +2962,7 @@ var app = (function () {
     			t18 = space();
     			create_component(slider1.$$.fragment);
     			t19 = space();
-    			div6 = element("div");
+    			div7 = element("div");
     			h32 = element("h3");
     			h32.textContent = "Färger";
     			t21 = space();
@@ -2969,43 +2971,45 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(span0, "class", "svelte-kvi0zx");
+    			attr_dev(span0, "class", "svelte-1qfkbv0");
     			add_location(span0, file$1, 34, 12, 1005);
     			attr_dev(button, "id", "open-settings");
-    			attr_dev(button, "class", "svelte-kvi0zx");
+    			attr_dev(button, "class", "svelte-1qfkbv0");
     			toggle_class(button, "closed", /*closed*/ ctx[3]);
     			add_location(button, file$1, 29, 8, 852);
-    			add_location(h2, file$1, 38, 12, 1105);
-    			add_location(h30, file$1, 45, 20, 1404);
-    			attr_dev(span1, "class", "svelte-kvi0zx");
-    			add_location(span1, file$1, 52, 24, 1776);
-    			attr_dev(div0, "class", "input__box-container svelte-kvi0zx");
-    			add_location(div0, file$1, 46, 20, 1443);
-    			attr_dev(div1, "class", "slider-header svelte-kvi0zx");
-    			add_location(div1, file$1, 44, 16, 1355);
-    			attr_dev(div2, "class", "group svelte-kvi0zx");
-    			add_location(div2, file$1, 42, 12, 1210);
-    			add_location(h31, file$1, 66, 20, 2374);
-    			attr_dev(span2, "class", "svelte-kvi0zx");
-    			add_location(span2, file$1, 73, 24, 2732);
-    			attr_dev(div3, "class", "input__box-container svelte-kvi0zx");
-    			add_location(div3, file$1, 67, 20, 2416);
-    			attr_dev(div4, "class", "slider-header svelte-kvi0zx");
-    			add_location(div4, file$1, 65, 16, 2325);
-    			attr_dev(div5, "class", "group svelte-kvi0zx");
-    			add_location(div5, file$1, 63, 12, 2180);
-    			attr_dev(h32, "class", "color-title svelte-kvi0zx");
-    			add_location(h32, file$1, 85, 16, 3199);
-    			attr_dev(div6, "id", "color-settings");
-    			attr_dev(div6, "class", "group svelte-kvi0zx");
-    			add_location(div6, file$1, 84, 12, 3141);
-    			attr_dev(div7, "class", "expandable svelte-kvi0zx");
-    			toggle_class(div7, "closed", /*closed*/ ctx[3]);
-    			add_location(div7, file$1, 37, 8, 1054);
-    			attr_dev(div8, "id", "settings");
-    			attr_dev(div8, "class", "svelte-kvi0zx");
-    			add_location(div8, file$1, 28, 4, 823);
-    			attr_dev(aside, "class", "svelte-kvi0zx");
+    			add_location(h2, file$1, 39, 16, 1143);
+    			attr_dev(div0, "class", "header svelte-1qfkbv0");
+    			add_location(div0, file$1, 38, 12, 1105);
+    			add_location(h30, file$1, 47, 20, 1466);
+    			attr_dev(span1, "class", "svelte-1qfkbv0");
+    			add_location(span1, file$1, 54, 24, 1837);
+    			attr_dev(div1, "class", "box-input-container svelte-1qfkbv0");
+    			add_location(div1, file$1, 48, 20, 1505);
+    			attr_dev(div2, "class", "slider-header svelte-1qfkbv0");
+    			add_location(div2, file$1, 46, 16, 1417);
+    			attr_dev(div3, "class", "group svelte-1qfkbv0");
+    			add_location(div3, file$1, 44, 12, 1272);
+    			add_location(h31, file$1, 68, 20, 2435);
+    			attr_dev(span2, "class", "svelte-1qfkbv0");
+    			add_location(span2, file$1, 75, 24, 2792);
+    			attr_dev(div4, "class", "box-input-container svelte-1qfkbv0");
+    			add_location(div4, file$1, 69, 20, 2477);
+    			attr_dev(div5, "class", "slider-header svelte-1qfkbv0");
+    			add_location(div5, file$1, 67, 16, 2386);
+    			attr_dev(div6, "class", "group svelte-1qfkbv0");
+    			add_location(div6, file$1, 65, 12, 2241);
+    			attr_dev(h32, "class", "color-title svelte-1qfkbv0");
+    			add_location(h32, file$1, 87, 16, 3259);
+    			attr_dev(div7, "id", "color-settings");
+    			attr_dev(div7, "class", "group svelte-1qfkbv0");
+    			add_location(div7, file$1, 86, 12, 3201);
+    			attr_dev(div8, "class", "expandable svelte-1qfkbv0");
+    			toggle_class(div8, "closed", /*closed*/ ctx[3]);
+    			add_location(div8, file$1, 37, 8, 1054);
+    			attr_dev(div9, "id", "settings");
+    			attr_dev(div9, "class", "svelte-1qfkbv0");
+    			add_location(div9, file$1, 28, 4, 823);
+    			attr_dev(aside, "class", "svelte-1qfkbv0");
     			add_location(aside, file$1, 27, 0, 810);
     		},
     		l: function claim(nodes) {
@@ -3013,49 +3017,50 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, aside, anchor);
-    			append_dev(aside, div8);
-    			append_dev(div8, button);
+    			append_dev(aside, div9);
+    			append_dev(div9, button);
     			append_dev(button, span0);
-    			append_dev(div8, t1);
-    			append_dev(div8, div7);
-    			append_dev(div7, h2);
-    			append_dev(div7, t3);
-    			mount_component(darkmodetoggle, div7, null);
-    			append_dev(div7, t4);
-    			append_dev(div7, div2);
+    			append_dev(div9, t1);
+    			append_dev(div9, div8);
+    			append_dev(div8, div0);
+    			append_dev(div0, h2);
+    			append_dev(div0, t3);
+    			mount_component(darkmodetoggle, div0, null);
+    			append_dev(div8, t4);
+    			append_dev(div8, div3);
+    			append_dev(div3, div2);
+    			append_dev(div2, h30);
+    			append_dev(div2, t6);
     			append_dev(div2, div1);
-    			append_dev(div1, h30);
-    			append_dev(div1, t6);
-    			append_dev(div1, div0);
-    			mount_component(inputnumber0, div0, null);
-    			append_dev(div0, t7);
-    			append_dev(div0, span1);
+    			mount_component(inputnumber0, div1, null);
+    			append_dev(div1, t7);
+    			append_dev(div1, span1);
     			append_dev(span1, t8);
     			append_dev(span1, t9);
-    			append_dev(div1, t10);
-    			mount_component(resetbutton0, div1, null);
-    			append_dev(div2, t11);
-    			mount_component(slider0, div2, null);
-    			append_dev(div7, t12);
-    			append_dev(div7, div5);
+    			append_dev(div2, t10);
+    			mount_component(resetbutton0, div2, null);
+    			append_dev(div3, t11);
+    			mount_component(slider0, div3, null);
+    			append_dev(div8, t12);
+    			append_dev(div8, div6);
+    			append_dev(div6, div5);
+    			append_dev(div5, h31);
+    			append_dev(div5, t14);
     			append_dev(div5, div4);
-    			append_dev(div4, h31);
-    			append_dev(div4, t14);
-    			append_dev(div4, div3);
-    			mount_component(inputnumber1, div3, null);
-    			append_dev(div3, t15);
-    			append_dev(div3, span2);
-    			append_dev(div4, t17);
-    			mount_component(resetbutton1, div4, null);
-    			append_dev(div5, t18);
-    			mount_component(slider1, div5, null);
-    			append_dev(div7, t19);
-    			append_dev(div7, div6);
-    			append_dev(div6, h32);
-    			append_dev(div6, t21);
+    			mount_component(inputnumber1, div4, null);
+    			append_dev(div4, t15);
+    			append_dev(div4, span2);
+    			append_dev(div5, t17);
+    			mount_component(resetbutton1, div5, null);
+    			append_dev(div6, t18);
+    			mount_component(slider1, div6, null);
+    			append_dev(div8, t19);
+    			append_dev(div8, div7);
+    			append_dev(div7, h32);
+    			append_dev(div7, t21);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div6, null);
+    				each_blocks[i].m(div7, null);
     			}
 
     			current = true;
@@ -3123,7 +3128,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block$1(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div6, null);
+    						each_blocks[i].m(div7, null);
     					}
     				}
 
@@ -3137,7 +3142,7 @@ var app = (function () {
     			}
 
     			if (dirty & /*closed*/ 8) {
-    				toggle_class(div7, "closed", /*closed*/ ctx[3]);
+    				toggle_class(div8, "closed", /*closed*/ ctx[3]);
     			}
     		},
     		i: function intro(local) {

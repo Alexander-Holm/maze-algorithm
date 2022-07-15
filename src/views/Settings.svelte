@@ -36,15 +36,17 @@
         </button>
     
         <div class="expandable" class:closed>
-            <h2>Inställningar</h2>
-            <DarkModeToggle />
+            <div class="header">
+                <h2>Inställningar</h2>
+                <DarkModeToggle />
+            </div>
         
             <!-- Size -->
             <div class="group">
                 <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
                 <div class="slider-header">
                     <h3>Storlek:</h3>
-                    <div class="input__box-container">                    
+                    <div class="box-input-container">                    
                         <InputNumber 
                             bind:value={size}
                             min={sliderSettings.size.min} max={sliderSettings.size.max} step={1}
@@ -65,7 +67,7 @@
                 <!-- slider-label-container passar på både containern och label, inte gjort av misstag -->
                 <div class="slider-header">
                     <h3>Hastighet: </h3>
-                    <div class="input__box-container">
+                    <div class="box-input-container">
                         <InputNumber 
                             bind:value={speed}
                             min={sliderSettings.speed.min} max={sliderSettings.speed.max} step={1}
@@ -156,35 +158,28 @@
                 transform: rotateY(180deg);
             }
     .expandable{
-        position: relative;
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
         background-color: rgba(245, 245, 245, 0.9);
-        width: 20rem;
-        padding-inline: 40px;
+        width: 19rem;
+        padding-inline: 50px;
         overflow: hidden;
         opacity: 1;
         transition: 0.35s ease-out;
-        transition-property: width, opacity;
+        transition-property: width, opacity, padding-inline;
     }
         .expandable.closed{
             width: 0;
             padding-inline: 0;
             opacity: 0;
         }
+    .header{
+        position: relative;
+        text-align: center;
+    }
     .group{
         width: 100%;
-        padding: 10px;
-        margin: 15px 0;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
+        margin: 40px auto;
     }
     #color-settings{
-        align-items: stretch;
         width: 14rem;
         min-width: min-content;
         max-width: 100%;
@@ -200,12 +195,12 @@
         margin: auto;
         margin-bottom: 6px;
     }
-    .input__box-container{
+    .box-input-container{
         display: flex;
         align-items: center;
         margin-inline: 12px;
     }
-        .input__box-container span{
+        .box-input-container span{
             /* 
                 Sätter width för att containern inte ska flytta sig 
                 när längden text ändras, t.ex. 9 -> 10 (1 -> 2 tecken)
@@ -221,6 +216,7 @@
         margin-top: 0;
         text-align: center;
     }
+
 
     /* Dark mode */
     :global([data-dark-mode = true]) .expandable{
