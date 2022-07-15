@@ -43,14 +43,18 @@
         padding: 0;
         margin: 0;
         border: 0;
+        outline: 2px solid transparent;
+
+        /* quartic-out */
+        transition: 0.2s cubic-bezier(.17,.84,.44,1);
     }  
-        #dark-mode-toggle:hover{
-            filter: saturate(1.5);
-            box-shadow: 0 0 6px 0px var(--text-color);
-        }
+        #dark-mode-toggle:hover,
         #dark-mode-toggle:focus-visible{
-            outline: 3px solid var(--accent-color);
+            outline-color: var(--accent-color);
             outline-offset: 8px;
+        }
+        #dark-mode-toggle:active{
+            outline-offset: 6px;
         }
     .background{
         background: linear-gradient(90deg, rgb(197, 250, 255) 0%, rgb(158, 135, 187) 100%);

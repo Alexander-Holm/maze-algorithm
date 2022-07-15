@@ -2565,20 +2565,20 @@ var app = (function () {
     			span3 = element("span");
     			t3 = space();
     			span4 = element("span");
-    			attr_dev(span0, "class", "background svelte-1l5y94r");
+    			attr_dev(span0, "class", "background svelte-5ocr8k");
     			add_location(span0, file$2, 12, 4, 508);
-    			attr_dev(span1, "class", "icon svelte-1l5y94r");
+    			attr_dev(span1, "class", "icon svelte-5ocr8k");
     			add_location(span1, file$2, 13, 4, 541);
-    			attr_dev(span2, "class", "icon svelte-1l5y94r");
+    			attr_dev(span2, "class", "icon svelte-5ocr8k");
     			add_location(span2, file$2, 14, 4, 580);
-    			attr_dev(span3, "class", "selected-indicator svelte-1l5y94r");
+    			attr_dev(span3, "class", "selected-indicator svelte-5ocr8k");
     			toggle_class(span3, "right", /*darkMode*/ ctx[0]);
     			add_location(span3, file$2, 15, 4, 623);
-    			attr_dev(span4, "class", "selected-indicator-shadow svelte-1l5y94r");
+    			attr_dev(span4, "class", "selected-indicator-shadow svelte-5ocr8k");
     			toggle_class(span4, "right", /*darkMode*/ ctx[0]);
     			add_location(span4, file$2, 22, 4, 935);
     			attr_dev(button, "id", "dark-mode-toggle");
-    			attr_dev(button, "class", "svelte-1l5y94r");
+    			attr_dev(button, "class", "svelte-5ocr8k");
     			add_location(button, file$2, 11, 0, 434);
     		},
     		l: function claim(nodes) {
