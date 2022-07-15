@@ -84,7 +84,7 @@
         padding: 2px 6px;
         text-align: center;
         box-sizing: content-box;
-        background: var(--bg-color);
+        background: var(--bg-primary);
         color: var(--text-color);
     }
         :global([data-dark-mode = true]) input{

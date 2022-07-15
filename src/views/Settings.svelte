@@ -124,11 +124,15 @@
 
     }  
     #settings{
+        --bg-opacity: 0.95;
         display: flex;
+        background-color: rgba( var(--bg-secondary-rgb), var(--bg-opacity) );
         border-radius: 8px 0px 0px 8px;
-        box-shadow: 0 0 2px 0px black;
-        
+        box-shadow: 0 0 2px 0px black;                
     }
+        :global([data-dark-mode = true]) #settings{
+            --bg-opacity: 0.98;
+        }
     #open-settings{
         z-index: 2;
         background: #484848;
@@ -144,7 +148,11 @@
         margin: 0; 
         padding: 0;
         border: 0;
-    }        
+    }      
+        :global([data-dark-mode = true]) #open-settings{
+            /* background: linear-gradient(0deg, rgb(65, 55, 168) 0%, rgb(118, 109, 221) 100%); */
+            background-color: #6f7677;
+        }   
         #open-settings:hover{
             filter: contrast(1.3);
         }
@@ -154,11 +162,10 @@
             /* För dålig kontrast mellan outline/shadow och knappen annars  */
             filter: saturate(1.2) contrast(1.2);
         }
-            #open-settings.closed span{
-                transform: rotateY(180deg);
-            }
-    .expandable{
-        background-color: rgba(245, 245, 245, 0.9);
+        #open-settings.closed span{
+            transform: rotateY(180deg);
+        }
+    .expandable{        
         width: 19rem;
         padding-inline: 50px;
         overflow: hidden;
@@ -216,14 +223,4 @@
         margin-top: 0;
         text-align: center;
     }
-
-
-    /* Dark mode */
-    :global([data-dark-mode = true]) .expandable{
-        background-color: rgba(50, 55, 55, 0.99);
-    }
-    :global([data-dark-mode = true]) #open-settings{
-        /* background: linear-gradient(0deg, rgb(65, 55, 168) 0%, rgb(118, 109, 221) 100%); */
-        background-color: #6f7677;
-    }    
 </style>

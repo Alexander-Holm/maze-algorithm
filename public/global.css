@@ -1,3 +1,19 @@
+:root{
+    --text-color: #333333;
+    --bg-primary: #ffffff;
+    --bg-secondary-rgb: 245, 245, 245;
+    --bg-secondary: rgb(var(--bg-secondary-rgb));
+    --accent-color: rgb(143 64 95);
+}
+:root[data-dark-mode = true]{
+    color-scheme: dark;
+    /* Inte helt vit, texten "blöder" då */
+    --text-color: #f0f0f0;
+    --bg-primary: #222;
+    --bg-secondary-rgb: 50, 55, 55;
+    --accent-color: #d4ff88;
+}  
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -5,11 +21,6 @@ html, body {
 }
 
 body {
-    --text-color: #333333;
-    --bg-color: #ffffff;
-    --accent-color: rgb(143 64 95);
-    /* --accent-color: rgb(255, 150, 0); */
-
     --body-padding: 40px;
 
     height: 100%;
@@ -17,7 +28,7 @@ body {
     min-width: fit-content;
     display: grid;
     grid-template-rows: auto 1fr;
-    background-color: var(--bg-color);
+    background-color: var(--bg-primary);
     color: var(--text-color);    
     accent-color: var(--accent-color);
     padding: var(--body-padding);
@@ -25,13 +36,6 @@ body {
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
-[data-dark-mode = true]{
-    /* Inte helt vit, texten "blöder" då */
-    --text-color: #f0f0f0;
-    --bg-color: #222;
-    --accent-color: #d4ff88;
-    color-scheme: dark;
-}  
 
 a {
 	color: rgb(0,100,200);

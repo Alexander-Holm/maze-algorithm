@@ -6,7 +6,7 @@
     
     const browserPreference = window.matchMedia("(prefers-color-scheme: dark)").matches;
     let darkMode = browserPreference;
-    $: document.body.setAttribute("data-dark-mode", darkMode);
+    $: document.documentElement.setAttribute("data-dark-mode", darkMode);
 </script>
 
 <button id="dark-mode-toggle" on:click={() => darkMode = !darkMode}>

@@ -53,9 +53,9 @@
     .content{
         z-index: 2;
         position: absolute;
-        background-color: white;
+        background-color: var(--bg-secondary);
         padding: 20px;
-        box-shadow: 0 0 3px 1px black;
+        box-shadow: 0 0 2px 0px black;
         border-radius: 4px;
     }
 </style>
