@@ -1,46 +1,27 @@
 <script>
-    import ColorPicker from "./components/ColorPicker.svelte";
-    import ResetButton from "./components/ResetButton.svelte"
-    import Slider from "./components/Slider.svelte"
-    import Iterator from "./javascript/Iterator"
     import Grid from "./javascript/Grid"
     import { DEFAULTS } from "./javascript/Defaults"
     import { DIRECTIONS } from "./javascript/Directions"
     import Header from "./views/Header.svelte"
     import Settings from "./views/Settings.svelte"
+    import PlayControls from "./components/PlayControls.svelte"
 
     let colors = {...DEFAULTS.colors};
     let speed =  DEFAULTS.speed;
     let size = DEFAULTS.size;
     let grid = new Grid(size);
+    let moves;
     $: { resetGrid(size); } // Kör när size ändras
-    let iterator = new Iterator();
-    $: iterator.speed = speed;
-    // Måste uppdatera en variabel manuellt,
-    // Svelte känner inte av när Iterator ändras av sina funktioner
-    // Använder callback men går kanske att lösa med en Svelte-store
-    let isPaused = iterator.isPaused;
-    iterator.onPauseChange = (value) => isPaused = value;
-    let isFinished = true;
-    iterator.onFinished = () => isFinished = true;
-    let hasStarted = false;
+
 
     function resetGrid(size){
-        iterator.function = null;
-        isFinished = true;
-        hasStarted = false;
+        moves = null;
         grid = new Grid(size);
     }
     function clickCell(x, y){
-        // Ska inte gå att starta från flera celler.
-        if(iterator.function != null)
-            return;
-        iterator.function = move(x, y);
-        isFinished = false;
-        hasStarted = true;
-        if(isPaused === false)
-            iterator.start();
-        else iterator.step(); // Ett steg sätter första cellen till aktiv
+        // Ska inte gå att starta från flera rutor samtidigt
+        if(moves == null)
+            moves = move(x, y);
     } 
 
     function* move(currentX, currentY){
@@ -73,13 +54,8 @@
 <Header />
 <main>
     <h2 style="margin: 0;">Tryck på en ruta för att starta</h2>
-    <div class="play-controls">
-        <button title="Starta" disabled={!isPaused} on:click={() => iterator.start()} >⯈</button>
-        <button title="Pausa" class="pause" disabled={isPaused}  on:click={() => iterator.stop()} >||</button>
-        <button title="Ett steg" class="step" disabled={isFinished}  on:click={() => iterator.step()} >⤺</button>
-        <button title="Lös direkt" class="instant" disabled={isFinished} on:click={() => iterator.instant()} >🗲</button>
-        <button title="Ny" class="reset" disabled={isFinished && !hasStarted} on:click={() => resetGrid(size)}>↺</button>
-    </div>
+    <PlayControls generator={moves} speed={speed} onReset={() => resetGrid(size)} />
+
     <!-- Vissa webbläsare har ibland ett glapp mellan table border och cellerna. -->
     <!-- Fixar det med background-color  -->
     <table 
@@ -91,7 +67,7 @@
                 <!-- x = index,  x+","+y = key -->
                 {#each row as cell , x (x+","+y)} 
                     <td 
-                        on:click={() => clickCell(x, y, grid)}
+                        on:click={() => clickCell(x, y)}
                         style:background-color = { 
                             grid[x][y].finished ? colors.färdig :
                             grid[x][y].active ? colors.aktiv :
@@ -137,49 +113,7 @@
     :global(h3){
         font-size: 1.1rem;
     }
-    .play-controls{
-        display: flex;
-        flex-flow: row wrap;
-        font-size: 1.4rem;
-    }
-        .play-controls button{
-            border-radius: 50%;
-            width: 2rem;
-            height: 2rem;
-            margin: 10px 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #ececec;
-            border: 2px solid rgb(80, 80, 80);
-            box-sizing: border-box;
-        }
-            .play-controls button:hover:not(:disabled){
-                filter: brightness(1.1);
-            }
-            .play-controls button:active:not(:disabled){
-                box-shadow: 0 0 3px 1px rgb(150, 150, 150) inset;
-            } 
-            .play-controls button:disabled{
-                border: 1px solid lightgray;
-            } 
-            .play-controls .pause{
-                font-weight: 900;
-                font-size: 0.60em;
-            }
-            .play-controls .step{
-                font-weight: 900;
-                font-size: 1.1em;
-                transform: scaleX(-1);
-            }
-            .play-controls .instant{
-                font-size: 0.9em;
-            }
-            .play-controls .reset{
-                font-size: 1.0em;
-                font-weight: 900;
-                padding-bottom: 0.45em;
-            }
+    
     table{
         /* border-spacing är bättre än border-collapse för att inte få glapp i hörnen av cellerna. */
         /* Med border-spacing:0 blir border dubbelt så tjock mellan alla td, men inte mellan td och table. */
