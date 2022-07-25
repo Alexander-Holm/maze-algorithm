@@ -1,4 +1,6 @@
 <script>
+    import {Play, Pause, Step, Instant, Reset} from "../icons/playControls"
+
     export let generator;
     export let speed = 300; //ms
     export let onReset;
@@ -30,7 +32,9 @@
 
     function clickStart(){
         isPaused = false;
-        loopingTimer();
+        if(generator){
+            loopingTimer();
+        }
     }
     function clickStop(){
         clearTimeout(timerId);
@@ -51,60 +55,62 @@
         isFinished = true;
         onReset?.call();
     }
-
 </script>
 
-<div class="play-controls">
-    <button title="Starta" disabled={!isPaused} on:click={clickStart} >⯈</button>
-    <button title="Pausa" class="pause" disabled={isPaused}  on:click={clickStop} >||</button>
-    <button title="Ett steg" class="step" disabled={isFinished}  on:click={clickStep} >⤺</button>
-    <button title="Lös direkt" class="instant" disabled={isFinished} on:click={clickInstant} >🗲</button>
-    <button title="Ny" class="reset" disabled={isFinished && generator == null} on:click={clickReset}>↺</button>
+<div id="play-controls">
+    <!-- En knapp istället för två för att inte tappa fokus när man navigerar med tangentbord -->
+    <button title={isPaused ? "Starta" : "Pausa"} on:click={isPaused ? clickStart : clickStop} >
+        {#if isPaused}
+        {@html Play}
+        {:else}
+        {@html Pause}
+        {/if}
+    </button>
+    <button title="Ett steg" disabled={isFinished}  on:click={clickStep} >{@html Step}</button>
+    <button title="Lös direkt" disabled={isFinished} on:click={clickInstant} >{@html Instant}</button>
+    <button title="Ny" disabled={isFinished && generator == null} on:click={clickReset}>{@html Reset}</button>
+    
 </div>
 
 <style>
-     .play-controls{
+    #play-controls{
         display: flex;
         flex-flow: row wrap;
-        font-size: 1.4rem;
+        margin-top: 12px;
+        margin-bottom: 20px;
     }
     button{
         border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
-        margin: 10px 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ececec;
-        border: 2px solid rgb(80, 80, 80);
+        width: 2.2rem;
+        height: 2.2rem;
+        margin: 6px 10px;
+        padding: 0.45em;
         box-sizing: border-box;
+
+        border: 2px solid hsl(0, 0%, 25%);
+        /* Opacity/alpha < 1 för att den ska vara lite mörkare mot mörkare bakgrund */
+        background-color: hsla(0, 0%, 95%, 90%);
+        color: rgb(75, 75, 75);
+
+        display: inline-flex;
+        justify-content: center;
+        /* Ikonerna har bättre storlek med align-items: stretch än center */
+        align-items: stretch;
+
+        transition: 0.2s opacity, 0.1s background-color;
     }
         button:hover:not(:disabled){
-            filter: brightness(1.1);
+            border-color: gray;
         }
         button:active:not(:disabled){
-            box-shadow: 0 0 3px 1px rgb(150, 150, 150) inset;
+            background-color: hsla(0, 0%, 80%, 90%);
         } 
+        button:focus-visible:enabled{
+            outline: 2px solid var(--accent-color);
+            outline-offset: 4px;
+        }
         button:disabled{
-            border: 1px solid lightgray;
+            opacity: 0.25;
         } 
 
-    .play-controls .pause{
-        font-weight: 900;
-        font-size: 0.60em;
-    }
-    .play-controls .step{
-        font-weight: 900;
-        font-size: 1.1em;
-        transform: scaleX(-1);
-    }
-    .play-controls .instant{
-        font-size: 0.9em;
-    }
-    .play-controls .reset{
-        font-size: 1.0em;
-        font-weight: 900;
-        padding-bottom: 0.45em;
-    }
 </style>
