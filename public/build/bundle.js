@@ -743,9 +743,9 @@ var app = (function () {
     			t16 = space();
     			a = element("a");
     			a.textContent = "Wikipedia";
-    			attr_dev(h1, "class", "svelte-4hkyn9");
+    			attr_dev(h1, "class", "svelte-7cyyvn");
     			add_location(h1, file$8, 1, 4, 14);
-    			attr_dev(summary, "class", "svelte-4hkyn9");
+    			attr_dev(summary, "class", "svelte-7cyyvn");
     			add_location(summary, file$8, 3, 8, 102);
     			add_location(li0, file$8, 8, 16, 389);
     			add_location(li1, file$8, 9, 16, 452);
@@ -760,11 +760,11 @@ var app = (function () {
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "rel", "noopener noreferrer");
     			add_location(a, file$8, 21, 12, 1044);
-    			attr_dev(div, "class", "content svelte-4hkyn9");
+    			attr_dev(div, "class", "content svelte-7cyyvn");
     			add_location(div, file$8, 5, 8, 163);
-    			attr_dev(details, "class", "svelte-4hkyn9");
+    			attr_dev(details, "class", "svelte-7cyyvn");
     			add_location(details, file$8, 2, 4, 83);
-    			attr_dev(header, "class", "svelte-4hkyn9");
+    			attr_dev(header, "class", "svelte-7cyyvn");
     			add_location(header, file$8, 0, 0, 0);
     		},
     		l: function claim(nodes) {

@@ -41,17 +41,21 @@
         text-justify: distribute;
     }
     details{
+        z-index: 1;
         position: relative;
         line-height: 1.6;
     }
     summary{
+        z-index: 1;
+        position: relative;
         font-weight: 600;
-        padding: 10px 0; 
-        cursor: pointer;        
+        padding: 10px 0;      
         user-select: none;
     }
+        summary:hover{
+            background-color: hsla(0, 0%, 60%, 10%);
+        }
     .content{
-        z-index: 2;
         position: absolute;
         background-color: var(--bg-secondary);
         padding: 20px;
